@@ -1,0 +1,50 @@
+﻿Add the following lines of code to the program.cs file
+
+
+Add this code before the first using statement
+
+//Replace the "emul" which is the name of the device with a unique 3 to 5 character name
+//use your initials or something similar.  This code will be visible on the IoT Dashboard
+StartNetworkServices("emul", true);
+
+Delete the while loop and its enclosed code.
+After the last using statement add these event handlers and the thread.sleep statements
+The implementation for the event handlers is in the MakerBase.cs
+
+
+light.OnBeforeMeasurement += OnBeforeMeasure;
+light.OnAfterMeasurement += OnMeasureCompleted;
+temp.OnBeforeMeasurement += OnBeforeMeasure;
+temp.OnAfterMeasurement += OnMeasureCompleted;
+Thread.Sleep(Timeout.Infinite);
+
+
+Your main section code should now look like
+
+ // main code marker            
+
+//Replace the "emul" which is the name of the device with a unique 3 to 5 character name
+//use your initials or something similar.  This code will be visible on the IoT Dashboard
+StartNetworkServices("emul", true);
+
+using (SensorTemp temp = new SensorTemp(Pins.GPIO_PIN_D8, 10000, "temp01"))
+using (SensorLight light = new SensorLight(AnalogChannels.ANALOG_PIN_A0, 1000, "light01"))
+using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01"))
+{
+    temp.OnBeforeMeasurement += OnBeforeMeasure;
+    temp.OnAfterMeasurement += OnMeasureCompleted;
+    light.OnBeforeMeasurement += OnBeforeMeasure;
+    light.OnAfterMeasurement += OnMeasureCompleted;
+    Thread.Sleep(Timeout.Infinite);
+}
+
+
+
+
+ACTIONS
+1) copying and pasting the code
+2) ensure the Ethernet cable is plugged in to the Netduino connected to the Internet
+3) press Start button in the Visual Studio Toolbar to deply the code to the device and start it running
+4) You should now be publishing data.
+5) Check the main Maker Den screen running the "Internet of Things Dashboard" 
+6) or run the Internet of Things Dashboard locally - it is pinned to the Windows Taskbar

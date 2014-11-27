@@ -1,0 +1,12 @@
+﻿In this lab we are giving the Netduino a unique device identifier.  
+
+The recommendation is to use the network MAC Address which you will find printed underneath the Netduino.
+
+If you dont use the MAC address just ensure you use a sequence of alphanurmic 
+characters that are unique such as your email address
+
+Leave all code from the previous lab in place and only modify the StartNetworkServices Line and add
+the additional device identifier parameter
+
+
+StartNetworkServices("emul", true, "your device identifier goes here");

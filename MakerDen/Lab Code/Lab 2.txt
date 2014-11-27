@@ -1,0 +1,37 @@
+﻿
+Add the following lines of code after the // main code marker in the programs.cs file
+
+using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01")) 
+{
+    
+	while (true) {
+        rgb.On(RgbLed.Led.Red);
+        Thread.Sleep(500);
+        rgb.Off(RgbLed.Led.Red);
+        Thread.Sleep(500);
+    }  // End of while loop
+}
+
+ACTIONS
+1) copying and pasting the code
+2) ensure Netduino connected 
+3) press Start button in the Visual Studio Toolbar to deply the code to the device and start it running
+4) rejoice, the red led should blink
+
+Extension exercises
+
+1) Try turn on the green and blue LEDs in the RGB LED
+2) Alternate code to blink the lights - do you understand how this works?
+
+using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01")) 
+{
+
+    uint LedSelector = 0;
+    while (true) {
+        rgb.On((RgbLed.Led)(LedSelector % 3));
+        Thread.Sleep(500);
+        rgb.Off((RgbLed.Led)(LedSelector % 3));
+        Thread.Sleep(500);
+        LedSelector++;
+    }  // End of while loop
+}

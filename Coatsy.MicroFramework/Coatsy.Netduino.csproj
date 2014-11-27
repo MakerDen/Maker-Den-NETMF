@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <AssemblyName>Coatsy.Netduino</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Coatsy.Netduino</RootNamespace>
+    <ProjectTypeGuids>{b69e3092-b931-443c-abe7-7e7b65f2a37f};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A34CB0D9-D976-423D-B992-BF888CB8F4E8}</ProjectGuid>
+    <TargetFrameworkVersion>v4.3</TargetFrameworkVersion>
+    <NetMfTargetsBaseDir Condition="'$(NetMfTargetsBaseDir)'==''">$(MSBuildExtensionsPath32)\Microsoft\.NET Micro Framework\</NetMfTargetsBaseDir>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RingOnly|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\RingOnly\</OutputPath>
+    <DefineConstants>DEBUG;TRACE,MF_FRAMEWORK_VERSION_V4_3</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\HTMLEntities.cs" />
+    <Compile Include="JSONObject.cs" />
+    <Compile Include="JSONParser.cs" />
+    <Compile Include="NeoPixel\Command.cs" />
+    <Compile Include="NeoPixel\CommandHelpers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NeoPixel\CommandHelpers_noLib.cs" />
+    <Compile Include="NeoPixel\NeoPixelAction.cs" />
+    <Compile Include="NeoPixel\NeoPixelFrameBase.cs" />
+    <Compile Include="NeoPixel\Grid\NeoPixelGrid.cs" />
+    <Compile Include="NeoPixel\Grid\NeoPixelGridBase.cs" />
+    <Compile Include="NeoPixel\Ring\NeoPixelRing.cs" />
+    <Compile Include="NeoPixel\NeoPixelSPI.cs" />
+    <Compile Include="NeoPixel\Pixel.cs" />
+    <Compile Include="NeoPixel\Strip\NeoPixelStrip.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Json.NetMF">
+      <HintPath>..\packages\Json.NetMF.1.3.0.0\lib\netmf43\Json.NetMF.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SPOT.Graphics" />
+    <Reference Include="Microsoft.SPOT.Hardware" />
+    <Reference Include="Microsoft.SPOT.Native" />
+    <Reference Include="SecretLabs.NETMF.Hardware, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="SecretLabs.NETMF.Hardware.NetduinoPlus, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System.IO" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Glovebox.MicroFramework\Glovebox.MicroFramework.csproj">
+      <Project>{FF0DFDCA-3531-4696-A805-D54A038816C8}</Project>
+      <Name>Glovebox.MicroFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glovebox.Netduino\Glovebox.Netduino.csproj">
+      <Project>{E7DB488B-500A-4054-9DB6-DA2465E106DB}</Project>
+      <Name>Glovebox.Netduino</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Condition="EXISTS('$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets')" Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
+  <Import Condition="!EXISTS('$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets')" Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+</Project>

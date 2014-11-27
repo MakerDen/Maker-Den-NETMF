@@ -1,0 +1,15 @@
+﻿public class Program : MakerBaseNeoPixelRing
+
+or
+
+public class Program : MakerBaseNeoPixelGrid
+
+or 
+
+public class Program : MakerBaseNeoPixelStrip
+
+
+In main class call the StartNeoPixel() to kick off a series of colour cycles.  
+You can extend or create your own the cycles.
+
+StartNeoPixel();

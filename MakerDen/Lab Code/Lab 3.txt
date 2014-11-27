@@ -1,0 +1,45 @@
+﻿Add the following lines of code to the respective sections to program.cs
+
+// main code marker
+
+In the main code section add the following line above the existing using statement
+
+
+using (SensorTemp temp = new SensorTemp(Pins.GPIO_PIN_D8, 10000, "temp01"))
+using (SensorLight light = new SensorLight(AnalogChannels.ANALOG_PIN_A0, 1000, "light01"))
+
+
+and after the "while {" opening bracket add
+
+Debug.Print(light.ToString());
+Debug.Print(temp.ToString());
+
+
+Your code should look like
+
+using (SensorTemp temp = new SensorTemp(Pins.GPIO_PIN_D8, 10000, "temp01"))
+using (SensorLight light = new SensorLight(AnalogChannels.ANALOG_PIN_A0, 1000, "light01"))
+using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01"))
+{
+
+    while (true)
+    {
+        Debug.Print(light.ToString());
+        Debug.Print(temp.ToString());
+
+		rgb.On(RgbLed.Led.Red);
+        Thread.Sleep(500);
+        rgb.Off(RgbLed.Led.Red);
+        Thread.Sleep(500);
+    }  // End of while loop
+}
+
+
+ACTIONS
+1) copying and pasting the code
+2) ensure Netduino connected 
+3) press Start button in the Visual Studio Toolbar to deply the code to the device and start it running
+4) The red led should blink
+5) Press ALT+2 to show the output window.  You should see JSON data from your sensors
+6) Hover your hand over the Light Dependent Resister and notice that the Value property in the JSON data changes
+7) Set a break point in your while loop and try steping through the code
