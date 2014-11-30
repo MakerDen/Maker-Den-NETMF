@@ -273,7 +273,7 @@ namespace Coatsy.Netduino.NeoPixel
         }
 
         /// <summary>
-        /// 
+        /// fill frame with blocks of colour from a palette
         /// </summary>
         /// <param name="palette"></param>
         public void FrameSetBlocks(Pixel[] palette)
