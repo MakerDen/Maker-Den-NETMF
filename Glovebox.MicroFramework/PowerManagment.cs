@@ -34,6 +34,13 @@
  * 
  */
 
+/*Changelog
+ * Date		    | Editor		| Reason
+ * 12/02/20124   | Dave Glover | Added On Off enum
+ * 
+ */
+
+
 /*ToDo List
  * Implement board power states.
  * 
@@ -43,47 +50,54 @@ using System;
 using Microsoft.SPOT.Hardware;
 
 //namespace VariableLabs.PowerManagment
-namespace Glovebox.MicroFramework
-{
-    public enum Peripheral
-    {
-		PowerHeaders = 0x12, //decimal 18, PB2
-        Ethernet = 0x2F, //decimal 47, PC15
-        SDCard = 0x11,   //decimal 17, PB1
-        PowerLED = 0x2D, //decimal 45, PC13
+namespace Glovebox.MicroFramework {
+
+
+    //http://forums.netduino.com/index.php?/topic/10668-adding-to-cpupin-enumeration/
+    //http://www.netduino.com/netduinoplus2/schematic.pdf
+
+    public enum Peripheral {
+        PowerHeaders = 18, //decimal 18, PB2
+        Ethernet = 47, //decimal 47, PC15
+        SDCard = 17,   //decimal 17, PB1
+        PowerLED = 45, //decimal 45, PC13
     }
 
-    public class PowerManagment
-    {
-        private static OutputPort[] peripheralPorts = new OutputPort[4];
+    public enum Switch {
+        On, Off
+    }
 
-        public static void SetPeripheralState(Peripheral device, bool state)
-        {
-            switch (device)
-            {
+    public class PowerManagment {
+        private static OutputPort[] peripheralPorts = new OutputPort[4];
+        private static bool portState;
+
+        public static void SetPeripheralState(Peripheral device, Switch state) {
+            portState = state == Switch.On ? true : false;
+
+            switch (device) {
                 case Peripheral.Ethernet:
                     if (peripheralPorts[0] == null)
-                        peripheralPorts[0] = new OutputPort((Cpu.Pin)Peripheral.Ethernet, !state);
+                        peripheralPorts[0] = new OutputPort((Cpu.Pin)Peripheral.Ethernet, !portState);
                     else
-                        peripheralPorts[0].Write(!state);
+                        peripheralPorts[0].Write(!portState);
                     break;
                 case Peripheral.PowerLED:
                     if (peripheralPorts[1] == null)
-                        peripheralPorts[1] = new OutputPort((Cpu.Pin)Peripheral.PowerLED, !state);
+                        peripheralPorts[1] = new OutputPort((Cpu.Pin)Peripheral.PowerLED, portState);
                     else
-                        peripheralPorts[1].Write(!state);
+                        peripheralPorts[1].Write(portState);
                     break;
                 case Peripheral.SDCard:
                     if (peripheralPorts[2] == null)
-                        peripheralPorts[2] = new OutputPort((Cpu.Pin)Peripheral.SDCard, !state);
+                        peripheralPorts[2] = new OutputPort((Cpu.Pin)Peripheral.SDCard, portState);
                     else
-                        peripheralPorts[2].Write(!state);
+                        peripheralPorts[2].Write(portState);
                     break;
                 case Peripheral.PowerHeaders:
-                    if(peripheralPorts[3] == null)
-                        peripheralPorts[3] = new OutputPort((Cpu.Pin)Peripheral.PowerHeaders, state);
+                    if (peripheralPorts[3] == null)
+                        peripheralPorts[3] = new OutputPort((Cpu.Pin)Peripheral.PowerHeaders, portState);
                     else
-                        peripheralPorts[3].Write(state);
+                        peripheralPorts[3].Write(portState);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("device");
