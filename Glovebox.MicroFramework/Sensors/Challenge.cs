@@ -14,7 +14,7 @@ namespace Glovebox.MicroFramework.Sensors {
             StartMeasuring();
         }
 
-        protected override void Measure(double[] value) {
+        public override void Measure(double[] value) {
             //value[0] = IotList.ActionCountByName(iotName);
             value[0] = iotItem.TotalActionCount;
         }

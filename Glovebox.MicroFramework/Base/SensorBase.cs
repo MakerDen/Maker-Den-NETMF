@@ -12,7 +12,7 @@ namespace Glovebox.MicroFramework.Base
     {
         public enum Actions { Start, Stop, Measure };
 
-        protected abstract void Measure(double[] value);
+        public abstract void Measure(double[] value);
         protected abstract string GeoLocation();
         protected abstract double Current { get; }
         protected abstract void SensorCleanup();

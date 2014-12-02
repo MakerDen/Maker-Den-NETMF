@@ -18,7 +18,7 @@ namespace Glovebox.Netduino.Sensors {
                 StartMeasuring();
         }
 
-        protected override void Measure(double[] value) {
+        public override void Measure(double[] value) {
             value[0] = (int)(analogPin.Read() * 100);
         }
 
