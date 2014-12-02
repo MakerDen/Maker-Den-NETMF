@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakerDen", "MakerDen\MakerDen.csproj", "{96DE5954-A764-491E-8460-2D3527C4F287}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glovebox.Netduino", "Glovebox.Netduino\Glovebox.Netduino.csproj", "{E7DB488B-500A-4054-9DB6-DA2465E106DB}"
@@ -83,8 +81,6 @@ Global
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.Emulator|Any CPU.Build.0 = Release|Any CPU
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.Emulator|Any CPU.Deploy.0 = Release|Any CPU
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.RingOnly|Any CPU.ActiveCfg = Release|Any CPU
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.RingOnly|Any CPU.Build.0 = Release|Any CPU
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.RingOnly|Any CPU.Deploy.0 = Release|Any CPU
