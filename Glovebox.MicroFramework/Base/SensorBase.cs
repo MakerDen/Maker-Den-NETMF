@@ -12,9 +12,9 @@ namespace Glovebox.MicroFramework.Base
     {
         public enum Actions { Start, Stop, Measure };
 
-        public abstract void Measure(double[] value);
+        protected abstract void Measure(double[] value);
         protected abstract string GeoLocation();
-        protected abstract double Current { get; }
+        public abstract double Current { get; }
         protected abstract void SensorCleanup();
 
         // note order of sensorType amd SensorType must match.  There is no enum.parse in micro framework

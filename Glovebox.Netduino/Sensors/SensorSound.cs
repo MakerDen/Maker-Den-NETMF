@@ -17,7 +17,7 @@ namespace Glovebox.Netduino.Sensors {
         int runningAverage = 0;          //the running average of calculated values
         int sample;
 
-        protected override double Current { get { return (int)SampleSound(); } }
+        public override double Current { get { return (int)SampleSound(); } }
 
         public SensorSound(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
             : base(SensorType.Sound, ValuesPerSample.One, SampleRateMilliseconds, name) {
@@ -26,7 +26,7 @@ namespace Glovebox.Netduino.Sensors {
                 StartMeasuring();
         }
 
-        public override void Measure(double[] value) {
+        protected override void Measure(double[] value) {
             value[0] = SampleSound();
         }
 

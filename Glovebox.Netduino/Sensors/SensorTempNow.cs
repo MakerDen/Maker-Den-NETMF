@@ -13,7 +13,7 @@ namespace Glovebox.Netduino.Sensors {
 
         DS18B20 ds = null;
 
-        protected override double Current { get { return ds.ConvertAndReadTemperature(); } }
+        public override double Current { get { return ds.ConvertAndReadTemperature(); } }
 
         public SensorTempNow(Cpu.Pin pin, int SampleRateMilliseconds, string name)
             : base(SensorType.Temperature, ValuesPerSample.One, SampleRateMilliseconds, name) {
@@ -22,7 +22,7 @@ namespace Glovebox.Netduino.Sensors {
                 StartMeasuring();
         }
 
-        public override void Measure(double[] value) {
+        protected override void Measure(double[] value) {
             value[0] = ds.ConvertAndReadTemperature();
         }
 

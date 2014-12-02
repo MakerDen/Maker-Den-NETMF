@@ -20,7 +20,7 @@ namespace Glovebox.MicroFramework.Sensors {
         }
 
 
-        public override void Measure(double[] value) {
+        protected override void Measure(double[] value) {
             value[0] = SensorErrorCount;
             value[1] = IotList.ActionErrorCount;
             value[2] = TotalSensorMeasurements;
@@ -32,7 +32,7 @@ namespace Glovebox.MicroFramework.Sensors {
             return string.Empty;
         }
 
-        protected override double Current {
+        public override double Current {
             get { return Debug.GC(false); } 
         }
 

@@ -16,7 +16,7 @@ namespace Glovebox.Netduino.Sensors {
         DateTime nextTemperatureReading = DateTime.MinValue;
         float lastTemperatureReadingValue = 0.0f;
 
-        protected override double Current { get { return GetTemperature(); } }
+        public override double Current { get { return GetTemperature(); } }
 
         public SensorTemp(Cpu.Pin pin, int SampleRateMilliseconds, string name)
             : base(SensorType.Temperature, ValuesPerSample.One, SampleRateMilliseconds, name) {
@@ -25,7 +25,7 @@ namespace Glovebox.Netduino.Sensors {
                 StartMeasuring();
         }
 
-        public override void Measure(double[] value) {
+        protected override void Measure(double[] value) {
             value[0] = GetTemperature();
         }
 

@@ -6,7 +6,7 @@ using Glovebox.MicroFramework.Base;
 namespace Glovebox.MicroFramework.Sensors {
     public class SensorError : SensorBase {
 
-        protected override double Current { get { return (int)SensorErrorCount; } }
+        public override double Current { get { return (int)SensorErrorCount; } }
 
         public SensorError(int SampleRateMilliseconds, string name)
             : base(SensorType.Error, ValuesPerSample.One, SampleRateMilliseconds, name) {
@@ -14,7 +14,7 @@ namespace Glovebox.MicroFramework.Sensors {
                 StartMeasuring();
         }
 
-        public override void Measure(double[] value) {
+        protected override void Measure(double[] value) {
             value[0] = SensorErrorCount;
         }
 

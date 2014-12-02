@@ -9,7 +9,7 @@ namespace Glovebox.Netduino.Sensors {
     public class SensorLight : SensorBase {
         protected AnalogInput analogPin;
 
-        protected override double Current { get { return (int)(analogPin.Read() * 100); } }
+        public override double Current { get { return (int)(analogPin.Read() * 100); } }
 
         public SensorLight(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
             : base(SensorType.Light, ValuesPerSample.One, SampleRateMilliseconds, name) {
@@ -18,7 +18,7 @@ namespace Glovebox.Netduino.Sensors {
                 StartMeasuring();
         }
 
-        public override void Measure(double[] value) {
+        protected override void Measure(double[] value) {
             value[0] = (int)(analogPin.Read() * 100);
         }
 
