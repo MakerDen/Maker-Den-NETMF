@@ -4,4 +4,7 @@
     <DeployTransport>USB</DeployTransport>
     <DeployDevice>Netduino</DeployDevice>
   </PropertyGroup>
+  <PropertyGroup>
+    <ProjectView>ShowAllFiles</ProjectView>
+  </PropertyGroup>
 </Project>
