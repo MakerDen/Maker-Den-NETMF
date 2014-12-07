@@ -14,7 +14,6 @@ namespace MakerDen
         {
             // main code marker
 
-            }
         }
     }
 }
