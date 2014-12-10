@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace MakerDen
 {
-    public class Program : MakerBaseNeoPixelGrid
+    public class Program : MakerBaseIoT
     {
         public static void Main()
         {
