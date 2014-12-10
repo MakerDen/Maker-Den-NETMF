@@ -129,8 +129,10 @@ namespace Glovebox.Netduino {
 
             string[] notes = score.ToLower().Split(',');
 
-            foreach (string note in notes)
+            foreach (string thisNote in notes)
             {
+                string note = thisNote.Trim();
+
                 if (note.Length < 3) { continue; }
 
                 octaveChar = note.Substring(0, 1)[0];
@@ -283,6 +285,19 @@ namespace Glovebox.Netduino {
             _piezo.Dispose();
         }
 
+        /// <summary>
+        /// Play a command
+        /// </summary>
+        /// <param name="action">
+        /// Action object format.
+        /// Action.cmd: beepok, beepalert, beepstartup, or play
+        /// If cmd = play, Action.parameters required.  String format: BeatsPerMiniute, note definition, note definition, note definition... eg  60, 3qc#,31c
+        /// BeatsPerMiniute: Numeric.
+        /// Note Definition format: octave, length, note.
+        /// Octave: Between 0 and 8 inclusive, Middle C Octave is 4.
+        /// Length: Beats per note. Beats: 0 to 9, t=thirty secondth, s=sixteenth, e=eighth, q=quarter beat, h=half beats.
+        /// Note: C, D, E, F, G, A, B.  Suffix: #=sharp, b=flat. eg c#.
+        /// </param>
         public override void Action(IotAction action)
         {
             switch (action.cmd)
@@ -320,37 +335,27 @@ namespace Glovebox.Netduino {
             }
         }
 
-        private void DecodePlayAction(string command)
+
+        /// <summary>
+        /// Decode a command string sent to this actuator
+        /// </summary>
+        /// <param name="command">string format: beats/miniute, note, note, note... eg  60, 3qc#,31c</param>
+        public void DecodePlayAction(string command)
         {
             double beatsPerMinute = 60;
             string score = string.Empty;
 
-            string[] commandParts = command.ToLower().Split(',');
-            string[] keyValueParts;
-            string key = string.Empty;
-            string value = string.Empty;
+            var index = command.IndexOf(',');
+            if (index < 0 || index + 1 == command.Length) { return; }
 
-            for (int i = 0; i < commandParts.Length; i++)
-            {
-                keyValueParts = commandParts[i].Split('"');
-                if (keyValueParts.Length < 4) { continue; }
-                key = keyValueParts[1];
-                value = keyValueParts[3];
-
-                switch (key)
-                {
-                    case "beatsperminute":
-                        double.TryParse(value, out beatsPerMinute);
-                        break;
-                    case "score":
-                        score = value;
-                        break;
-                }
-            }
+            if (!double.TryParse(command.Substring(0, index), out beatsPerMinute)) {return;}
+            score = command.Substring(index + 1).Trim().ToLower();          
 
             if (score != string.Empty) { QueueScore(score, (int)beatsPerMinute); }
         }
     }
+
+    
 
     internal class ToneDefinition {
         uint _frequency;
