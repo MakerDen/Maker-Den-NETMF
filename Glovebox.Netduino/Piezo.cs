@@ -351,7 +351,10 @@ namespace Glovebox.Netduino {
             if (!double.TryParse(command.Substring(0, index), out beatsPerMinute)) {return;}
             score = command.Substring(index + 1).Trim().ToLower();          
 
-            if (score != string.Empty) { QueueScore(score, (int)beatsPerMinute); }
+            if (score != string.Empty) { 
+                QueueScore(score, (int)beatsPerMinute);
+                QueuePlay();
+            }
         }
     }
 
