@@ -107,8 +107,8 @@
     <Content Include="Lab Code\Lab 6.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Lab Code\IoT Maker Den v1.8.docx" />
-    <None Include="Lab Code\IoT Maker Den v1.8.pdf" />
+    <None Include="Lab Code\IoT Maker Den v2.0.docx" />
+    <None Include="Lab Code\IoT Maker Den v2.0.pdf" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
