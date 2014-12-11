@@ -138,7 +138,7 @@ namespace Glovebox.MicroFramework
 
             lastSystemRequestTime = now;
 
-            string[] result = IotList.Action(DecodeAction(e.Topic, Utilities.BytesToString(e.Message)));
+            string[] result = IotActionManager.Action(DecodeAction(e.Topic, Utilities.BytesToString(e.Message)));
             if (result != null)
             {
                 Publish(ConfigurationManager.MqttDeviceAnnounce + ConfigurationManager.DeviceName, SystemConfig(result));

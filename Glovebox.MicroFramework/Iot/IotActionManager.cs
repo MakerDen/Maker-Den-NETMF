@@ -4,7 +4,7 @@ using System.Threading;
 using Glovebox.MicroFramework.Base;
 
 namespace Glovebox.MicroFramework.IoT {
-    public static class IotList {
+    public static class IotActionManager {
         const uint maxIoT = 64;
         private static uint _actionErrors;
         public static uint TotalActions { get; private set; }

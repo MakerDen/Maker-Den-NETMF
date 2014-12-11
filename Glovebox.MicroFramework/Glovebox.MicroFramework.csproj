@@ -62,7 +62,7 @@
     <Compile Include="Base\IotBase.cs" />
     <Compile Include="CRC.cs" />
     <Compile Include="IoT\IotAction.cs" />
-    <Compile Include="IoT\IotList.cs" />
+    <Compile Include="IoT\IotActionManager.cs" />
     <Compile Include="Json\ByteArrayBuilder.cs" />
     <Compile Include="ConfigurationManager.cs" />
     <Compile Include="Json\JSONWriter.cs" />

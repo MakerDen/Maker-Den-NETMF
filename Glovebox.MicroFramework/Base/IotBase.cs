@@ -26,7 +26,7 @@ namespace Glovebox.MicroFramework.Base {
         public IotBase(string name, string type) {
             this.name = name == null ? "unknown" : name.ToLower();
             this.type = type == null ? "unknown" : type.ToLower();
-            this.id = IotList.AddItem(this);
+            this.id = IotActionManager.AddItem(this);
         }
 
         public void IncrementActionCount(){
@@ -34,7 +34,7 @@ namespace Glovebox.MicroFramework.Base {
         }
 
         void IDisposable.Dispose() {
-            IotList.RemoveItem(id);
+            IotActionManager.RemoveItem(id);
             CleanUp();
         }
 
