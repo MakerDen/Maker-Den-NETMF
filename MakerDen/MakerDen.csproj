@@ -105,6 +105,7 @@
     <Content Include="Lab Code\Lab 4.txt" />
     <Content Include="Lab Code\Lab 5.txt" />
     <Content Include="Lab Code\Lab 6.txt" />
+    <Content Include="Lab Code\Maker Den IoT Framework.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Lab Code\IoT Maker Den v2.0.docx" />
