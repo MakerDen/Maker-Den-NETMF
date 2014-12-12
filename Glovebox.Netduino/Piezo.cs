@@ -20,6 +20,11 @@ namespace Glovebox.Netduino {
 
         Thread playToneThread;
 
+        /// <summary>
+        /// Piezo speaker driver and notes and playback manager
+        /// </summary>
+        /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.PWMChannels namespace</param>
+        /// <param name="name">Unique identifying name for command and control</param>
         public Piezo(Cpu.PWMChannel pin, string name)
             : base(name, ActuatorType.Piezo)
         {

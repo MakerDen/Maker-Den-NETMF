@@ -59,6 +59,13 @@ namespace Glovebox.Netduino {
             Blue
         }
 
+        /// <summary>
+        /// Create a RGB LED Control.  Supports On/off and blink manager
+        /// </summary>
+        /// <param name="red">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
+        /// <param name="green">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
+        /// <param name="blue">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
+        /// <param name="name">Unique identifying name for command and control</param>
         public RgbLed(Cpu.Pin red, Cpu.Pin green, Cpu.Pin blue, string name)
             : base(name, ActuatorType.RgbLed) {
             Cpu.Pin[] ledPins = new Cpu.Pin[] { red, green, blue };

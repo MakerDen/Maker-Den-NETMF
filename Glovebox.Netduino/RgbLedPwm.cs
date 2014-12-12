@@ -122,6 +122,13 @@ namespace Glovebox.Netduino {
             VeryFast
         }
 
+        /// <summary>
+        /// Create a RGB PWM LED Control.  Supports colour definition, blink and fade manager
+        /// </summary>
+        /// <param name="red">From the SecretLabs.NETMF.Hardware.NetduinoPlus.PWMChannels namespace</param>
+        /// <param name="green">From the SecretLabs.NETMF.Hardware.NetduinoPlus.PWMChannels namespace</param>
+        /// <param name="blue">From the SecretLabs.NETMF.Hardware.NetduinoPlus.PWMChannels namespace</param>
+        /// <param name="name">Unique identifying name for command and control</param>
         public RgbLedPwm(Cpu.PWMChannel red, Cpu.PWMChannel green, Cpu.PWMChannel blue, string name) {
 
             ls[0] = new ledState() { led = new PWM(red, PulsePeriodInMicroseconds, 0, PWM.ScaleFactor.Microseconds, false) };

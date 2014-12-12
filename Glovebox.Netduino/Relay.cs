@@ -15,6 +15,11 @@ namespace Glovebox.Netduino {
 
         public OutputPort relay;
 
+        /// <summary>
+        /// Create a relay control
+        /// </summary>
+        /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
+        /// <param name="name">Unique identifying name for command and control</param>
         public Relay(Cpu.Pin pin, string name)
             : base(name, ActuatorType.Relay) {
             relay = new OutputPort(pin, false);

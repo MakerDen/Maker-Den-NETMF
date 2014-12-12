@@ -11,6 +11,12 @@ namespace Glovebox.Netduino.Sensors {
 
         public override double Current { get { return (int)(analogPin.Read() * 100); } }
 
+        /// <summary>
+        /// Create and start a light senor
+        /// </summary>
+        /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
+        /// <param name="SampleRateMilliseconds">How often to measure in milliseconds or -1 to disable auto timed sensor readings</param>
+        /// <param name="name">Unique identifying name for command and control</param>
         public SensorLight(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
             : base(SensorType.Light, ValuesPerSample.One, SampleRateMilliseconds, name) {
 

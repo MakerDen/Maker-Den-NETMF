@@ -2,9 +2,10 @@ using System;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
+using Glovebox.MicroFramework.Base;
 
 namespace Glovebox.Netduino {
-    public class LedDigital : IDisposable {
+    public class LedDigital : ActuatorBase {
 
         class ledState {
             public uint blinkMilliseconds = 0;
@@ -25,7 +26,13 @@ namespace Glovebox.Netduino {
             VeryFast
         }
 
-        public LedDigital(Cpu.Pin pin) {
+        /// <summary>
+        /// Simnple Led control
+        /// </summary>
+        /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
+        /// <param name="name">Unique identifying name for command and control</param>
+           public LedDigital(Cpu.Pin pin, string name)
+            : base(name, ActuatorType.Led) {
             ts.MyTimer = new Timer(new TimerCallback(BlinkTime_Tick), ts, Timeout.Infinite, Timeout.Infinite);
             ts.led = new OutputPort(pin, false);
         }
@@ -75,8 +82,12 @@ namespace Glovebox.Netduino {
             return br;
         }
 
-        public void Dispose() {
+        protected override void ActuatorCleanup() {
             ts.led.Dispose();
+        }
+
+        public override void Action(MicroFramework.IoT.IotAction action) {
+            // no actions implemented
         }
     }
 }
