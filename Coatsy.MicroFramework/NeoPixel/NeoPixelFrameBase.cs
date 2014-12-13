@@ -214,6 +214,14 @@ namespace Coatsy.Netduino.NeoPixel
         }
 
         /// <summary>
+        /// Fill entire frame with one colour
+        /// </summary>
+        /// <param name="pixel"></param>
+        public void FrameSet(Pixel pixel, ushort position) {
+            Frame[position % Length] = pixel;
+        }
+
+        /// <summary>
         /// set specific frame pixels a colour - useful for letters on grids, patterns etc
         /// </summary>
         /// <param name="colour"></param>
