@@ -5,16 +5,14 @@ using Microsoft.SPOT.Hardware;
 using System.Threading;
 using Glovebox.MicroFramework;
 
-namespace Coatsy.Netduino.NeoPixel
-{
+namespace Coatsy.Netduino.NeoPixel {
 
     public delegate void DoCycle();
 
     /// <summary>
     /// Frame primatives - generic across NeoPixel Rings, Stips and Grids
     /// </summary>
-    public class NeoPixelFrameBase : NeoPixelAction
-    {
+    public class NeoPixelFrameBase : NeoPixelAction {
 
         #region Pixel Colour Definitions
 
@@ -23,10 +21,14 @@ namespace Coatsy.Netduino.NeoPixel
         /// </summary>
         public Pixel[] coolPalette = new Pixel[] { 
             Pixel.CoolColours.WarmRed, 
+            Pixel.CoolColours.WarmOrange, 
+            Pixel.CoolColours.WarmYellow,
             Pixel.CoolColours.WarmGreen, 
-            Pixel.CoolColours.WarmBlue
+            Pixel.CoolColours.WarmBlue,
+            Pixel.CoolColours.WarmPurple, 
+            //Pixel.CoolColours.WarmIndigo
         };
- 
+
 
 
         protected Pixel[] colourList = new Pixel[]
@@ -189,7 +191,8 @@ namespace Coatsy.Netduino.NeoPixel
 
         public Pixel[] Frame { get; set; }
 
-        public NeoPixelFrameBase(int _pixelCount, string name) : base(name) {
+        public NeoPixelFrameBase(int _pixelCount, string name)
+            : base(name) {
             pixelCount = _pixelCount;
             neoPixel = new NeoPixelSPI(Pins.GPIO_PIN_D10, SPI.SPI_module.SPI1);
             Frame = new Pixel[pixelCount];
@@ -284,31 +287,24 @@ namespace Coatsy.Netduino.NeoPixel
         /// fill frame with blocks of colour from a palette
         /// </summary>
         /// <param name="palette"></param>
-        public void FrameSetBlocks(Pixel[] palette)
-        {
-            if (palette == null || palette.Length == 0)
-            {
+        public void FrameSetBlocks(Pixel[] palette) {
+            if (palette == null || palette.Length == 0) {
                 FrameClear();
             }
-            else if (palette.Length >= pixelCount)
-            {
+            else if (palette.Length >= pixelCount) {
                 FrameSet(palette);
             }
-            else
-            {
+            else {
                 var leftovers = pixelCount % palette.Length;
                 int leftoversUsed = 0;
                 int thisPixel = 0;
                 int baseBlockSize = pixelCount / palette.Length;
-                for (int i = 0; i < palette.Length; i++)
-                {
-                    for (int j = 0; j < baseBlockSize; j++)
-                    {
+                for (int i = 0; i < palette.Length; i++) {
+                    for (int j = 0; j < baseBlockSize; j++) {
                         Frame[thisPixel] = palette[i];
                         thisPixel++;
                     }
-                    if (leftoversUsed < leftovers)
-                    {
+                    if (leftoversUsed < leftovers) {
                         Frame[thisPixel] = palette[i];
                         thisPixel++;
                         leftoversUsed++;
@@ -393,8 +389,7 @@ namespace Coatsy.Netduino.NeoPixel
         /// cycle the pixels moving them up by increment pixels
         /// </summary>
         /// <param name="increment">number of positions to shift. Negative numbers backwards. If this is more than the number of LEDs, the result wraps</param>
-        public void FrameShift(int increment = 1)
-        {
+        public void FrameShift(int increment = 1) {
             //this creates less garbage:)
             if (increment > 0) { FrameShiftForward((ushort)increment); }
             else if (increment < 0) { FrameShiftBack((ushort)Utilities.Absolute(increment)); }
@@ -417,24 +412,20 @@ namespace Coatsy.Netduino.NeoPixel
         /// <param name="pixelColour">Colour of the pixel to show</param>
         /// <param name="cycles">Number of whole cycles to rotate</param>
         /// <param name="stepDelay">Delay between steps (ms)</param>
-        public void SpinColour(Pixel pixelColour, int cycles = 1, int stepDelay = 250)
-        {
+        public void SpinColour(Pixel pixelColour, int cycles = 1, int stepDelay = 250) {
             SpinColourOnBackground(pixelColour, Pixel.Colour.Black, cycles, stepDelay);
 
         }
 
-        public void SpinColourOnBackground(Pixel pixelColour, Pixel backgroundColour, int cycles = 1, int stepDelay = 250)
-        {
+        public void SpinColourOnBackground(Pixel pixelColour, Pixel backgroundColour, int cycles = 1, int stepDelay = 250) {
 
             FrameSet(backgroundColour);
             FrameSet(pixelColour, new ushort[] { (ushort)0 });
 
             FrameDraw();
 
-            for (int i = 0; i < cycles; i++)
-            {
-                for (int j = 0; j < pixelCount; j++)
-                {
+            for (int i = 0; i < cycles; i++) {
+                for (int j = 0; j < pixelCount; j++) {
                     FrameShift();
                     FrameDraw();
                     Thread.Sleep(stepDelay);
@@ -444,21 +435,16 @@ namespace Coatsy.Netduino.NeoPixel
         }
         #endregion
 
-        public void RunCommand(Command command)
-        {
-            switch (command.CommandType)
-            {
+        public void RunCommand(Command command) {
+            switch (command.CommandType) {
                 case CommandType.Parent:
-                    foreach (Command child in command.Commands)
-                    {
+                    foreach (Command child in command.Commands) {
                         RunCommand(child);
                     }
                     break;
                 case CommandType.Repeat:
-                    for (int i = 0; i < command.Repetitions; i++)
-                    {
-                        foreach (Command child in command.Commands)
-                        {
+                    for (int i = 0; i < command.Repetitions; i++) {
+                        foreach (Command child in command.Commands) {
                             RunCommand(child);
                         }
                         Thread.Sleep(command.PauseBetween);
@@ -479,8 +465,7 @@ namespace Coatsy.Netduino.NeoPixel
                     FrameDraw();
                     break;
                 case CommandType.SetMultiPixel:
-                    for (int i = 0; i < command.PixelPositions.Length; i++)
-                    {
+                    for (int i = 0; i < command.PixelPositions.Length; i++) {
                         FrameSet(getPixel(command.PrimaryColour), (ushort)command.PixelPositions[i]);
                     }
                     FrameDraw();
@@ -522,11 +507,9 @@ namespace Coatsy.Netduino.NeoPixel
                 Thread.Sleep(command.PauseAfter);
         }
 
-        private ushort[] UShortArrayFromIntArray(int[] input)
-        {
+        private ushort[] UShortArrayFromIntArray(int[] input) {
             ushort[] output = new ushort[input.Length];
-            for (int i = 0; i < input.Length; i++)
-            {
+            for (int i = 0; i < input.Length; i++) {
                 output[i] = (ushort)input[i];
             }
 
@@ -539,16 +522,13 @@ namespace Coatsy.Netduino.NeoPixel
         /// </summary>
         /// <param name="pixelColour">PixelColour of the pixel required</param>
         /// <returns></returns>
-        protected Pixel getPixel(PixelColour pixelColour)
-        {
+        protected Pixel getPixel(PixelColour pixelColour) {
             return colourList[(int)pixelColour];
         }
 
-        protected Pixel[] GetColourListFromColourSet(PixelColour[] colourSet)
-        {
+        protected Pixel[] GetColourListFromColourSet(PixelColour[] colourSet) {
             var colourList = new Pixel[colourSet.Length];
-            for (int i = 0; i < colourSet.Length; i++)
-            {
+            for (int i = 0; i < colourSet.Length; i++) {
                 colourList[i] = getPixel(colourSet[i]);
             }
             return colourList;
