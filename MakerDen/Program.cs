@@ -1,5 +1,4 @@
-﻿using Glovebox.MicroFramework;
-using Glovebox.MicroFramework.Sensors;
+﻿using Glovebox.MicroFramework.Sensors;
 using Glovebox.Netduino;
 using Glovebox.Netduino.Sensors;
 using Microsoft.SPOT;
