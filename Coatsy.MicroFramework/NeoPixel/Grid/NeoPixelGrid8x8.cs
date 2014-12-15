@@ -114,6 +114,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
 
             // loop through each chacter
             for (int ch = 0; ch < characters.Length; ch++) {
+
                 char charactor = characters.Substring(ch, 1)[0];
                 if (charactor >= ' ' && charactor <= 'z') {
                     ScrollLetterInFromRight(fontSimple[charactor - 32], colour[cycleColour % colour.Length], pause);
@@ -131,6 +132,12 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             ulong mask;
             bool pixelFound = false;
 
+            // space character ?
+            if (letter == 0) {
+                ShiftFrameLeft();
+                return;
+            }
+
             // fetch vertical slice of character font
             for (int col = 0; col < Columns; col++) {
                 pixelFound = false;
@@ -140,9 +147,6 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
                     pos = (ushort)(row * Columns + (Columns - 1));
 
                     if ((letter & mask) == 0) {
-                        FrameSet(Pixel.Colour.Black, pos);
-                    }
-                    else {
                         FrameSet(colour, pos);
                         pixelFound = true;
                     }
