@@ -187,7 +187,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
 
             while (pos < Length) {
                 mask = (ulong)1 << pos;
-                if ((letter & mask) == 0) {
+                if ((letter & mask) != 0) {
                     FrameSet(Pixel.Colour.Black, pos);
                 }
                 else {
