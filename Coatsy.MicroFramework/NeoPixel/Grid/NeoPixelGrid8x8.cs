@@ -3,10 +3,10 @@ using Microsoft.SPOT;
 using System.Threading;
 
 namespace Coatsy.Netduino.NeoPixel.Grid {
-    public class NeoPixelGrid8x8 : NeoPixelGrid {
+    public class NeoPixelGrid8x8 : NeoPixelGridBase {
 
         byte[] a = new byte[8] { 0, 60, 66, 66, 126, 66, 66, 0 };
-        ulong[] alphabetUppercase = new ulong[] { 
+        ulong[] fontSimple = new ulong[] { 
             0x0000000000000000, // space
             0x0008000808080808, // !            
             0x0000000000001414, // "
@@ -101,15 +101,60 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
 
             };
 
-
-
-        ulong[] symbolMask = new ulong[] {
-            0x0000081C3E7F7F36, // heart        
-        };
-
+        public enum Symbols : ulong {
+            Heart = 0x0000081C3E7F7F36, // heart   
+        }
 
         public NeoPixelGrid8x8(string name)
             : base(8, 8, name) {
+        }
+
+        public void ScrollStringInFromRight(string characters, Pixel[] colour, int pause) {
+            ushort cycleColour = 0;
+
+            // loop through each chacter
+            for (int ch = 0; ch < characters.Length; ch++) {
+                char charactor = characters.Substring(ch, 1)[0];
+                if (charactor >= ' ' && charactor <= 'z') {
+                    ScrollLetterInFromRight(fontSimple[charactor - 32], colour[cycleColour % colour.Length], pause);
+                    cycleColour++;
+                }
+            }
+        }
+
+        public void ScrollSymbolInFromRight(Symbols sym, Pixel colour, int pause) {
+            ScrollLetterInFromRight((ulong)sym, colour, pause);
+        }
+
+        private void ScrollLetterInFromRight(ulong letter, Pixel colour, int pause) {
+            ushort pos = 0;
+            ulong mask;
+            bool pixelFound = false;
+
+            // fetch vertical slice of character font
+            for (int col = 0; col < Columns; col++) {
+                pixelFound = false;
+
+                for (int row = 0; row < 8; row++) {
+                    mask = (ulong)1 << row * Columns + col;
+                    pos = (ushort)(row * Columns + (Columns - 1));
+
+                    if ((letter & mask) == 0) {
+                        FrameSet(Pixel.Colour.Black, pos);
+                    }
+                    else {
+                        FrameSet(colour, pos);
+                        pixelFound = true;
+                    }
+                }
+                if (pixelFound) {
+                    FrameDraw();
+                    ShiftFrameLeft();
+                    Thread.Sleep(pause);
+                }
+            }
+            //blank character space
+            ShiftFrameLeft();
         }
 
         public void DrawString(string characters, Pixel[] colour, int pause) {
@@ -118,8 +163,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             for (int i = 0; i < characters.Length; i++) {
                 c = characters.Substring(i, 1)[0];
                 if (c >= ' ' && c <= 'z') {
-                    byte charValue = (byte)(c - 32);
-                    DrawLetter(charValue, colour[cycleColour % colour.Length]);
+                    DrawLetter(c, colour[cycleColour % colour.Length]);
                     FrameDraw();
                     Thread.Sleep(pause);
                     cycleColour++;
@@ -127,29 +171,35 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             }
         }
 
-
-        public void DrawLetter(byte letter, Pixel colour) {
-            ulong mask = 1;
+        public void DrawLetter(char character, Pixel colour) {
+            ulong mask, letter = 0;
             ushort pos = 0;
+
+            if (character >= ' ' && character <= 'z') {
+                byte charValue = (byte)(character - 32);
+                letter = fontSimple[charValue];
+            }
+            else { return; }
+
             while (pos < Length) {
-                if ((alphabetUppercase[letter % alphabetUppercase.Length] & mask) == 0) {
+                mask = (ulong)1 << pos;
+                if ((letter & mask) == 0) {
                     FrameSet(Pixel.Colour.Black, pos);
                 }
                 else {
                     FrameSet(colour, pos);
                 }
                 pos++;
-                mask = mask << 1;
             }
         }
 
-
-
-        public void DrawSymbols(byte number, Pixel colour) {
+        public void DrawSymbol(Symbols sym, Pixel colour) {
             ulong mask = 1;
             ushort pos = 0;
+            ulong letter = (ulong)sym;
+
             while (pos < Length) {
-                if ((symbolMask[number % symbolMask.Length] & mask) == 0) {
+                if ((letter & mask) == 0) {
                     FrameSet(Pixel.Colour.Black, pos);
                 }
                 else {

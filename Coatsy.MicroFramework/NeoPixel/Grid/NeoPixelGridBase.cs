@@ -69,6 +69,21 @@ namespace Coatsy.Netduino.NeoPixel.Grid
             Frame[rowIndex * Columns] = temp;
         }
 
+        public void ShiftFrameLeft() {
+            for (ushort i = 0; i < Rows; i++) {
+                ShiftColumnLeft(i);
+            }
+        }
+
+        public void ShiftColumnLeft(ushort rowIndex) {
+            int pos = 0, count = 0;
+            rowIndex = (ushort)(rowIndex % Rows);
+            for (pos = rowIndex * Columns, count = 1; count < Columns; pos++, count++) {
+                Frame[pos] = Frame[pos + 1];
+            }
+            Frame[pos] = Pixel.Colour.Black;
+        }
+
         public void ColumnRollDown(ushort columnIndex)
         {
             int current;
