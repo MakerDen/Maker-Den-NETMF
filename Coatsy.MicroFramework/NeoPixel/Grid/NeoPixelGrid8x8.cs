@@ -146,7 +146,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
                     mask = (ulong)1 << row * Columns + col;
                     pos = (ushort)(row * Columns + (Columns - 1));
 
-                    if ((letter & mask) == 0) {
+                    if ((letter & mask) != 0) {
                         FrameSet(colour, pos);
                         pixelFound = true;
                     }
