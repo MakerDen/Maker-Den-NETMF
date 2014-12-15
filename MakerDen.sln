@@ -24,7 +24,6 @@ Global
 		Emulator|Any CPU = Emulator|Any CPU
 		LaughOMeter|Any CPU = LaughOMeter|Any CPU
 		Release|Any CPU = Release|Any CPU
-		RingOnly|Any CPU = RingOnly|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{96DE5954-A764-491E-8460-2D3527C4F287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -37,9 +36,6 @@ Global
 		{96DE5954-A764-491E-8460-2D3527C4F287}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96DE5954-A764-491E-8460-2D3527C4F287}.Release|Any CPU.Build.0 = Release|Any CPU
 		{96DE5954-A764-491E-8460-2D3527C4F287}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{96DE5954-A764-491E-8460-2D3527C4F287}.RingOnly|Any CPU.ActiveCfg = RingOnly|Any CPU
-		{96DE5954-A764-491E-8460-2D3527C4F287}.RingOnly|Any CPU.Build.0 = RingOnly|Any CPU
-		{96DE5954-A764-491E-8460-2D3527C4F287}.RingOnly|Any CPU.Deploy.0 = RingOnly|Any CPU
 		{E7DB488B-500A-4054-9DB6-DA2465E106DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E7DB488B-500A-4054-9DB6-DA2465E106DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7DB488B-500A-4054-9DB6-DA2465E106DB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -52,9 +48,6 @@ Global
 		{E7DB488B-500A-4054-9DB6-DA2465E106DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7DB488B-500A-4054-9DB6-DA2465E106DB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E7DB488B-500A-4054-9DB6-DA2465E106DB}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{E7DB488B-500A-4054-9DB6-DA2465E106DB}.RingOnly|Any CPU.ActiveCfg = RingOnly|Any CPU
-		{E7DB488B-500A-4054-9DB6-DA2465E106DB}.RingOnly|Any CPU.Build.0 = RingOnly|Any CPU
-		{E7DB488B-500A-4054-9DB6-DA2465E106DB}.RingOnly|Any CPU.Deploy.0 = RingOnly|Any CPU
 		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -67,9 +60,6 @@ Global
 		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{FF0DFDCA-3531-4696-A805-D54A038816C8}.RingOnly|Any CPU.ActiveCfg = RingOnly|Any CPU
-		{FF0DFDCA-3531-4696-A805-D54A038816C8}.RingOnly|Any CPU.Build.0 = RingOnly|Any CPU
-		{FF0DFDCA-3531-4696-A805-D54A038816C8}.RingOnly|Any CPU.Deploy.0 = RingOnly|Any CPU
 		{A34CB0D9-D976-423D-B992-BF888CB8F4E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A34CB0D9-D976-423D-B992-BF888CB8F4E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A34CB0D9-D976-423D-B992-BF888CB8F4E8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -82,16 +72,12 @@ Global
 		{A34CB0D9-D976-423D-B992-BF888CB8F4E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A34CB0D9-D976-423D-B992-BF888CB8F4E8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A34CB0D9-D976-423D-B992-BF888CB8F4E8}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{A34CB0D9-D976-423D-B992-BF888CB8F4E8}.RingOnly|Any CPU.ActiveCfg = RingOnly|Any CPU
-		{A34CB0D9-D976-423D-B992-BF888CB8F4E8}.RingOnly|Any CPU.Build.0 = RingOnly|Any CPU
-		{A34CB0D9-D976-423D-B992-BF888CB8F4E8}.RingOnly|Any CPU.Deploy.0 = RingOnly|Any CPU
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.Emulator|Any CPU.ActiveCfg = Release|Any CPU
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.LaughOMeter|Any CPU.ActiveCfg = LaughOMeter|Any CPU
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.LaughOMeter|Any CPU.Build.0 = LaughOMeter|Any CPU
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.LaughOMeter|Any CPU.Deploy.0 = LaughOMeter|Any CPU
 		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E677A5E-C76C-4D4B-8167-DC9AB377D782}.RingOnly|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
