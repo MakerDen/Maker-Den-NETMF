@@ -109,6 +109,10 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             : base(8, 8, name) {
         }
 
+        public void ScrollStringInFromRight(string characters, Pixel colour, int pause) {
+            ScrollStringInFromRight(characters, new Pixel[] { colour }, pause);
+        }
+
         public void ScrollStringInFromRight(string characters, Pixel[] colour, int pause) {
             ushort cycleColour = 0;
 
@@ -159,6 +163,10 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             }
             //blank character space
             ShiftFrameLeft();
+        }
+
+        public void DrawString(string characters, Pixel colour, int pause) {
+            DrawString(characters, new Pixel[] { colour }, pause);
         }
 
         public void DrawString(string characters, Pixel[] colour, int pause) {

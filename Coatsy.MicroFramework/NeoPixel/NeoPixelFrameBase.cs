@@ -17,9 +17,9 @@ namespace Coatsy.Netduino.NeoPixel {
         #region Pixel Colour Definitions
 
         /// <summary>
-        /// NeoPixels run cool on this palette
+        /// NeoPixels run medium bright and cool on this palette
         /// </summary>
-        public Pixel[] coolPalette = new Pixel[] { 
+        public Pixel[] warmPalette = new Pixel[] { 
             Pixel.CoolColours.WarmRed, 
             Pixel.CoolColours.WarmOrange, 
             Pixel.CoolColours.WarmYellow,
@@ -29,7 +29,29 @@ namespace Coatsy.Netduino.NeoPixel {
             //Pixel.CoolColours.WarmIndigo
         };
 
+        /// <summary>
+        /// NeoPixels run dim and cool on this palette
+        /// </summary>
+        public Pixel[] coolPalette = new Pixel[] {
+            Pixel.CoolColours.CoolRed, 
+            Pixel.CoolColours.CoolOrange, 
+            Pixel.CoolColours.CoolYellow,
+            Pixel.CoolColours.CoolGreen, 
+            Pixel.CoolColours.CoolBlue,
+            Pixel.CoolColours.CoolPurple, 
+        };
 
+        /// <summary>
+        /// NeoPixels run bright but cool on this palette
+        /// </summary>
+        public Pixel[] hotPallete = new Pixel[] {
+            Pixel.CoolColours.HotRed,
+            Pixel.CoolColours.HotOrange, 
+            Pixel.CoolColours.HotYellow,
+            Pixel.CoolColours.HotGreen, 
+            Pixel.CoolColours.HotBlue,
+            Pixel.CoolColours.HotPurple, 
+        };
 
         protected Pixel[] colourList = new Pixel[]
         {

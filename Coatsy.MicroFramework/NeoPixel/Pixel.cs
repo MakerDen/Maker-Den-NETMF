@@ -313,22 +313,25 @@ namespace Coatsy.Netduino.NeoPixel
 
         public class CoolColours {
             public static Pixel CoolRed = new Pixel(0x020000);
-            
+            public static Pixel CoolOrange = new Pixel(0x040200);
+            public static Pixel CoolYellow = new Pixel(0x020200);
             public static Pixel CoolGreen = new Pixel(0x000200);
             public static Pixel CoolBlue = new Pixel(0x000002);
-            
-    
+            public static Pixel CoolPurple = new Pixel(0x020002);
+
             public static Pixel WarmRed = new Pixel(0x080000);
             public static Pixel WarmOrange = new Pixel(0x080400);
             public static Pixel WarmYellow = new Pixel(0x090900);
             public static Pixel WarmGreen = new Pixel(0x000800);
             public static Pixel WarmBlue = new Pixel(0x000008);
             public static Pixel WarmPurple = new Pixel(0x080008);
-            //public static Pixel WarmIndigo = new Pixel(0x050009);
 
             public static Pixel HotRed = new Pixel(0x160000);
+            public static Pixel HotOrange = new Pixel(0x160800);
+            public static Pixel HotYellow = new Pixel(0x161600);
             public static Pixel HotGreen = new Pixel(0x001600);
             public static Pixel HotBlue = new Pixel(0x000016);
+            public static Pixel HotPurple = new Pixel(0x160016);
         }
 
 
