@@ -21,7 +21,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             0x000808083E080808, // +
             0x0408080000000000, // ,
             0x000000003E000000, // -
-            0x00000C0C00000000, // .
+            0x0002000000000000, // .
             0x0001020408102040, // / 
             0x001c22262a32221c, //0
             0x003e080808080a0c, //1
@@ -102,7 +102,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             };
 
         public enum Symbols : ulong {
-            Heart = 0x0000081C3E7F7F36, // heart   
+            Heart = 0x00081C3E7F7F3600, // heart   
         }
 
         public NeoPixelGrid8x8(string name)
