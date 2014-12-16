@@ -3,9 +3,8 @@ using Microsoft.SPOT;
 using System.Threading;
 
 namespace Coatsy.Netduino.NeoPixel.Grid {
-    public class NeoPixelGrid8x8 : NeoPixelGridBase {
+    public class NeoPixelGrid8x8 : NeoPixelGrid {
 
-        byte[] a = new byte[8] { 0, 60, 66, 66, 126, 66, 66, 0 };
         ulong[] fontSimple = new ulong[] { 
             0x0000000000000000, // space
             0x0008000808080808, // !            
@@ -121,23 +120,23 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
 
                 char charactor = characters.Substring(ch, 1)[0];
                 if (charactor >= ' ' && charactor <= 'z') {
-                    ScrollLetterInFromRight(fontSimple[charactor - 32], colour[cycleColour % colour.Length], pause);
+                    ScrollBitmapInFromRight(fontSimple[charactor - 32], colour[cycleColour % colour.Length], pause);
                     cycleColour++;
                 }
             }
         }
 
         public void ScrollSymbolInFromRight(Symbols sym, Pixel colour, int pause) {
-            ScrollLetterInFromRight((ulong)sym, colour, pause);
+            ScrollBitmapInFromRight((ulong)sym, colour, pause);
         }
 
-        private void ScrollLetterInFromRight(ulong letter, Pixel colour, int pause) {
+        public void ScrollBitmapInFromRight(ulong bitmap, Pixel colour, int pause) {
             ushort pos = 0;
             ulong mask;
             bool pixelFound = false;
 
             // space character ?
-            if (letter == 0) {
+            if (bitmap == 0) {
                 ShiftFrameLeft();
                 return;
             }
@@ -146,11 +145,11 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             for (int col = 0; col < Columns; col++) {
                 pixelFound = false;
 
-                for (int row = 0; row < 8; row++) {
+                for (int row = 0; row < Rows; row++) {
                     mask = (ulong)1 << row * Columns + col;
                     pos = (ushort)(row * Columns + (Columns - 1));
 
-                    if ((letter & mask) != 0) {
+                    if ((bitmap & mask) != 0) {
                         FrameSet(colour, pos);
                         pixelFound = true;
                     }
