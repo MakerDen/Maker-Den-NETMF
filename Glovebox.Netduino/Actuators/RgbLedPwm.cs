@@ -4,9 +4,10 @@ using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
 using Glovebox.MicroFramework.Base;
+using Glovebox.MicroFramework.IoT;
 
-namespace Glovebox.Netduino {
-    public class RgbLedPwm : IDisposable {
+namespace Glovebox.Netduino.Actuators {
+    public class RgbLedPwm : ActuatorBase {
         // The PulsePeriodInMicroseconds is the length of the pulse in microseconds
         // a pulse duration is a fraction on the pulse period and determines the brightness level
         // a pulse duration of 0 mean 0 milliseconds of the pulse period the LED will be high, hence the LED will be off
@@ -129,7 +130,7 @@ namespace Glovebox.Netduino {
         /// <param name="green">From the SecretLabs.NETMF.Hardware.NetduinoPlus.PWMChannels namespace</param>
         /// <param name="blue">From the SecretLabs.NETMF.Hardware.NetduinoPlus.PWMChannels namespace</param>
         /// <param name="name">Unique identifying name for command and control</param>
-        public RgbLedPwm(Cpu.PWMChannel red, Cpu.PWMChannel green, Cpu.PWMChannel blue, string name) {
+        public RgbLedPwm(Cpu.PWMChannel red, Cpu.PWMChannel green, Cpu.PWMChannel blue, string name) : base(name, ActuatorType.RgbLedPwm) {
 
             ls[0] = new ledState() { led = new PWM(red, PulsePeriodInMicroseconds, 0, PWM.ScaleFactor.Microseconds, false) };
             ls[1] = new ledState() { led = new PWM(green, PulsePeriodInMicroseconds, 0, PWM.ScaleFactor.Microseconds, false) };
@@ -226,13 +227,17 @@ namespace Glovebox.Netduino {
             }
         }
 
-        void IDisposable.Dispose() {
+        protected override void ActuatorCleanup() {
             for (int i = 0; i < 3; i++) {
                 if (ls[i].led != null) {
                     ls[i].led.Stop();
                     ls[i].led.Dispose();
                 }
             }
+        }
+
+        public override void Action(IotAction action) {
+            
         }
     }
 }

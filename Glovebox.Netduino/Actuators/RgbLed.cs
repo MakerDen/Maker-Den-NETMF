@@ -6,7 +6,7 @@ using Glovebox.MicroFramework;
 using Glovebox.MicroFramework.Base;
 using Glovebox.MicroFramework.IoT;
 
-namespace Glovebox.Netduino {
+namespace Glovebox.Netduino.Actuators {
     public class RgbLed : ActuatorBase {
 
         class ledState {

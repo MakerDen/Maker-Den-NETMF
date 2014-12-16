@@ -8,8 +8,8 @@ namespace Glovebox.MicroFramework.Base {
         public abstract override void Action(IotAction action);
         protected uint ActuatorErrorCount;
 
-        static readonly string[] actuatorType = new string[] { "rgbled", "relay", "piezo", "NeoPixel", "led" };
-        public enum ActuatorType { RgbLed, Relay, Piezo, NeoPixel, Led }
+        static readonly string[] actuatorType = new string[] { "rgbled", "relay", "piezo", "neopixel", "led", "servopwm", "rgbledpwm" };
+        public enum ActuatorType { RgbLed, Relay, Piezo, NeoPixel, Led, ServoPwm, RgbLedPwm }
 
 
         public ActuatorBase(string name, ActuatorType type)

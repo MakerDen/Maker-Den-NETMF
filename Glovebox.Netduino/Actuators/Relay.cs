@@ -6,7 +6,7 @@ using Glovebox.MicroFramework.Base;
 
 
 // www.dfrobot.com relay module V3.1
-namespace Glovebox.Netduino {
+namespace Glovebox.Netduino.Actuators {
     public class Relay : ActuatorBase {
         public enum Actions {
             Start,

@@ -3,9 +3,10 @@ using Microsoft.SPOT;
 using System.Threading;
 using Microsoft.SPOT.Hardware;
 using Glovebox.MicroFramework;
-using Glovebox.Netduino;
 using Glovebox.MicroFramework.Base;
 using System.Runtime.CompilerServices;
+using Glovebox.Netduino.Actuators;
+
 
 namespace MakerDen {
     public class MakerBaseIoT {

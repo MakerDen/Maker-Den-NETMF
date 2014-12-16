@@ -8,7 +8,7 @@ using Glovebox.MicroFramework.Base;
 using Glovebox.MicroFramework.IoT;
 //using System.Text.RegularExpressions;
 
-namespace Glovebox.Netduino {
+namespace Glovebox.Netduino.Actuators {
     public class Piezo : ActuatorBase
     {
 

@@ -4,7 +4,7 @@ using Microsoft.SPOT.Hardware;
 using System.Threading;
 using Glovebox.MicroFramework.Base;
 
-namespace Glovebox.Netduino {
+namespace Glovebox.Netduino.Actuators {
     public class LedDigital : ActuatorBase {
 
         class ledState {
