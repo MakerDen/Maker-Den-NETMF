@@ -183,41 +183,45 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
         }
 
         public void DrawLetter(char character, Pixel colour) {
-            ulong mask, letter = 0;
-            ushort pos = 0;
+            ulong letter = 0;
 
             if (character >= ' ' && character <= 'z') {
+                //calc ascii offset
                 byte charValue = (byte)(character - 32);
                 letter = fontSimple[charValue];
             }
             else { return; }
 
-            while (pos < Length) {
-                mask = (ulong)1 << pos;
-                if ((letter & mask) != 0) {
-                    FrameSet(Pixel.Colour.Black, pos);
-                }
-                else {
-                    FrameSet(colour, pos);
-                }
-                pos++;
-            }
+            DrawBitmap(letter, colour);
+        }
+
+        public void DrawSymbol(Symbols[] sym, Pixel[] colour, int pause) {
+            ushort cycleColour = 0;
+            foreach (var item in sym) {
+                DrawBitmap((ulong)item, colour[cycleColour]);
+                FrameDraw();
+                Thread.Sleep(pause);
+                cycleColour++;                
+            }            
         }
 
         public void DrawSymbol(Symbols sym, Pixel colour) {
-            ulong mask = 1;
+            DrawBitmap((ulong)sym, colour);
+        }
+
+        public void DrawBitmap(ulong bitmap, Pixel colour) {
+            ulong mask;
             ushort pos = 0;
-            ulong letter = (ulong)sym;
 
             while (pos < Length) {
-                if ((letter & mask) == 0) {
+                mask = (ulong)1 << pos;
+                if ((bitmap & mask) == 0) {
                     FrameSet(Pixel.Colour.Black, pos);
                 }
                 else {
                     FrameSet(colour, pos);
                 }
                 pos++;
-                mask += mask;
             }
         }
     }
