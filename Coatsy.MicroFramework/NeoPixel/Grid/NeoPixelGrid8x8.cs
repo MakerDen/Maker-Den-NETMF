@@ -130,6 +130,20 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             ScrollBitmapInFromRight((ulong)sym, colour, pause);
         }
 
+        public void ScrollSymbolInFromRight(Symbols[] sym, Pixel colour, int pause) {
+            foreach (var item in sym) {
+                ScrollBitmapInFromRight((ulong)item, colour, pause);
+            }
+        }
+
+        public void ScrollSymbolInFromRight(Symbols[] sym, Pixel[] colourPalette, int pause) {
+            ushort cycleColour = 0;
+            foreach (var item in sym) {
+                ScrollBitmapInFromRight((ulong)item, colourPalette[cycleColour % colourPalette.Length], pause);
+                cycleColour++;
+            }
+        }
+
         public void ScrollBitmapInFromRight(ulong bitmap, Pixel colour, int pause) {
             ushort pos = 0;
             ulong mask;
