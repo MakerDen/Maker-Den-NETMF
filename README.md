@@ -24,9 +24,8 @@ Command and Control
 * Control relays, start neo pixels etc via comms layer
 
 Communications
-
 * Pluggable – currently implemented on MQTT (MQTT Server running on Azure)
 
-Supported and Test on
+Supported and Tested
 * Netduino 2 Plus and Gadgeteer
 * Supports Visual Studio 2012 and 2013
