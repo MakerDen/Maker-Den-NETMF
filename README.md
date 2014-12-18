@@ -17,15 +17,15 @@ Sensors
 
 Actuators
 
-1. RGB, RGB PWM, Piezo, Relay, NeoPixel (strips, rings and grids)
+* RGB, RGB PWM, Piezo, Relay, NeoPixel (strips, rings and grids)
 
 Command and Control
 
-1. Control relays, start neo pixels etc via comms layer
+* Control relays, start neo pixels etc via comms layer
 
 Communications
 
-1. Pluggable – currently implemented on MQTT (MQTT Server running on Azure)
+* Pluggable – currently implemented on MQTT (MQTT Server running on Azure)
 
 Supported on Netduino 2 Plus and Gadgeteer
 
