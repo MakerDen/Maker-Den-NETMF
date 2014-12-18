@@ -44,7 +44,7 @@ namespace Coatsy.Netduino.NeoPixel {
         /// <summary>
         /// NeoPixels run bright but cool on this palette
         /// </summary>
-        public Pixel[] hotPallete = new Pixel[] {
+        public Pixel[] hotPalette = new Pixel[] {
             Pixel.CoolColours.HotRed,
             Pixel.CoolColours.HotOrange, 
             Pixel.CoolColours.HotYellow,
