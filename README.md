@@ -11,9 +11,9 @@ The Maker Den IoT Framework provides a pluggable foundation to support sensors, 
 
 Sensors
 
-1. Physical: Light, Sound, Temperature (onewire), Servo
-2. Virtual: Memory Usage, Diagnostics
-3. Sensor data serialised to a JSON schema
+* Physical: Light, Sound, Temperature (onewire), Servo
+* Virtual: Memory Usage, Diagnostics
+* Sensor data serialised to a JSON schema
 
 Actuators
 
