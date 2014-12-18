@@ -27,6 +27,6 @@ Communications
 
 * Pluggable – currently implemented on MQTT (MQTT Server running on Azure)
 
-Supported on Netduino 2 Plus and Gadgeteer
-
-Supports Visual Studio 2012 and 2013
+Supported and Test on
+* Netduino 2 Plus and Gadgeteer
+* Supports Visual Studio 2012 and 2013
