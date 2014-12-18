@@ -1,5 +1,8 @@
-IoT-Maker-Den-NETMF
-===================
+Documentation in progress.
+
+
+### IoT-Maker-Den-NETMF
+
 
 The Maker Den IoT Framework provides a pluggable foundation to support sensors, actuators, data serialisation, communications, and command and control. 
 
@@ -29,6 +32,9 @@ Communications
 Supported and Tested
 * Netduino 2 Plus and Gadgeteer
 * Supports Visual Studio 2012 and 2013
+ 
+
+## Programming Models
 
 ![Alt text](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/DevModel1.JPG)
 
