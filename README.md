@@ -16,6 +16,6 @@ Sensors
 
 Actuators
 
-1.RGB, RGB PWM, Piezo, Relay, NeoPixel (strips, rings and grids)
-2.Command and Control
-3.Control relays, start neo pixels etc via comms layer
+1. RGB, RGB PWM, Piezo, Relay, NeoPixel (strips, rings and grids)
+2. Command and Control
+3. Control relays, start neo pixels etc via comms layer
