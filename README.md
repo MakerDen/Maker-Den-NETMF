@@ -37,6 +37,8 @@ Supported and Tested
 
 ## Programming Models
 
+### Declarative Event Driven
+
     using Glovebox.MicroFramework.Sensors;
     using Glovebox.Netduino.Actuators;
     using Glovebox.Netduino.Sensors;
