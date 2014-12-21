@@ -110,8 +110,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Lab Code\DevModel1.JPG" />
-    <Content Include="Lab Code\DevModel2.JPG" />
     <Content Include="Lab Code\Lab 1.txt" />
     <Content Include="Lab Code\Lab 2.txt" />
     <Content Include="Lab Code\Lab 3.txt" />
