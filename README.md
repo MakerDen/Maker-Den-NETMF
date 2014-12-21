@@ -37,7 +37,7 @@ Supported and Tested
 
 ## Programming Models
 
-### Declarative Event Driven
+### Declarative Event Driven Model
 
     using Glovebox.MicroFramework.Sensors;
     using Glovebox.Netduino.Actuators;
@@ -102,7 +102,3 @@ Supported and Tested
             }
         }
     }
-
-
-
-![Alt text](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/DevModel2.JPG)
