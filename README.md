@@ -44,7 +44,7 @@ The IoTFramework for the .NET Micro Framework provides a pluggable foundation to
     using Microsoft.SPOT;
     using SecretLabs.NETMF.Hardware.NetduinoPlus;
     using System.Threading;
-
+    
     namespace MakerDen {
         public class Program : MakerBaseIoT  {
             public static void Main() {
@@ -73,36 +73,36 @@ The IoTFramework for the .NET Micro Framework provides a pluggable foundation to
 
 ### Imperative Model
 
-  using Glovebox.MicroFramework.Sensors;
-  using Glovebox.Netduino.Actuators;
-  using Glovebox.Netduino.Sensors;
-  using Microsoft.SPOT;
-  using SecretLabs.NETMF.Hardware.NetduinoPlus;
-  using System.Threading;
-  
-  namespace MakerDen {
-      public class Program : MakerBaseIoT  {
-          public static void Main() {
-              // main code marker
-  
-              // sensor timer value -1 disables auto measure
-              using (SensorLight light = new SensorLight(AnalogChannels.ANALOG_PIN_A0, -1, "light01"))
-              using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01")) {
-  
-                  while (true) {
-                      if (light.Current < 60) {
-                          rgb.On(RgbLed.Led.Red);
-                          rgb.Off(RgbLed.Led.Green);
-                      }
-                      else {
-                          rgb.Off(RgbLed.Led.Red);
-                          rgb.On(RgbLed.Led.Green);
-                      }
-                      Thread.Sleep(100);
-                  }
-              }
-          }
-      }
-  }
+    using Glovebox.MicroFramework.Sensors;
+    using Glovebox.Netduino.Actuators;
+    using Glovebox.Netduino.Sensors;
+    using Microsoft.SPOT;
+    using SecretLabs.NETMF.Hardware.NetduinoPlus;
+    using System.Threading;
+    
+    namespace MakerDen {
+        public class Program : MakerBaseIoT  {
+            public static void Main() {
+                // main code marker
+    
+                // sensor timer value -1 disables auto measure
+                using (SensorLight light = new SensorLight(AnalogChannels.ANALOG_PIN_A0, -1, "light01"))
+                using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01")) {
+    
+                    while (true) {
+                        if (light.Current < 60) {
+                            rgb.On(RgbLed.Led.Red);
+                            rgb.Off(RgbLed.Led.Green);
+                        }
+                        else {
+                            rgb.Off(RgbLed.Led.Red);
+                            rgb.On(RgbLed.Led.Green);
+                        }
+                        Thread.Sleep(100);
+                    }
+                }
+            }
+        }
+    }
 
 
