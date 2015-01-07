@@ -18,7 +18,7 @@ namespace Glovebox.Netduino.Actuators {
         }
 
 
-        uint _minPostion = 800;  //microseconds
+        uint _minPosition = 800;  //microseconds
         uint _maxPosition = 2200;  //microseconds
         uint _maxDegrees = 120;
         uint _range = 0;
@@ -74,7 +74,7 @@ namespace Glovebox.Netduino.Actuators {
             : base(name, ActuatorType.ServoPwm) {
             _pin = pin;
             _period = period;
-            _minPostion = minPulseDuration;
+            _minPosition = minPulseDuration;
             _maxPosition = maxPulseDuration;
             _maxDegrees = maxDegrees;
 
@@ -84,10 +84,10 @@ namespace Glovebox.Netduino.Actuators {
 
         private void Initialise() {
 
-            _range = _maxPosition - _minPostion;
+            _range = _maxPosition - _minPosition;
             degreesRatio = (float)_range / (float)_maxDegrees;
 
-            _servoMotor = new PWM(_pin, _period, _minPostion, PWM.ScaleFactor.Microseconds, false);
+            _servoMotor = new PWM(_pin, _period, _minPosition, PWM.ScaleFactor.Microseconds, false);
 
             _servoMotor.DutyCycle = 0;
             _servoMotor.Start();
@@ -104,7 +104,7 @@ namespace Glovebox.Netduino.Actuators {
             if (pos > (_range)) { pos = _range; }
 
             _servoPosition = pos;
-            pos += _minPostion;
+            pos += _minPosition;
 
             _servoMotor.Duration = pos;
         }
@@ -116,13 +116,13 @@ namespace Glovebox.Netduino.Actuators {
             uint pos = (uint)(degreesRatio * degrees);
 
             _servoPosition = pos;
-            pos += _minPostion;
+            pos += _minPosition;
 
             _servoMotor.Duration = pos;
         }
 
         public void Reset() {
-            _servoMotor.Duration = _minPostion;
+            _servoMotor.Duration = _minPosition;
             Thread.Sleep(500);
         }
 
