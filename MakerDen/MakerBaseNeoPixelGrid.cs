@@ -20,7 +20,7 @@ namespace MakerDen {
         }
 
         protected static void StartNeoPixel() {
-            grid = new NeoPixelGrid(8, 8, "neopixelgrid01");
+            grid = new NeoPixelGrid(8, 8, 2, "neopixelgrid01");
 
             CreateCyclesCollection();
 

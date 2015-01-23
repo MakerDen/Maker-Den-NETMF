@@ -8,8 +8,8 @@ namespace Coatsy.Netduino.NeoPixel.Grid
 
     public class NeoPixelGrid : NeoPixelGridBase
     {
-        public NeoPixelGrid(ushort columns, ushort rows, string name)
-            : base(columns, rows, name) { }
+        public NeoPixelGrid(ushort columns, ushort rows, ushort panels, string name)
+            : base(columns, rows, panels, name) { }
 
         Random random = new Random();
 

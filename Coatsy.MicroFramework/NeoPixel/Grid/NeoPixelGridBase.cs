@@ -4,23 +4,22 @@ using Coatsy.Netduino.NeoPixel;
 using System.Threading;
 using Glovebox.MicroFramework.IoT;
 
-namespace Coatsy.Netduino.NeoPixel.Grid
-{
+namespace Coatsy.Netduino.NeoPixel.Grid {
 
     /// <summary>
     /// NeoPixel Grid Privatives, builds on Frame Primatives
     /// </summary>
-    public class NeoPixelGridBase : NeoPixelFrameBase
-    {
+    public class NeoPixelGridBase : NeoPixelFrameBase {
         public ushort Columns { get; private set; }
         public ushort Rows { get; private set; }
+        public ushort Panels { get; private set; }
 
 
-        public NeoPixelGridBase(ushort columns, ushort rows, string name)
-            : base(columns * rows, name)
-        {
+        public NeoPixelGridBase(ushort columns, ushort rows, ushort panels, string name)
+            : base(columns * rows * (panels = panels < 1 ? (ushort)1 : panels), name) {
             this.Columns = columns;
             this.Rows = rows;
+            this.Panels = panels;
 
             FrameClear();
 
@@ -31,38 +30,32 @@ namespace Coatsy.Netduino.NeoPixel.Grid
         /// any external actions commands to be executed
         /// </summary>
         /// <param name="doCycle"></param>
-        public void ExecuteCycle(DoCycle doCycle)
-        {
-            try
-            {
+        public void ExecuteCycle(DoCycle doCycle) {
+            try {
                 doCycle();
                 Thread.Sleep(50);
             }
             catch { ActuatorErrorCount++; }
         }
 
-        public ushort PointPostion(ushort row, ushort column)
-        {
+        public ushort PointPostion(ushort row, ushort column) {
             if (row >= Rows || column >= Columns) { return 0; }
             ushort result = (ushort)(row * Columns + column);
             return result;
         }
 
-        public void PointColour(ushort row, ushort column, Pixel pixel)
-        {
+        public void PointColour(ushort row, ushort column, Pixel pixel) {
             if (row > Rows || column > Columns) { return; }
 
             int pixelNumber = row * Columns + column;
             Frame[pixelNumber] = pixel;
         }
 
-        public void RowRollRight(ushort rowIndex)
-        {
+        public void RowRollRight(ushort rowIndex) {
             rowIndex = (ushort)(rowIndex % Rows);
 
             Pixel temp = Frame[rowIndex * Columns + Columns - 1];
-            for (int col = rowIndex * Columns + Columns - 1, count = 0; count < Columns - 1; col--, count++)
-            {
+            for (int col = rowIndex * Columns + Columns - 1, count = 0; count < Columns - 1; col--, count++) {
                 Frame[col] = Frame[col - 1];
             }
 
@@ -76,22 +69,34 @@ namespace Coatsy.Netduino.NeoPixel.Grid
         }
 
         public void ShiftColumnLeft(ushort rowIndex) {
-            int pos = 0, count = 0;
+            int totalColumns = Columns * Panels;
+            int currentPanel, source = 0, destination, rowOffset, destinationColumn;
+
             rowIndex = (ushort)(rowIndex % Rows);
-            for (pos = rowIndex * Columns, count = 1; count < Columns; pos++, count++) {
-                Frame[pos] = Frame[pos + 1];
+
+            for (int sourceColumn = 1; sourceColumn < totalColumns; sourceColumn++) {
+
+                currentPanel = sourceColumn / Columns;
+                rowOffset = (rowIndex * Columns) + (currentPanel * 64);
+                source = (sourceColumn % Columns) + rowOffset;
+
+                destinationColumn = sourceColumn - 1;
+                currentPanel = (destinationColumn) / Columns;
+                rowOffset = (rowIndex * Columns) + (currentPanel * 64);
+                destination = (destinationColumn % Columns) + rowOffset;
+
+                Frame[destination] = Frame[source];
             }
-            Frame[pos] = Pixel.Colour.Black;
+
+            Frame[source] = Pixel.Colour.Black;
         }
 
-        public void ColumnRollDown(ushort columnIndex)
-        {
+        public void ColumnRollDown(ushort columnIndex) {
             int current;
             columnIndex = (ushort)(columnIndex % Columns);
             Pixel temp = Frame[Columns * (Rows - 1) + columnIndex];
 
-            for (int row = Rows - 2; row >= 0; row--)
-            {
+            for (int row = Rows - 2; row >= 0; row--) {
                 current = row * Columns + columnIndex;
 
                 Frame[current + Rows] = Frame[current];
@@ -99,40 +104,31 @@ namespace Coatsy.Netduino.NeoPixel.Grid
             Frame[columnIndex] = temp;
         }
 
-        public void RowDrawLine(ushort rowIndex, Pixel pixel)
-        {
-            for (int i = rowIndex * Columns; i < rowIndex * Columns + Columns; i++)
-            {
+        public void RowDrawLine(ushort rowIndex, Pixel pixel) {
+            for (int i = rowIndex * Columns; i < rowIndex * Columns + Columns; i++) {
                 Frame[i] = pixel;
             }
         }
 
-        public void RowDrawLine(ushort rowIndex, Pixel[] pixel)
-        {
-            for (int i = 0; i < rowIndex * Columns + Columns; i++)
-            {
+        public void RowDrawLine(ushort rowIndex, Pixel[] pixel) {
+            for (int i = 0; i < rowIndex * Columns + Columns; i++) {
                 Frame[i] = pixel[i % pixel.Length];
             }
         }
 
-        public void ColumnDrawLine(ushort columnIndex, Pixel pixel)
-        {
-            for (int r = 0; r < Rows; r++)
-            {
+        public void ColumnDrawLine(ushort columnIndex, Pixel pixel) {
+            for (int r = 0; r < Rows; r++) {
                 Frame[columnIndex + (r * Columns)] = pixel;
             }
         }
 
-        public void ColumnDrawLine(ushort columnIndex, Pixel[] pixel)
-        {
-            for (int r = 0; r < Rows; r++)
-            {
+        public void ColumnDrawLine(ushort columnIndex, Pixel[] pixel) {
+            for (int r = 0; r < Rows; r++) {
                 Frame[columnIndex + (r * Columns)] = pixel[r % pixel.Length];
             }
         }
 
-        public void DrawBox(ushort startRow, ushort startColumn, ushort width, Pixel pixel)
-        {
+        public void DrawBox(ushort startRow, ushort startColumn, ushort width, Pixel pixel) {
             if (width + startRow > Rows || width + startColumn > Columns) { return; }
 
             FrameSet(pixel, (ushort)(startRow * Columns + startColumn), width);
@@ -142,8 +138,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid
             FrameSet(pixel, (ushort)startPos, width);
 
             // draw sides of boxes
-            for (ushort r = (ushort)(startRow + 1); r < startRow + width - 1; r++)
-            {
+            for (ushort r = (ushort)(startRow + 1); r < startRow + width - 1; r++) {
                 PointColour(r, startColumn, pixel);
                 PointColour(r, (ushort)(width - 1 + startColumn), pixel);
             }

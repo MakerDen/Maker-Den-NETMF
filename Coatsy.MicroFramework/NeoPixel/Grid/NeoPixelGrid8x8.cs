@@ -5,6 +5,8 @@ using System.Threading;
 namespace Coatsy.Netduino.NeoPixel.Grid {
     public class NeoPixelGrid8x8 : NeoPixelGrid {
 
+
+        #region Font Definition
         ulong[] fontSimple = new ulong[] { 
             0x0000000000000000, // space
             0x0008000808080808, // !            
@@ -100,12 +102,14 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
 
             };
 
+        #endregion 
+
         public enum Symbols : ulong {
             Heart = 0x00081C3E7F7F3600, // heart   
         }
 
-        public NeoPixelGrid8x8(string name)
-            : base(8, 8, name) {
+        public NeoPixelGrid8x8(string name, ushort panels = 1)
+            : base(8, 8, panels, name) {
         }
 
         public void ScrollStringInFromRight(string characters, Pixel colour, int pause) {
@@ -148,6 +152,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             ushort pos = 0;
             ulong mask;
             bool pixelFound = false;
+            int panelOffset = (Panels - 1) * Columns * Rows;
 
             // space character ?
             if (bitmap == 0) {
@@ -161,7 +166,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
 
                 for (int row = 0; row < Rows; row++) {
                     mask = (ulong)1 << row * Columns + col;
-                    pos = (ushort)(row * Columns + (Columns - 1));
+                    pos = (ushort)(row * Columns + (Columns - 1) + panelOffset);
 
                     if ((bitmap & mask) != 0) {
                         FrameSet(colour, pos);
