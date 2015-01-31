@@ -68,21 +68,26 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             }
         }
 
+        /// <summary>
+        /// Panel aware scroll left
+        /// </summary>
+        /// <param name="rowIndex"></param>
         public void ShiftColumnLeft(ushort rowIndex) {
             int totalColumns = Columns * Panels;
             int currentPanel, source = 0, destination, rowOffset, destinationColumn;
+            int panelSize = Columns * Rows;
 
             rowIndex = (ushort)(rowIndex % Rows);
 
             for (int sourceColumn = 1; sourceColumn < totalColumns; sourceColumn++) {
 
                 currentPanel = sourceColumn / Columns;
-                rowOffset = (rowIndex * Columns) + (currentPanel * 64);
+                rowOffset = (rowIndex * Columns) + (currentPanel * panelSize);
                 source = (sourceColumn % Columns) + rowOffset;
 
                 destinationColumn = sourceColumn - 1;
                 currentPanel = (destinationColumn) / Columns;
-                rowOffset = (rowIndex * Columns) + (currentPanel * 64);
+                rowOffset = (rowIndex * Columns) + (currentPanel * panelSize);
                 destination = (destinationColumn % Columns) + rowOffset;
 
                 Frame[destination] = Frame[source];

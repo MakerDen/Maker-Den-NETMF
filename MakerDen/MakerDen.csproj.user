@@ -8,7 +8,7 @@
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <DeployDevice>Microsoft</DeployDevice>
-    <DeployTransport>Emulator</DeployTransport>
+    <DeployDevice>Netduino</DeployDevice>
+    <DeployTransport>USB</DeployTransport>
   </PropertyGroup>
 </Project>
