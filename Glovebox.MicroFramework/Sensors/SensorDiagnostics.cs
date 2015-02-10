@@ -8,17 +8,10 @@ namespace Glovebox.MicroFramework.Sensors {
     public class SensorDiagnostics : SensorBase {
 
         public SensorDiagnostics(int SampleRateMilliseconds, string name)
-            : base(SensorType.Diagnostic, ValuesPerSample.Four, SampleRateMilliseconds, name) {
+            : base("diag", "g", ValuesPerSample.Four, SampleRateMilliseconds, name) {
 
                 StartMeasuring();
         }
-
-        public SensorDiagnostics(int SampleRateMilliseconds)
-            : base(SensorType.Diagnostic, ValuesPerSample.One, SampleRateMilliseconds, null) {
-
-            StartMeasuring();
-        }
-
 
         protected override void Measure(double[] value) {
             value[0] = SensorErrorCount;

@@ -9,7 +9,7 @@ namespace Glovebox.MicroFramework.Sensors {
         public override double Current { get { return (int)SensorErrorCount; } }
 
         public SensorError(int SampleRateMilliseconds, string name)
-            : base(SensorType.Error, ValuesPerSample.One, SampleRateMilliseconds, name) {
+            : base("error", "n", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
                 StartMeasuring();
         }

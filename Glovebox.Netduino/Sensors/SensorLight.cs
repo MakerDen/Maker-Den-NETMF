@@ -18,7 +18,7 @@ namespace Glovebox.Netduino.Sensors {
         /// <param name="SampleRateMilliseconds">How often to measure in milliseconds or -1 to disable auto timed sensor readings</param>
         /// <param name="name">Unique identifying name for command and control</param>
         public SensorLight(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
-            : base(SensorType.Light, ValuesPerSample.One, SampleRateMilliseconds, name) {
+            : base("light", "p", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
                 analogPin = new AnalogInput(pin, -1);
                 StartMeasuring();

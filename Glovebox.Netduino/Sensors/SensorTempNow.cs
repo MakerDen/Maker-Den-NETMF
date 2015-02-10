@@ -22,7 +22,7 @@ namespace Glovebox.Netduino.Sensors {
         /// <param name="SampleRateMilliseconds">How often to measure in milliseconds or -1 to disable auto timed sensor readings</param>
         /// <param name="name">Unique identifying name for command and control</param>
         public SensorTempNow(Cpu.Pin pin, int SampleRateMilliseconds, string name)
-            : base(SensorType.Temperature, ValuesPerSample.One, SampleRateMilliseconds, name) {
+            : base("temp", "c", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
                 ds = new DS18B20(pin);
                 StartMeasuring();
@@ -35,10 +35,6 @@ namespace Glovebox.Netduino.Sensors {
         protected override string GeoLocation() {
             return Utilities.RandomPostcode();
         }
-
-        //void IDisposable.Dispose() {
-        //    ds.Dispose();
-        //}
 
         protected override void SensorCleanup() {
             ds.Dispose();

@@ -8,7 +8,7 @@ namespace Glovebox.MicroFramework.Sensors {
         IotBase iotItem;
 
         public Challenge(IotBase iotItem, string userDefinedType)
-            : base(SensorType.Challenge, ValuesPerSample.One, 60000, "challenge", userDefinedType ) {
+            : base(userDefinedType, "n", ValuesPerSample.One, 60000, "challenge") {
                 this.iotItem = iotItem;
 
             StartMeasuring();

@@ -6,10 +6,8 @@ using Glovebox.MicroFramework.Json;
 using Glovebox.MicroFramework.IoT;
 using System.Runtime.CompilerServices;
 
-namespace Glovebox.MicroFramework.Base
-{
-    public abstract class SensorBase : IotBase
-    {
+namespace Glovebox.MicroFramework.Base {
+    public abstract class SensorBase : IotBase {
         public enum Actions { Start, Stop, Measure };
 
         protected abstract void Measure(double[] value);
@@ -18,9 +16,9 @@ namespace Glovebox.MicroFramework.Base
         protected abstract void SensorCleanup();
 
         // note order of sensorType amd SensorType must match.  There is no enum.parse in micro framework
-        static readonly string[] _sensorType = new string[] { "light", "mem", "memfh", "sound", "temp", "error", "tmphumd", "misc", "diag", "chl" };
-        static readonly string[] _sensorUnit = new string[] { "p", "b", "b", "d", "c", "n", "cp", "n", "g", "n" };
-        public enum SensorType { Light, Memory, MemFezHydra, Sound, Temperature, Error, TempAndHumidity, Miscellaneous, Diagnostic, Challenge }
+        //static readonly string[] _sensorType = new string[] { "light", "mem", "memfh", "sound", "temp", "error", "tmphumd", "misc", "diag", "chl" };
+        //static readonly string[] _sensorUnit = new string[] { "p", "b", "b", "d", "c", "n", "cp", "n", "g", "n" };
+        //public enum SensorType { Light, Memory, MemFezHydra, Sound, Temperature, Error, TempAndHumidity, Miscellaneous, Diagnostic, Challenge }
         public enum ValuesPerSample { One = 1, Two = 2, Three = 3, Four = 4, Five = 5 };
 
         JSONWriter jw = new JSONWriter();
@@ -30,25 +28,21 @@ namespace Glovebox.MicroFramework.Base
         public event SensorEventHandler OnBeforeMeasurement;
 
 
-        public class SensorIdEventArgs : EventArgs
-        {
+        public class SensorIdEventArgs : EventArgs {
             public readonly uint id;
-            public SensorIdEventArgs(uint id)
-            {
+            public SensorIdEventArgs(uint id) {
                 this.id = id;
             }
         }
 
-        public class SensorItemEventArgs : EventArgs
-        {
+        public class SensorItemEventArgs : EventArgs {
             readonly byte[] jsonBytes;
             public readonly string topic;
             public readonly string type;
             public readonly double[] value;
             public readonly int msgId;
 
-            public SensorItemEventArgs(byte[] jsonBytes, string topic, string type, double[] value, int msgId)
-            {
+            public SensorItemEventArgs(byte[] jsonBytes, string topic, string type, double[] value, int msgId) {
                 this.jsonBytes = jsonBytes;
                 this.topic = topic;
                 this.type = type;
@@ -56,13 +50,11 @@ namespace Glovebox.MicroFramework.Base
                 this.msgId = msgId;
             }
 
-            public byte[] ToJson()
-            {
+            public byte[] ToJson() {
                 return jsonBytes;
             }
 
-            public override string ToString()
-            {
+            public override string ToString() {
                 var j = jsonBytes;
                 char[] Output = new char[j.Length];
                 for (int Counter = 0; Counter < j.Length; ++Counter) { Output[Counter] = (char)j[Counter]; }
@@ -73,8 +65,7 @@ namespace Glovebox.MicroFramework.Base
         private Thread SensorThread;
 
         private static uint sensorErrorCount;
-        public uint SensorErrorCount
-        {
+        public uint SensorErrorCount {
             get { return sensorErrorCount; }
         }
 
@@ -90,11 +81,10 @@ namespace Glovebox.MicroFramework.Base
 
         private static int msgId;
 
-        public SensorBase(SensorType sensorType, ValuesPerSample valuesPerSensor, int SampleRateMilliseconds, string name, string optionalUserDefinedType = "")
-            : base(name == null ? _sensorType[(uint)sensorType] : name, optionalUserDefinedType == string.Empty ? _sensorType[(uint)sensorType] : optionalUserDefinedType)
-        {
+        public SensorBase(string sensorType, string sensorUnit, ValuesPerSample valuesPerSensor, int SampleRateMilliseconds, string name)
+            : base(name == null ? sensorType : name, sensorType) {
 
-            this.unit = _sensorUnit[(uint)sensorType];
+            this.unit = sensorUnit;
             topic = topicNamespace + deviceName + "/" + type;
             value = new double[(uint)valuesPerSensor];
             this.sampleRateMilliseconds = SampleRateMilliseconds;
@@ -104,24 +94,18 @@ namespace Glovebox.MicroFramework.Base
             SensorThread.Priority = ThreadPriority.Highest;
         }
 
-        public void StartMeasuring()
-        {
-            if (sampleRateMilliseconds > 0)
-            {
+        public void StartMeasuring() {
+            if (sampleRateMilliseconds > 0) {
                 SensorThread.Start();
             }
         }
 
-        private void MeasureThread()
-        {
-            while (true)
-            {
-                try
-                {
+        private void MeasureThread() {
+            while (true) {
+                try {
                     DoMeasure();
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     Debug.Print(ex.Message);
                     sensorErrorCount++;
                 }
@@ -130,8 +114,7 @@ namespace Glovebox.MicroFramework.Base
         }
 
 
-        private void DoMeasure()
-        {
+        private void DoMeasure() {
             //lock (threadSync) {
             TotalSensorMeasurements++;
             BeforeMeasurement(new SensorIdEventArgs(id));
@@ -142,22 +125,18 @@ namespace Glovebox.MicroFramework.Base
         }
 
 
-        private uint AfterMeasurement(EventArgs e)
-        {
-            if (OnAfterMeasurement != null)
-            {
+        private uint AfterMeasurement(EventArgs e) {
+            if (OnAfterMeasurement != null) {
                 return OnAfterMeasurement(this, e);
             }
             return 0;
         }
 
-        private void BeforeMeasurement(EventArgs e)
-        {
+        private void BeforeMeasurement(EventArgs e) {
             if (OnBeforeMeasurement != null) { OnBeforeMeasurement(this, e); }
         }
 
-        private byte[] ToJson()
-        {
+        private byte[] ToJson() {
             jw.Begin();
             jw.AddProperty("Dev", deviceName);
             jw.AddProperty("Type", type);
@@ -171,8 +150,7 @@ namespace Glovebox.MicroFramework.Base
             return jw.ToArray();
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             Measure(value);
             Geo = GeoLocation();
             var j = ToJson();
@@ -181,12 +159,10 @@ namespace Glovebox.MicroFramework.Base
             return new string(Output);
         }
 
-        public override void Action(IotAction action)
-        {
+        public override void Action(IotAction action) {
             double sampleRate;
             if (action.cmd == null) { return; }
-            switch (action.cmd)
-            {
+            switch (action.cmd) {
                 case "measure":
                     DoMeasure();
                     break;
@@ -199,18 +175,15 @@ namespace Glovebox.MicroFramework.Base
                 case "rate":
                     //test for numeric sensor sample rate
                     if (action.parameters == null) { return; }
-                    if (double.TryParse(action.parameters, out sampleRate))
-                    {
+                    if (double.TryParse(action.parameters, out sampleRate)) {
                         Action((int)sampleRate);
                     }
                     break;
             }
         }
 
-        public void Action(Actions action)
-        {
-            switch (action)
-            {
+        public void Action(Actions action) {
+            switch (action) {
                 case Actions.Start:
                     if (SensorThread.ThreadState == ThreadState.Running) { return; }
                     if (sampleRateMilliseconds > 0) { SensorThread.Resume(); }
@@ -227,16 +200,13 @@ namespace Glovebox.MicroFramework.Base
             }
         }
 
-        public void Action(int sampleRateMilliseconds)
-        {
-            if (sampleRateMilliseconds > 0)
-            {
+        public void Action(int sampleRateMilliseconds) {
+            if (sampleRateMilliseconds > 0) {
                 this.sampleRateMilliseconds = sampleRateMilliseconds;
             }
         }
 
-        protected override void CleanUp()
-        {
+        protected override void CleanUp() {
             SensorCleanup();
             SensorThread.Abort();
         }

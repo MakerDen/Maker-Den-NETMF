@@ -26,7 +26,7 @@ namespace Glovebox.Netduino.Sensors {
         /// <param name="SampleRateMilliseconds">How often to measure in milliseconds or -1 to disable auto timed sensor readings</param>
         /// <param name="name">Unique identifying name for command and control</param>
         public SensorSound(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
-            : base(SensorType.Sound, ValuesPerSample.One, SampleRateMilliseconds, name) {
+            : base("sound", "d", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
                 analogPin = new AnalogInput(pin, -1);
                 StartMeasuring();
@@ -59,10 +59,6 @@ namespace Glovebox.Netduino.Sensors {
 
             return runningAverage;
         }
-
-        //void IDisposable.Dispose() {
-        //    if (analogPin != null) { analogPin.Dispose(); }
-        //}
 
         protected override void SensorCleanup() {
             if (analogPin != null) { analogPin.Dispose(); }

@@ -8,7 +8,7 @@ namespace Glovebox.MicroFramework.Sensors {
 
 
         public SensorMemory(int SampleRateMilliseconds, string name)
-            : base(SensorType.Memory, ValuesPerSample.One, SampleRateMilliseconds, name) {
+            : base("mem", "b", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
                 StartMeasuring();
         }
