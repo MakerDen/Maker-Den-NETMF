@@ -116,6 +116,10 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             ScrollStringInFromRight(characters, new Pixel[] { colour }, pause);
         }
 
+        public void ScrollStringInFromLeft(string characters, Pixel colour, int pause) {
+            ScrollStringInFromLeft(characters, new Pixel[] { colour }, pause);
+        }
+
         public void ScrollStringInFromRight(string characters, Pixel[] colour, int pause) {
             ushort cycleColour = 0;
 
@@ -128,10 +132,6 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
                     cycleColour++;
                 }
             }
-        }
-
-        public void ScrollStringInFromLeft(string characters, Pixel colour, int pause) {
-            ScrollStringInFromLeft(characters, new Pixel[] { colour }, pause);
         }
 
         public void ScrollStringInFromLeft(string characters, Pixel[] colour, int pause) {
@@ -154,17 +154,23 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             }
         }
 
-        public void ScrollSymbolInFromLeft(Symbols sym, Pixel colour, int pause) {
-            ScrollBitmapInFromLeft((ulong)sym, colour, pause);
-        }
-
         public void ScrollSymbolInFromRight(Symbols sym, Pixel colour, int pause) {
             ScrollBitmapInFromRight((ulong)sym, colour, pause);
+        }
+
+        public void ScrollSymbolInFromLeft(Symbols sym, Pixel colour, int pause) {
+            ScrollBitmapInFromLeft((ulong)sym, colour, pause);
         }
 
         public void ScrollSymbolInFromRight(Symbols[] sym, Pixel colour, int pause) {
             foreach (var item in sym) {
                 ScrollBitmapInFromRight((ulong)item, colour, pause);
+            }
+        }
+
+        public void ScrollSymbolInFromLeft(Symbols[] sym, Pixel colour, int pause) {
+            foreach (var item in sym) {
+                ScrollBitmapInFromLeft((ulong)item, colour, pause);
             }
         }
 
@@ -175,6 +181,16 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
                 cycleColour++;
             }
         }
+
+        public void ScrollSymbolInFromLeft(Symbols[] sym, Pixel[] colourPalette, int pause) {
+            ushort cycleColour = 0;
+            foreach (var item in sym) {
+                ScrollBitmapInFromLeft((ulong)item, colourPalette[cycleColour % colourPalette.Length], pause);
+                cycleColour++;
+            }
+        }
+
+        #region Scroll Bitmaps left and right
 
         public void ScrollBitmapInFromRight(ulong bitmap, Pixel colour, int pause) {
             ushort pos = 0;
@@ -248,6 +264,11 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             ShiftFrameRight();
         }
 
+        #endregion
+
+        #region Draw Primatives
+
+
         public void DrawString(string characters, Pixel colour, int pause, ushort panel = 0) {
             DrawString(characters, new Pixel[] { colour }, pause, panel);
         }
@@ -309,5 +330,6 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
                 pos++;
             }
         }
+        #endregion
     }
 }
