@@ -39,27 +39,59 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
         }
 
         public ushort PointPostion(ushort row, ushort column) {
-            if (row >= Rows || column >= Columns) { return 0; }
-            ushort result = (ushort)(row * Columns + column);
-            return result;
+            int totalColumns = Columns * Panels;
+            int currentPanel, rowOffset;
+            int panelSize = Columns * Rows;
+
+            column = (ushort)(column % totalColumns);
+            row = (ushort)(row % Rows);
+
+            currentPanel = column / Columns;
+            rowOffset = (row * Columns) + (currentPanel * panelSize);
+
+            return (ushort)((column % Columns) + rowOffset);
         }
 
         public void PointColour(ushort row, ushort column, Pixel pixel) {
-            if (row > Rows || column > Columns) { return; }
-
-            int pixelNumber = row * Columns + column;
+            ushort pixelNumber = PointPostion(row, column);
             Frame[pixelNumber] = pixel;
         }
 
         public void RowRollRight(ushort rowIndex) {
             rowIndex = (ushort)(rowIndex % Rows);
+            ushort totalColumns = (ushort)(Columns * Panels);
 
-            Pixel temp = Frame[rowIndex * Columns + Columns - 1];
-            for (int col = rowIndex * Columns + Columns - 1, count = 0; count < Columns - 1; col--, count++) {
-                Frame[col] = Frame[col - 1];
+            Pixel temp = Frame[PointPostion(rowIndex, (ushort)(totalColumns - 1))];
+
+            for (ushort col = (ushort)(totalColumns - 1); col > 0; col--) {
+                Frame[PointPostion(rowIndex, col)] = Frame[PointPostion(rowIndex, (ushort)(col - 1))];
             }
 
-            Frame[rowIndex * Columns] = temp;
+            Frame[PointPostion(rowIndex, 0)] = temp;
+        }
+
+        public void RowFrameRight() {
+            for (ushort row = 0; row < Rows; row++) {
+                RowRollRight(row);
+            }
+        }
+
+        public void ShiftColumnRight(ushort rowIndex) {
+            rowIndex = (ushort)(rowIndex % Rows);
+            ushort totalColumns = (ushort)(Columns * Panels);
+
+            for (ushort col = (ushort)(totalColumns - 1); col > 0; col--) {
+                Frame[PointPostion(rowIndex, col)] = Frame[PointPostion(rowIndex, (ushort)(col - 1))];
+            }
+
+            Frame[PointPostion(rowIndex, 0)] = Pixel.Colour.Black;
+        }
+
+
+        public void ShiftFrameRight() {
+            for (ushort i = 0; i < Rows; i++) {
+                ShiftColumnRight(i);
+            }
         }
 
         public void ShiftFrameLeft() {

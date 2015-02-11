@@ -130,6 +130,34 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             }
         }
 
+        public void ScrollStringInFromLeft(string characters, Pixel colour, int pause) {
+            ScrollStringInFromLeft(characters, new Pixel[] { colour }, pause);
+        }
+
+        public void ScrollStringInFromLeft(string characters, Pixel[] colour, int pause) {
+            ushort cycleColour = 0;
+
+            // loop through each chacter
+            for (int ch = characters.Length - 1; ch >= 0; ch--) {
+
+                char charactor = characters.Substring(ch, 1)[0];
+                if (charactor >= ' ' && charactor <= 'z') {
+                    ScrollBitmapInFromLeft(fontSimple[charactor - 32], colour[cycleColour % colour.Length], pause);
+                    cycleColour++;
+                }
+            }
+        }
+
+        public void ScrollCharacterFromLeft(char charactor, Pixel colour, int pause) {
+            if (charactor >= ' ' && charactor <= 'z') {
+                ScrollBitmapInFromLeft(fontSimple[charactor - 32], colour, pause);
+            }
+        }
+
+        public void ScrollSymbolInFromLeft(Symbols sym, Pixel colour, int pause) {
+            ScrollBitmapInFromLeft((ulong)sym, colour, pause);
+        }
+
         public void ScrollSymbolInFromRight(Symbols sym, Pixel colour, int pause) {
             ScrollBitmapInFromRight((ulong)sym, colour, pause);
         }
@@ -157,6 +185,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             // space character ?
             if (bitmap == 0) {
                 ShiftFrameLeft();
+                Thread.Sleep(pause);
                 return;
             }
 
@@ -181,6 +210,41 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             }
             //blank character space
             ShiftFrameLeft();
+        }
+
+        public void ScrollBitmapInFromLeft(ulong bitmap, Pixel colour, int pause) {
+            ushort pos = 0;
+            ulong mask;
+            bool pixelFound = false;
+
+
+            // space character ?
+            if (bitmap == 0) {
+                ShiftFrameRight();
+                return;
+            }
+
+            // fetch vertical slice of character font
+            for (int col = Columns - 1; col >= 0; col--) {
+                pixelFound = false;
+
+                for (int row = 0; row < Rows; row++) {
+                    mask = (ulong)1 << row * Columns + col;
+                    pos = (ushort)(row * Columns);
+
+                    if ((bitmap & mask) != 0) {
+                        FrameSet(colour, pos);
+                        pixelFound = true;
+                    }
+                }
+                if (pixelFound) {
+                    FrameDraw();
+                    ShiftFrameRight();
+                    Thread.Sleep(pause);
+                }
+            }
+            //blank character space
+            ShiftFrameRight();
         }
 
         public void DrawString(string characters, Pixel colour, int pause) {
@@ -224,15 +288,16 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             }            
         }
 
-        public void DrawSymbol(Symbols sym, Pixel colour) {
-            DrawBitmap((ulong)sym, colour);
+        public void DrawSymbol(Symbols sym, Pixel colour, ushort panel = 0) {
+            DrawBitmap((ulong)sym, colour, panel);
         }
 
-        public void DrawBitmap(ulong bitmap, Pixel colour) {
+        public void DrawBitmap(ulong bitmap, Pixel colour, ushort panel = 0) {
             ulong mask;
-            ushort pos = 0;
+            ushort pos = (ushort)(panel * Rows * Columns);
+            int len = (ushort)(panel * Rows * Columns) + (Rows * Columns);
 
-            while (pos < Length) {
+            while (pos < len) {
                 mask = (ulong)1 << pos;
                 if ((bitmap & mask) == 0) {
                     FrameSet(Pixel.Colour.Black, pos);
