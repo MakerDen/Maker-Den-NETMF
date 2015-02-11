@@ -221,6 +221,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             // space character ?
             if (bitmap == 0) {
                 ShiftFrameRight();
+                Thread.Sleep(pause);
                 return;
             }
 
@@ -247,17 +248,17 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             ShiftFrameRight();
         }
 
-        public void DrawString(string characters, Pixel colour, int pause) {
-            DrawString(characters, new Pixel[] { colour }, pause);
+        public void DrawString(string characters, Pixel colour, int pause, ushort panel = 0) {
+            DrawString(characters, new Pixel[] { colour }, pause, panel);
         }
 
-        public void DrawString(string characters, Pixel[] colour, int pause) {
+        public void DrawString(string characters, Pixel[] colour, int pause, ushort panel = 0) {
             ushort cycleColour = 0;
             char c;
             for (int i = 0; i < characters.Length; i++) {
                 c = characters.Substring(i, 1)[0];
                 if (c >= ' ' && c <= 'z') {
-                    DrawLetter(c, colour[cycleColour % colour.Length]);
+                    DrawLetter(c, colour[cycleColour % colour.Length], panel);
                     FrameDraw();
                     Thread.Sleep(pause);
                     cycleColour++;
@@ -265,7 +266,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             }
         }
 
-        public void DrawLetter(char character, Pixel colour) {
+        public void DrawLetter(char character, Pixel colour, ushort panel = 0) {
             ulong letter = 0;
 
             if (character >= ' ' && character <= 'z') {
@@ -275,13 +276,13 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             }
             else { return; }
 
-            DrawBitmap(letter, colour);
+            DrawBitmap(letter, colour, panel);
         }
 
-        public void DrawSymbol(Symbols[] sym, Pixel[] colour, int pause) {
+        public void DrawSymbol(Symbols[] sym, Pixel[] colour, int pause, ushort panel = 0) {
             ushort cycleColour = 0;
             foreach (var item in sym) {
-                DrawBitmap((ulong)item, colour[cycleColour]);
+                DrawBitmap((ulong)item, colour[cycleColour], panel);
                 FrameDraw();
                 Thread.Sleep(pause);
                 cycleColour++;                
