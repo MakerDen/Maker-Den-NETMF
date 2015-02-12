@@ -16,8 +16,8 @@ namespace Coatsy.Netduino.NeoPixel.Grid
 
         public void Rain()
         {
-            FrameSet(coolPalette[1]);
-            RowDrawLine(0, Pixel.CoolColours.CoolBlue);
+            FrameSet(PaletteCoolLowPower[1]);
+            RowDrawLine(0, Pixel.ColourLowPower.CoolBlue);
 
             for (int t = 0; t < 50; t++)
             {
@@ -25,7 +25,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid
                 ushort col = (ushort)(nr % Columns);
 
                 ColumnRollDown(col);
-                PointColour(0, col, coolPalette[random.Next() % coolPalette.Length]);
+                PointColour(0, col, PaletteCoolLowPower[random.Next() % PaletteCoolLowPower.Length]);
                 for (ushort i = 0; i < Columns; i++)
                 {
                     ColumnRollDown(i);
@@ -51,7 +51,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid
 
                 var v1 = (ushort)(random.Next() % Rows);
                 var v2 = (ushort)(random.Next() % Columns);
-                PointColour(v1, v2, coolPalette[random.Next() % coolPalette.Length]);
+                PointColour(v1, v2, PaletteCoolLowPower[random.Next() % PaletteCoolLowPower.Length]);
             }
 
             for (int c = 0; c < 40; c++)
@@ -71,10 +71,10 @@ namespace Coatsy.Netduino.NeoPixel.Grid
         {
             for (int i = 0; i < 50; i++)
             {
-                DrawBox(0, 0, 8, coolPalette[i % coolPalette.Length]);
-                DrawBox(1, 1, 6, coolPalette[(i + 1) % coolPalette.Length]);
-                DrawBox(2, 2, 4, coolPalette[(i + 2) % coolPalette.Length]);
-                DrawBox(3, 3, 2, coolPalette[(i + 3) % coolPalette.Length]);
+                DrawBox(0, 0, 8, PaletteCoolLowPower[i % PaletteCoolLowPower.Length]);
+                DrawBox(1, 1, 6, PaletteCoolLowPower[(i + 1) % PaletteCoolLowPower.Length]);
+                DrawBox(2, 2, 4, PaletteCoolLowPower[(i + 2) % PaletteCoolLowPower.Length]);
+                DrawBox(3, 3, 2, PaletteCoolLowPower[(i + 3) % PaletteCoolLowPower.Length]);
                 FrameDraw();
             }
         }
@@ -83,17 +83,17 @@ namespace Coatsy.Netduino.NeoPixel.Grid
         {
             ushort[] outterSquare = new ushort[] { 8, 9, 10, 11, 12, 13, 16, 21, 24, 29, 32, 37, 40, 45, 48, 49, 49, 50, 51, 52, 53 };
             ushort[] innerSquare = new ushort[] { 17, 18, 19, 20, 25, 28, 33, 36, 41, 42, 43, 44 };
-            FrameSet(Pixel.CoolColours.WarmRed, outterSquare);
-            FrameSet(Pixel.CoolColours.WarmRed, innerSquare);
+            FrameSet(Pixel.ColourLowPower.WarmRed, outterSquare);
+            FrameSet(Pixel.ColourLowPower.WarmRed, innerSquare);
         }
 
         public void Flag()
         {
-            FrameSet(Pixel.CoolColours.CoolGreen);
-            RowDrawLine(2, Pixel.CoolColours.CoolBlue);
-            RowDrawLine(3, Pixel.CoolColours.CoolBlue);
-            ColumnDrawLine(1, Pixel.CoolColours.CoolRed);    
-            ColumnDrawLine(2, Pixel.CoolColours.CoolRed);
+            FrameSet(Pixel.ColourLowPower.CoolGreen);
+            RowDrawLine(2, Pixel.ColourLowPower.CoolBlue);
+            RowDrawLine(3, Pixel.ColourLowPower.CoolBlue);
+            ColumnDrawLine(1, Pixel.ColourLowPower.CoolRed);    
+            ColumnDrawLine(2, Pixel.ColourLowPower.CoolRed);
 
             FrameDraw();
 

@@ -311,7 +311,7 @@ namespace Coatsy.Netduino.NeoPixel
         }
         #endregion
 
-        public class CoolColours {
+        public class ColourLowPower {
             public static Pixel CoolRed = new Pixel(0x020000);
             public static Pixel CoolOrange = new Pixel(0x040200);
             public static Pixel CoolYellow = new Pixel(0x020200);

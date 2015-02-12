@@ -37,7 +37,7 @@ namespace Coatsy.Netduino.NeoPixel
 
         public void SlowFill()
         {
-            SetLevel(80, Pixel.CoolColours.HotGreen, true, 3, 20);
+            SetLevel(80, Pixel.ColourLowPower.HotGreen, true, 3, 20);
         }
 
         public void Blinky()

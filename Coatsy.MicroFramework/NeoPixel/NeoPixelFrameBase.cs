@@ -19,41 +19,41 @@ namespace Coatsy.Netduino.NeoPixel {
         /// <summary>
         /// NeoPixels run medium bright and cool on this palette
         /// </summary>
-        public Pixel[] warmPalette = new Pixel[] { 
-            Pixel.CoolColours.WarmRed, 
-            Pixel.CoolColours.WarmOrange, 
-            Pixel.CoolColours.WarmYellow,
-            Pixel.CoolColours.WarmGreen, 
-            Pixel.CoolColours.WarmBlue,
-            Pixel.CoolColours.WarmPurple, 
+        public Pixel[] PaletteWarmLowPower = new Pixel[] { 
+            Pixel.ColourLowPower.WarmRed, 
+            Pixel.ColourLowPower.WarmOrange, 
+            Pixel.ColourLowPower.WarmYellow,
+            Pixel.ColourLowPower.WarmGreen, 
+            Pixel.ColourLowPower.WarmBlue,
+            Pixel.ColourLowPower.WarmPurple, 
             //Pixel.CoolColours.WarmIndigo
         };
 
         /// <summary>
         /// NeoPixels run dim and cool on this palette
         /// </summary>
-        public Pixel[] coolPalette = new Pixel[] {
-            Pixel.CoolColours.CoolRed, 
-            Pixel.CoolColours.CoolOrange, 
-            Pixel.CoolColours.CoolYellow,
-            Pixel.CoolColours.CoolGreen, 
-            Pixel.CoolColours.CoolBlue,
-            Pixel.CoolColours.CoolPurple, 
+        public Pixel[] PaletteCoolLowPower = new Pixel[] {
+            Pixel.ColourLowPower.CoolRed, 
+            Pixel.ColourLowPower.CoolOrange, 
+            Pixel.ColourLowPower.CoolYellow,
+            Pixel.ColourLowPower.CoolGreen, 
+            Pixel.ColourLowPower.CoolBlue,
+            Pixel.ColourLowPower.CoolPurple, 
         };
 
         /// <summary>
         /// NeoPixels run bright but cool on this palette
         /// </summary>
-        public Pixel[] hotPalette = new Pixel[] {
-            Pixel.CoolColours.HotRed,
-            Pixel.CoolColours.HotOrange, 
-            Pixel.CoolColours.HotYellow,
-            Pixel.CoolColours.HotGreen, 
-            Pixel.CoolColours.HotBlue,
-            Pixel.CoolColours.HotPurple, 
+        public Pixel[] PaletteHotLowPower = new Pixel[] {
+            Pixel.ColourLowPower.HotRed,
+            Pixel.ColourLowPower.HotOrange, 
+            Pixel.ColourLowPower.HotYellow,
+            Pixel.ColourLowPower.HotGreen, 
+            Pixel.ColourLowPower.HotBlue,
+            Pixel.ColourLowPower.HotPurple, 
         };
 
-        protected Pixel[] colourList = new Pixel[]
+        protected Pixel[] PaletteFullColour = new Pixel[]
         {
             Pixel.Colour.Black,
             Pixel.Colour.AliceBlue,
@@ -545,7 +545,7 @@ namespace Coatsy.Netduino.NeoPixel {
         /// <param name="pixelColour">PixelColour of the pixel required</param>
         /// <returns></returns>
         protected Pixel getPixel(PixelColour pixelColour) {
-            return colourList[(int)pixelColour];
+            return PaletteFullColour[(int)pixelColour];
         }
 
         protected Pixel[] GetColourListFromColourSet(PixelColour[] colourSet) {

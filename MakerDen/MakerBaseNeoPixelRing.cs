@@ -92,7 +92,7 @@ namespace MakerDen {
 
         private static void Chunks() {
 
-            npr.FrameSetBlocks(new Pixel[] { Pixel.CoolColours.CoolRed, Pixel.CoolColours.CoolGreen, Pixel.CoolColours.CoolBlue });
+            npr.FrameSetBlocks(new Pixel[] { Pixel.ColourLowPower.CoolRed, Pixel.ColourLowPower.CoolGreen, Pixel.ColourLowPower.CoolBlue });
             npr.FrameDraw();
 
             for (int i = 0; i < 200; i++) {
@@ -106,7 +106,7 @@ namespace MakerDen {
 
             Random rnd = new Random();
 
-            npr.FrameSet(npr.coolPalette, 0, 3);
+            npr.FrameSet(npr.PaletteCoolLowPower, 0, 3);
             //npr.FrameSet(npr.coolPalette[0], 1);
 
             for (int i = 0; i < 40; i++) {

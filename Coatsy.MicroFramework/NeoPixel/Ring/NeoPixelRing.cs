@@ -211,7 +211,7 @@ namespace Coatsy.Netduino.NeoPixel.Ring {
 
                 for (int j = 0; j < 120; j++) {
                     FrameSet(
-                        colourList[rand.Next(colourList.Length)],
+                        PaletteFullColour[rand.Next(PaletteFullColour.Length)],
                         (ushort)rand.Next(Length)
                         );
                     FrameDraw();
@@ -284,8 +284,8 @@ namespace Coatsy.Netduino.NeoPixel.Ring {
         }
 
         public void ColourWheel() {
-            for (int i = 0; i < colourList.Length; i = i + 5) {
-                SpinColour(colourList[i], 2, 50);
+            for (int i = 0; i < PaletteFullColour.Length; i = i + 5) {
+                SpinColour(PaletteFullColour[i], 2, 50);
             }
         }
 
