@@ -112,6 +112,8 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             : base(8, 8, panels, name) {
         }
 
+        #region Scroll string primatives
+
         public void ScrollStringInFromRight(string characters, Pixel colour, int pause) {
             ScrollStringInFromRight(characters, new Pixel[] { colour }, pause);
         }
@@ -148,11 +150,24 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             }
         }
 
+        #endregion
+
+        #region Scroll Character primatives
+        public void ScrollCharacterFromRight(char charactor, Pixel colour, int pause) {
+            if (charactor >= ' ' && charactor <= 'z') {
+                ScrollBitmapInFromRight(fontSimple[charactor - 32], colour, pause);
+            }
+        }
+
         public void ScrollCharacterFromLeft(char charactor, Pixel colour, int pause) {
             if (charactor >= ' ' && charactor <= 'z') {
                 ScrollBitmapInFromLeft(fontSimple[charactor - 32], colour, pause);
             }
         }
+
+        #endregion
+
+        #region Scroll symbol primatives
 
         public void ScrollSymbolInFromRight(Symbols sym, Pixel colour, int pause) {
             ScrollBitmapInFromRight((ulong)sym, colour, pause);
@@ -189,6 +204,8 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
                 cycleColour++;
             }
         }
+
+        #endregion
 
         #region Scroll Bitmaps left and right
 
