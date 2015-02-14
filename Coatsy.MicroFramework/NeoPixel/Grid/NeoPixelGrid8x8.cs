@@ -218,6 +218,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             // space character ?
             if (bitmap == 0) {
                 ShiftFrameLeft();
+                FrameDraw();
                 Thread.Sleep(pause);
                 return;
             }
@@ -254,6 +255,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             // space character ?
             if (bitmap == 0) {
                 ShiftFrameRight();
+                FrameDraw();
                 Thread.Sleep(pause);
                 return;
             }

@@ -57,7 +57,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             Frame[pixelNumber] = pixel;
         }
 
-        public void RowRollRight(ushort rowIndex) {
+        public void ColumnRollRight(ushort rowIndex) {
             rowIndex = (ushort)(rowIndex % Rows);
             ushort totalColumns = (ushort)(Columns * Panels);
 
@@ -70,9 +70,22 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             Frame[PointPostion(rowIndex, 0)] = temp;
         }
 
-        public void RowFrameRight() {
+        public void ColumnRollLeft(ushort rowIndex) {
+            rowIndex = (ushort)(rowIndex % Rows);
+            ushort totalColumns = (ushort)(Columns * Panels);
+
+            Pixel temp = Frame[PointPostion(rowIndex, 0)];      
+
+            for (ushort col = 1; col < (ushort)(totalColumns); col++) {
+                Frame[PointPostion(rowIndex, (ushort)(col - 1))] = Frame[PointPostion(rowIndex, col)]; 
+            }
+
+            Frame[PointPostion(rowIndex, (ushort)(totalColumns - 1))] = temp;
+        }
+
+        public void FrameRollRight() {
             for (ushort row = 0; row < Rows; row++) {
-                RowRollRight(row);
+                ColumnRollRight(row);
             }
         }
 

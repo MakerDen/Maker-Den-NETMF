@@ -59,7 +59,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid
                 for (ushort i = 0; i < Rows; i++)
                 {
                     ColumnRollDown(i);
-                    RowRollRight(i);
+                    ColumnRollRight(i);
                 }
 
                 FrameDraw();
@@ -101,7 +101,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid
             {
                 for (ushort i = 0; i < 8; i++)
                 {
-                    RowRollRight(i);
+                    ColumnRollRight(i);
                 }
 
                 for (ushort c = 0; c < Columns; c++)

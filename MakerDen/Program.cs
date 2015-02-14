@@ -8,11 +8,11 @@ using SecretLabs.NETMF.Hardware.NetduinoPlus;
 using System.Threading;
 
 namespace MakerDen {
-    public class Program : MakerBaseIoT  {
-        
+    public class Program : MakerBaseIoT {
+
         public static void Main() {
             // main code marker
-          
+
         }
     }
 }
