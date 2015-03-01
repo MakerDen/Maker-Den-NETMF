@@ -13,7 +13,7 @@ The project should now deploy correctly to your Netduino.
 
 ## Getting Started
 
-The getting started lab code and the [complete Maker Den Lab Guide](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf)
+The getting started lab code and the complete [Maker Den Lab Guide](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf)
 can be found in the Lab Code folder in the Maker Den Project.
 
 Be sure to read the Lab Guide appendix section to understand:-
@@ -301,7 +301,7 @@ Or
 
 The following example creates a relay switch with on/off command and control support.
 
-Your MyRelay class must inherit from ActuatorBase.
+Your actuator class must inherit from ActuatorBase.
 
     using Glovebox.MicroFramework.Base;
 
