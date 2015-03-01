@@ -123,6 +123,52 @@ can be found in the Lab Code folder in the Maker Den Project.
 
 ## Creating a Sensor
 
+A sensor class needs to inherit from SensorBase.  Be sure to right mouse click on Sensor base to Implement the Abstract Class.
+
+
+    using System;
+    using Microsoft.SPOT;
+    using Microsoft.SPOT.Hardware;
+    using System.Threading;
+    using Glovebox.MicroFramework;
+    using Glovebox.MicroFramework.Base;
+
+    namespace Glovebox.Netduino.Sensors {
+        public class SensorLight : SensorBase {
+
+            protected override void Measure(double[] value) {
+                throw new NotImplementedException();
+            }
+
+            protected override string GeoLocation() {
+                throw new NotImplementedException();
+            }
+
+            public override double Current {
+                get { throw new NotImplementedException(); }
+            }
+
+            protected override void SensorCleanup() {
+                throw new NotImplementedException();
+            }
+        }
+    }
+
+
+Add a Sensor Constructor and initialise the SensorBase Base constructor.
+
+        public SensorLight(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
+            : base("light", "p", ValuesPerSample.One, SampleRateMilliseconds, name) {
+
+            analogPin = new AnalogInput(pin, -1);
+
+            // Call StartMeasuring() after sensor initialisation
+            StartMeasuring();
+        }
+
+Implement the abstract methods and properties for the Sensor class.
+
+
     using Glovebox.MicroFramework.Base;
     using Microsoft.SPOT.Hardware;
     using System;
