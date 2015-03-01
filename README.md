@@ -128,8 +128,9 @@ The IoT Framework for the .NET Micro Framework provides a pluggable foundation t
         }
     }
 
+# Creating Sensors and Actuators
 
-## Implementing a Sensor
+## Creating a Sensor
 
 
 ### Inheriting from SensorBase
