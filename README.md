@@ -189,7 +189,7 @@ The SensorBase base constructor requires
         public SensorLight(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
             : base("light", "p", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
-            analogPin = new AnalogInput(pin, -1);
+            ldrAnalogPin = new AnalogInput(pin, -1);
 
             // Call StartMeasuring() after sensor initialisation
             StartMeasuring();
