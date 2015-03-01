@@ -250,9 +250,42 @@ Implement the abstract methods and properties for the Sensor class.
 
                 using (SensorLdr ldr = new SensorLdr(AnalogChannels.ANALOG_PIN_A0, 1000, "ldr01")) {
 
+                    // the event handlers are implemented in the MakerBaseIoT subclass
+                    ldr.OnBeforeMeasurement += OnBeforeMeasure;
+                    ldr.OnAfterMeasurement += OnMeasureCompleted;
+
                     // Thread sleep the main thread forever.  
                     // Your newly created sensor runs on its own thread and in this case wakes up 1000 milliseconds
                     Thread.Sleep(Timeout.Infinite);
+                }
+            }
+        }
+    }
+
+Or
+
+    using Glovebox.Netduino.Sensors;
+    using SecretLabs.NETMF.Hardware.NetduinoPlus;
+    using System.Threading;
+
+    namespace MakerDen {
+        public class Program : MakerBaseIoT {
+
+            public static void Main() {
+
+                using (SensorLdr ldr = new SensorLdr(AnalogChannels.ANALOG_PIN_A0, -1, "ldr01")) {
+
+                    while (true) {
+                        if (ldr.Current < 60) {
+                            // do something...
+                        }
+                        else {
+                            // do something...
+                        }
+                        // good practice not to put your netduino in to a hard loop, so add a thread sleep
+                        Thread.Sleep(100);
+                    }
+
                 }
             }
         }
@@ -349,16 +382,5 @@ Below is an example of driving a Happy Birthday Message to three daisy chained 8
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
