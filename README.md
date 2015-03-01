@@ -123,7 +123,24 @@ can be found in the Lab Code folder in the Maker Den Project.
 
 ## Creating a Sensor
 
-A sensor class needs to inherit from SensorBase.  Be sure to right mouse click on Sensor base to Implement the Abstract Class.
+
+### Inherit from SensorBase
+
+Your sensor class must inherit from SensorBase.  
+
+
+    using Glovebox.MicroFramework.Base;
+
+    namespace Glovebox.Netduino.Sensors {
+
+        public class SensorLight : SensorBase {
+        }
+    }
+
+
+### Implement the Abstract Class
+
+Next right mouse click on SensorBase to Implement the Abstract Class.
 
 
     using System;
@@ -154,6 +171,7 @@ A sensor class needs to inherit from SensorBase.  Be sure to right mouse click o
         }
     }
 
+### Initialise the Constructor
 
 Add a Sensor Constructor and initialise the SensorBase Base constructor.
 
@@ -165,6 +183,9 @@ Add a Sensor Constructor and initialise the SensorBase Base constructor.
             // Call StartMeasuring() after sensor initialisation
             StartMeasuring();
         }
+
+
+### Implement the sensor logic
 
 Implement the abstract methods and properties for the Sensor class.
 
