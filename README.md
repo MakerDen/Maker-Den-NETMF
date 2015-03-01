@@ -173,7 +173,7 @@ Add a Sensor Constructor and initialise the SensorBase Base constructor.
 The SensorBase base constructor requires
 
 1. Sensor Type - arbitrary/sensible type for the sensor.  The value is published alongside the sensor reading to provide some type information.
-2. Senor Unit - arbitrary/sensible measurement unit for the sensor.  Example p for percentage, n for numeric etc
+2. Senor Unit - arbitrary/sensible measurement unit for the sensor.  Example p for percentage, n for numeric etc.  The unit is published alongside the sensor reading to provide some unit information.
 3. Sample Rate in Milliseconds - how often to take a sensor reading
 4. Name - This is a unique name that you can use to identify a sensor from the command and control service.
 
