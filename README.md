@@ -306,7 +306,7 @@ Your actuator class must inherit from ActuatorBase.
     using Glovebox.MicroFramework.Base;
 
     namespace Glovebox.Netduino.Actuators {
-        public class MyRelay : ActuatorBase {
+        public class Relay : ActuatorBase {
         }
     }
 
@@ -317,7 +317,7 @@ Next right mouse click on ActuatorBase to Implement the Abstract Class.
     using Glovebox.MicroFramework.Base;
 
     namespace Glovebox.Netduino.Actuators {
-        public class MyRelay : ActuatorBase {
+        public class Relay : ActuatorBase {
 
             protected override void ActuatorCleanup() {
                 throw new System.NotImplementedException();
@@ -332,8 +332,14 @@ Next right mouse click on ActuatorBase to Implement the Abstract Class.
 
 ## Implement the class constructor
 
-        public MyRelay(Cpu.Pin pin, string name)
-            : base(name, ActuatorType.Relay) {
+The ActuatorBase base constructor requires
+
+1. **Name** - This is a unique name that you can use to identify a actuator from the command and control service.
+2. **Actuator Type** - arbitrary/sensible type for the actuator.  For now not used.
+
+
+        public Relay(Cpu.Pin pin, string name)
+            : base(name, "Relay") {
             relay = new OutputPort(pin, false);
         }
 
@@ -364,11 +370,11 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
     using Microsoft.SPOT.Hardware;
 
     namespace Glovebox.Netduino.Actuators {
-        public class MyRelay : ActuatorBase {
+        public class Relay : ActuatorBase {
 
             public OutputPort relay;
 
-            public MyRelay(Cpu.Pin pin, string name)
+            public Relay(Cpu.Pin pin, string name)
                 : base(name, ActuatorType.Relay) {
                 relay = new OutputPort(pin, false);
             }
@@ -397,13 +403,13 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
     using Microsoft.SPOT.Hardware;
 
     namespace Glovebox.Netduino.Actuators {
-        public class MyRelay : ActuatorBase {
+        public class Relay : ActuatorBase {
 
             public enum Actions { On, Off }
 
             public OutputPort relay;
 
-            public MyRelay(Cpu.Pin pin, string name)
+            public Relay(Cpu.Pin pin, string name)
                 : base(name, ActuatorType.Relay) {
                 relay = new OutputPort(pin, false);
             }
@@ -462,7 +468,7 @@ This example uses the Light Dependent Resistor Sensor to determine the light lev
             public static void Main() {
 
                 using (Sensorldr ldr = new Sensorldr(AnalogChannels.ANALOG_PIN_A0, -1, "ldr01")) 
-                using (MyRelay relay = new MyRelay(Pins.GPIO_PIN_D0, "myRelay01"))
+                using (Relay relay = new Relay(Pins.GPIO_PIN_D0, "myRelay01"))
             
 
                     while (true) {
