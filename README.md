@@ -10,9 +10,6 @@ After either downloading or cloning the source code you will need to reset the .
 
 The project should now deploy correctly to your Netduino.
 
-## What is the Internet of Things Solution Accelerator?
-
-The IoT Framework for the .NET Micro Framework provides a pluggable foundation to support sensors, actuators, data serialisation, communications, and command and control. 
 
 ## Getting Started
 
@@ -25,6 +22,10 @@ Be sure to read the appendix section to understand:-
 2. Software Requirements
 3. Lab Parts
 4. Initial Hardware Setup
+
+## What is the Internet of Things Solution Accelerator?
+
+The IoT Framework for the .NET Micro Framework provides a pluggable foundation to support sensors, actuators, data serialisation, communications, and command and control. 
 
 
 ![Alt text](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/Maker%20Den%20IoT%20Framework.jpg)
