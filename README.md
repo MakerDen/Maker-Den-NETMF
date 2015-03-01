@@ -12,14 +12,12 @@ The project should now deploy correctly to your Netduino.
 
 ## What is the Internet of Things Solution Accelerator?
 
-The IoT 
+The IoT Framework for the .NET Micro Framework provides a pluggable foundation to support sensors, actuators, data serialisation, communications, and command and control. 
 
 ## Getting Started
 
 The getting started lab code and the [complete Maker Den Lab Guide](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf)
 can be found in the Lab Code folder in the Maker Den Project.
-
-The IoTFramework for the .NET Micro Framework provides a pluggable foundation to support sensors, actuators, data serialisation, communications, and command and control. 
 
 
 ![Alt text](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/Maker%20Den%20IoT%20Framework.jpg)
@@ -40,14 +38,14 @@ The IoTFramework for the .NET Micro Framework provides a pluggable foundation to
     - NeoPixel Grids library adds alphanumeric character drawing and scrolling capability 
 
 3. Command and Control
- * Control relays, start neo pixels etc via comms layer
+ * Control relays, start NeoPixels etc via the communications layer
 
 4. Communications
  * Pluggable – currently implemented on MQTT (MQTT Server running on Azure)
 
 5. Supported and Tested
  * Netduino 2 Plus and Gadgeteer
- * Supports Visual Studio 2012 and 2013
+ * Supports Visual Studio 2012 and 2013, 2013 preferred.
 
  
 
@@ -130,18 +128,12 @@ The IoTFramework for the .NET Micro Framework provides a pluggable foundation to
     using System;
 
     namespace Glovebox.Netduino.Sensors {
-        class SensorLdr : <b>SensorBase</b> {
+        class SensorLdr : SensorBase {
 
             protected AnalogInput ldrAnalogPin;
 
-            /// <summary>
-            /// Light Dependent Resistor/Photocell Sensor Class
-            /// </summary>
-            /// <param name="pin">Analog Pin</param>
-            /// <param name="SampleRateMilliseconds">How often to sample the sensor on milliseconds</param>
-            /// <param name="name">Sensor target name for command and control</param>
             public SensorLdr(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
-                // SensorBase constructor: sensor type, sensor units, number of samples to collect per sample, 
+                // SensorBase constructor: sensor type, sensor unit, number of values to collect per sample, 
                 // sample rate, target name for command and control
                 : base("light", "p", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
@@ -153,22 +145,24 @@ The IoTFramework for the .NET Micro Framework provides a pluggable foundation to
 
 
             protected override void Measure(double[] value) {
-                throw new NotImplementedException();
+                value[0] = (int)(ldrAnalogPin.Read() * 100);
             }
 
             protected override string GeoLocation() {
-                throw new NotImplementedException();
+                return string.Empty;
             }
 
             public override double Current {
-                get { throw new NotImplementedException(); }
+                get { return (int)(ldrAnalogPin.Read() * 100); }
             }
 
             protected override void SensorCleanup() {
-                throw new NotImplementedException();
+                ldrAnalogPin.Dispose();
             }
         }
     }
+
+
 
 
 
