@@ -263,7 +263,7 @@ Implement the abstract methods and properties for the Sensor class.
 
 # NeoPixels and Netduino
 
-The IoT Solution Accelerator also includes a comprehensive library to drive NeoPixels.  There is support for multiple NeoPixel grids daisy chained together, plus rings and strips.
+The IoT Solution Accelerator also includes a comprehensive library to drive NeoPixels.  There is support for multiple NeoPixel grids daisy chained together such as the [NeoPixel NeoMatrix 8x8 - 64 RGB LED](http://www.adafruit.com/products/1487), plus rings and strips.
 
 Below is an example of driving a Happy Birthday Message to three daisy chained 8x8 NeoPixel Grids.  
 
@@ -349,4 +349,16 @@ Below is an example of driving a Happy Birthday Message to three daisy chained 8
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
