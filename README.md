@@ -171,7 +171,7 @@ Next right mouse click on SensorBase to Implement the Abstract Class.
         }
     }
 
-### Initialise the Constructor
+### Initialise the Sensor Base Constructor
 
 Add a Sensor Constructor and initialise the SensorBase Base constructor.
 
