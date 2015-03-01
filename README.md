@@ -16,7 +16,7 @@ The project should now deploy correctly to your Netduino.
 The getting started lab code and the [complete Maker Den Lab Guide](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf)
 can be found in the Lab Code folder in the Maker Den Project.
 
-Be sure to read the appendix section to understand:-
+Be sure to read the Lab Guide appendix section to understand:-
 
 1. Trouble Shooting
 2. Software Requirements
@@ -298,7 +298,186 @@ Or
         }
     }
 
+## Creating an Actuator
 
+The following is a relay switch example with on/off command and control support.
+
+    using Glovebox.MicroFramework.Base;
+
+    namespace Glovebox.Netduino.Actuators {
+        public class MyRelay : ActuatorBase {
+        }
+    }
+
+### Implement the Abstract Class
+
+Next right mouse click on ActuatorBase to Implement the Abstract Class.
+
+    using Glovebox.MicroFramework.Base;
+
+    namespace Glovebox.Netduino.Actuators {
+        public class MyRelay : ActuatorBase {
+
+            protected override void ActuatorCleanup() {
+                throw new System.NotImplementedException();
+            }
+
+            public override void Action(MicroFramework.IoT.IotAction action) {
+                throw new System.NotImplementedException();
+            }
+        }
+    }
+
+
+## Implement the class constructor
+
+        public MyRelay(Cpu.Pin pin, string name)
+            : base(name, ActuatorType.Relay) {
+            relay = new OutputPort(pin, false);
+        }
+
+## Implement the Actuator Cleanup
+
+        protected override void ActuatorCleanup() {
+            relay.Dispose();
+        }
+
+## Implement Command and Control
+
+See the Lab Guide Appendix for information on sending a command via MQTT.
+
+        public override void Action(Glovebox.MicroFramework.IoT.IotAction action) {
+            switch (action.cmd) {
+                case "on":
+                    relay.Write(true);
+                    break;
+                case "off":
+                    relay.Write(false);
+                    break;
+            }
+        }
+
+## The Completed Relay Class
+
+    using Glovebox.MicroFramework.Base;
+    using Microsoft.SPOT.Hardware;
+
+    namespace Glovebox.Netduino.Actuators {
+        public class MyRelay : ActuatorBase {
+
+            public OutputPort relay;
+
+            public MyRelay(Cpu.Pin pin, string name)
+                : base(name, ActuatorType.Relay) {
+                relay = new OutputPort(pin, false);
+            }
+
+            protected override void ActuatorCleanup() {
+                relay.Dispose();
+            }
+
+            public override void Action(Glovebox.MicroFramework.IoT.IotAction action) {
+                switch (action.cmd) {
+                    case "on":
+                        relay.Write(true);
+                        break;
+                    case "off":
+                        relay.Write(false);
+                        break;
+                }
+            }
+        }
+    }
+
+
+## Coder Friendly Relay Class
+
+    using Glovebox.MicroFramework.Base;
+    using Microsoft.SPOT.Hardware;
+
+    namespace Glovebox.Netduino.Actuators {
+        public class MyRelay : ActuatorBase {
+
+            public enum Actions { On, Off }
+
+            public OutputPort relay;
+
+            public MyRelay(Cpu.Pin pin, string name)
+                : base(name, ActuatorType.Relay) {
+                relay = new OutputPort(pin, false);
+            }
+
+            protected override void ActuatorCleanup() {
+                relay.Dispose();
+            }
+
+            public override void Action(Glovebox.MicroFramework.IoT.IotAction action) {
+                switch (action.cmd) {
+                    case "on":
+                        TurnOn();
+                        break;
+                    case "off":
+                        TurnOff();
+                        break;
+                }
+            }
+
+            public void Action(Actions action) {
+                switch (action) {
+                    case Actions.On:
+                        TurnOn();
+                        break;
+                    case Actions.Off:
+                        TurnOff();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            public void TurnOn() {
+                relay.Write(true);
+            }
+
+            public void TurnOff() {
+                relay.Write(false);
+            }
+        }
+    }
+
+
+## Using the newly created Relay Actuator
+
+This example uses the Light Dependent Resistor Sensor to determine the light levels.  Depending on the light level, the Relay will be turned on or off.  The relay could be controlling a light.
+
+    using Glovebox.Netduino.Actuators;
+    using Glovebox.Netduino.Sensors;
+    using SecretLabs.NETMF.Hardware.NetduinoPlus;
+    using System.Threading;
+
+    namespace MakerDen {
+        public class Program : MakerBaseIoT {
+
+            public static void Main() {
+
+                using (Sensorldr ldr = new Sensorldr(AnalogChannels.ANALOG_PIN_A0, -1, "ldr01")) 
+                using (MyRelay relay = new MyRelay(Pins.GPIO_PIN_D0, "myRelay01"))
+            
+
+                    while (true) {
+                        if (ldr.Current < 60) {
+                            relay.Action(MyRelay.Actions.On);
+                        }
+                        else {
+                            relay.Action(MyRelay.Actions.Off);
+                        }
+                        // good practice not to put your netduino in to a hard loop, so add a thread sleep
+                        Thread.Sleep(100);
+                    }
+                }
+            }
+        }
+    }
 
 
 # NeoPixels and Netduino
