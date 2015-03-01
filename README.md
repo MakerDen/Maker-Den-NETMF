@@ -130,7 +130,7 @@ The IoTFramework for the .NET Micro Framework provides a pluggable foundation to
     using System;
 
     namespace Glovebox.Netduino.Sensors {
-        class SensorLdr : __SensorBase__ {
+        class SensorLdr : SensorBase {
 
             protected AnalogInput ldrAnalogPin;
 
