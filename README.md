@@ -203,8 +203,6 @@ Implement the abstract methods and properties for the Sensor class.
             protected AnalogInput ldrAnalogPin;
 
             public SensorLdr(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
-                // SensorBase constructor: sensor type, sensor unit, number of values to collect per sample, 
-                // sample rate, target name for command and control
                 : base("light", "p", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
                 ldrAnalogPin = new AnalogInput(pin, -1);
