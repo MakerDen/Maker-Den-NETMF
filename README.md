@@ -285,7 +285,6 @@ Or
                         // good practice not to put your netduino in to a hard loop, so add a thread sleep
                         Thread.Sleep(100);
                     }
-
                 }
             }
         }
@@ -382,5 +381,16 @@ Below is an example of driving a Happy Birthday Message to three daisy chained 8
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
