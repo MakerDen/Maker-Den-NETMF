@@ -11,7 +11,7 @@ namespace Coatsy.Netduino.NeoPixel
         Queue actionQueue = new Queue();
 
         public NeoPixelAction(string name)
-            : base(name, ActuatorType.NeoPixel) {
+            : base(name, "neopixel") {
         }
 
         public IotAction GetNextAction() {

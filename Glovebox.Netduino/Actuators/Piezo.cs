@@ -26,7 +26,7 @@ namespace Glovebox.Netduino.Actuators {
         /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.PWMChannels namespace</param>
         /// <param name="name">Unique identifying name for command and control</param>
         public Piezo(Cpu.PWMChannel pin, string name)
-            : base(name, ActuatorType.Piezo)
+            : base(name, "piezo")
         {
             _piezo = new PWM(pin, 0, 0, PWM.ScaleFactor.Microseconds, false);
             _piezo.Start();

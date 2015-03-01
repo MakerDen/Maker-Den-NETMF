@@ -24,8 +24,8 @@ namespace Glovebox.MicroFramework.Base {
         protected readonly uint id;
 
         public IotBase(string name, string type) {
-            this.name = name == null ? "unknown" : name.ToLower();
-            this.type = type == null ? "unknown" : type.ToLower();
+            this.name = name == null ? "unknownName" : name.ToLower();
+            this.type = type == null ? "unknownType" : type.ToLower();
             this.id = IotActionManager.AddItem(this);
         }
 

@@ -9,8 +9,8 @@ using Glovebox.MicroFramework.Base;
 namespace Glovebox.Netduino.Actuators {
     public class Relay : ActuatorBase {
         public enum Actions {
-            Start,
-            Stop
+            On,
+            Off
         }
 
         public OutputPort relay;
@@ -21,16 +21,8 @@ namespace Glovebox.Netduino.Actuators {
         /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
         /// <param name="name">Unique identifying name for command and control</param>
         public Relay(Cpu.Pin pin, string name)
-            : base(name, ActuatorType.Relay) {
+            : base(name, "relay") {
             relay = new OutputPort(pin, false);
-        }
-
-        public void TurnOn() {
-            relay.Write(true);
-        }
-
-        public void TurnOff() {
-            relay.Write(false);
         }
 
         protected override void ActuatorCleanup() {
@@ -39,10 +31,10 @@ namespace Glovebox.Netduino.Actuators {
 
         public void Action(Actions action) {
             switch (action) {
-                case Actions.Start:
+                case Actions.On:
                     TurnOn();
                     break;
-                case Actions.Stop:
+                case Actions.Off:
                     TurnOff();
                     break;
                 default:
@@ -59,6 +51,14 @@ namespace Glovebox.Netduino.Actuators {
                     TurnOff();
                     break;
             }
+        }
+
+        public void TurnOn() {
+            relay.Write(true);
+        }
+
+        public void TurnOff() {
+            relay.Write(false);
         }
     }
 }

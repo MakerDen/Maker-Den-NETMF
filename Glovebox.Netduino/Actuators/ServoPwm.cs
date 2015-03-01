@@ -58,7 +58,7 @@ namespace Glovebox.Netduino.Actuators {
         /// </summary>
         /// <param name="pin">PWM Pin</param>
         public ServoPwm(Cpu.PWMChannel pin, string name)
-            : base(name, ActuatorType.ServoPwm) {
+            : base(name, "servopwm") {
             _pin = pin;
             Initialise();
         }
@@ -71,7 +71,7 @@ namespace Glovebox.Netduino.Actuators {
         /// <param name="maxPulseDuration">maximum pulse duration for servo in microseconds</param>
         /// <param name="maxDegrees">maximum degrees the servo can sweep</param>
         public ServoPwm(Cpu.PWMChannel pin, uint period, uint minPulseDuration, uint maxPulseDuration, uint maxDegrees, string name)
-            : base(name, ActuatorType.ServoPwm) {
+            : base(name, "servopwm") {
             _pin = pin;
             _period = period;
             _minPosition = minPulseDuration;

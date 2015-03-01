@@ -67,7 +67,7 @@ namespace Glovebox.Netduino.Actuators {
         /// <param name="blue">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
         /// <param name="name">Unique identifying name for command and control</param>
         public RgbLed(Cpu.Pin red, Cpu.Pin green, Cpu.Pin blue, string name)
-            : base(name, ActuatorType.RgbLed) {
+            : base(name, "rgbled") {
             Cpu.Pin[] ledPins = new Cpu.Pin[] { red, green, blue };
             for (int i = 0; i < 3; i++) {
                 ls[i] = new ledState();

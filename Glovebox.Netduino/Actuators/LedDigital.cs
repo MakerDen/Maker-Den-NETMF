@@ -32,7 +32,7 @@ namespace Glovebox.Netduino.Actuators {
         /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
         /// <param name="name">Unique identifying name for command and control</param>
            public LedDigital(Cpu.Pin pin, string name)
-            : base(name, ActuatorType.Led) {
+            : base(name, "led") {
             ts.MyTimer = new Timer(new TimerCallback(BlinkTime_Tick), ts, Timeout.Infinite, Timeout.Infinite);
             ts.led = new OutputPort(pin, false);
         }
