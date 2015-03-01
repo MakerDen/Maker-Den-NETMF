@@ -1,9 +1,23 @@
-Documentation in progress.
+*Documentation in progress*
 
+## First time deploying code to your Netduino
+After either downloading or cloning the source code you will need to reset the .NET Micro Framework Deployment Transport.  
 
-### IoT-Maker-Den-NETMF
+1. Ensure your Netduino is connected to your PC via the USB cable.  
+2. Right mouse click the MakerDen project, and select Properties.  
+3. From the properties page select the .NET Micro Framework 
+4. Select Emulator from the Transport dropdown then reselect USB and your Netduino.  
 
-[Complete Maker Den Lab Guide](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf)
+The project should now deploy correctly to your Netduino.
+
+## What is the Internet of Things Solution Accelerator?
+
+The IoT 
+
+## Getting Started
+
+The getting started lab code and the [complete Maker Den Lab Guide](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf)
+can be found in the Lab Code folder in the Maker Den Project.
 
 The IoTFramework for the .NET Micro Framework provides a pluggable foundation to support sensors, actuators, data serialisation, communications, and command and control. 
 
@@ -13,14 +27,17 @@ The IoTFramework for the .NET Micro Framework provides a pluggable foundation to
 
 ## Extensible/pluggable framework supporting
 
-
 1. Sensors
  * Physical: Light, Sound, Temperature (onewire), Servo
  * Virtual: Memory Usage, Diagnostics
  * Sensor data serialised to a JSON schema
 
 2. Actuators
- * RGB, RGB PWM, Piezo, Relay, NeoPixel (strips, rings and grids)
+ * RGB, RGB PWM, Piezo, Relay
+ * NeoPixel - Supports Strips, Rings, and Grids
+    - Low and high level pixel frame transformation primitives 
+    - Extensive colour library support along with some predefined palettes
+    - NeoPixel Grids library adds alphanumeric character drawing and scrolling capability 
 
 3. Command and Control
  * Control relays, start neo pixels etc via comms layer
@@ -44,7 +61,7 @@ The IoTFramework for the .NET Micro Framework provides a pluggable foundation to
     using Microsoft.SPOT;
     using SecretLabs.NETMF.Hardware.NetduinoPlus;
     using System.Threading;
-    
+
     namespace MakerDen {
         public class Program : MakerBaseIoT  {
             public static void Main() {
@@ -81,7 +98,7 @@ The IoTFramework for the .NET Micro Framework provides a pluggable foundation to
     using System.Threading;
     
     namespace MakerDen {
-        public class Program : MakerBaseIoT  {
+        public class Program : MakerBaseIoT {
             public static void Main() {
                 // main code marker
     
@@ -89,20 +106,66 @@ The IoTFramework for the .NET Micro Framework provides a pluggable foundation to
                 using (SensorLight light = new SensorLight(AnalogChannels.ANALOG_PIN_A0, -1, "light01"))
                 using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01")) {
     
-                    while (true) {
-                        if (light.Current < 60) {
-                            rgb.On(RgbLed.Led.Red);
-                            rgb.Off(RgbLed.Led.Green);
-                        }
-                        else {
-                            rgb.Off(RgbLed.Led.Red);
-                            rgb.On(RgbLed.Led.Green);
-                        }
-                        Thread.Sleep(100);
+                    if (light.Current < 60) {
+                        rgb.On(RgbLed.Led.Red);
+                        rgb.Off(RgbLed.Led.Green);
+                    }
+                    else {
+                        rgb.Off(RgbLed.Led.Red);
+                        rgb.On(RgbLed.Led.Green);
                     }
                 }
             }
         }
     }
+
+## Creating a Sensor
+
+    using Glovebox.MicroFramework.Base;
+    using Microsoft.SPOT.Hardware;
+    using System;
+
+    namespace Glovebox.Netduino.Sensors {
+        class SensorLdr : SensorBase {
+
+            protected AnalogInput ldrAnalogPin;
+
+            /// <summary>
+            /// Light Dependent Resistor/Photocell Sensor Class
+            /// </summary>
+            /// <param name="pin">Analog Pin</param>
+            /// <param name="SampleRateMilliseconds">How often to sample the sensor on milliseconds</param>
+            /// <param name="name">Sensor target name for command and control</param>
+            public SensorLdr(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
+                // SensorBase constructor: sensor type, sensor units, number of samples to collect per sample, 
+                // sample rate, target name for command and control
+                : base("light", "p", ValuesPerSample.One, SampleRateMilliseconds, name) {
+
+                ldrAnalogPin = new AnalogInput(pin, -1);
+
+                // after initalisation call StartMeasuring() to start sensor sampling at defined sample rate
+                StartMeasuring();
+            }
+
+
+            protected override void Measure(double[] value) {
+                throw new NotImplementedException();
+            }
+
+            protected override string GeoLocation() {
+                throw new NotImplementedException();
+            }
+
+            public override double Current {
+                get { throw new NotImplementedException(); }
+            }
+
+            protected override void SensorCleanup() {
+                throw new NotImplementedException();
+            }
+        }
+    }
+
+
 
 
