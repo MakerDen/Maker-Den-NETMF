@@ -143,11 +143,6 @@ Your sensor class must inherit from SensorBase.
 Next right mouse click on SensorBase to Implement the Abstract Class.
 
 
-    using System;
-    using Microsoft.SPOT;
-    using Microsoft.SPOT.Hardware;
-    using System.Threading;
-    using Glovebox.MicroFramework;
     using Glovebox.MicroFramework.Base;
 
     namespace Glovebox.Netduino.Sensors {
