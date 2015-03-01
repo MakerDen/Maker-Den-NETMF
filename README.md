@@ -237,7 +237,25 @@ Implement the abstract methods and properties for the Sensor class.
     }
 
 
+### Using your newly created sensor
 
+    using Glovebox.Netduino.Sensors;
+    using SecretLabs.NETMF.Hardware.NetduinoPlus;
+    using System.Threading;
+
+    namespace MakerDen {
+        public class Program : MakerBaseIoT {
+
+            public static void Main() {
+
+                using (SensorLdr ldr = new SensorLdr(AnalogChannels.ANALOG_PIN_A0, 1000, "ldr01")) {
+
+                    // Thread sleep here forever.  The sensor runs on it's own thread and wakes up 1000 milliseconds
+                    Thread.Sleep(Timeout.Infinite);
+                }
+            }
+        }
+    }
 
 
 
