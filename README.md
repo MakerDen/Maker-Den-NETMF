@@ -251,7 +251,7 @@ Implement the abstract methods and properties for the Sensor class.
                 using (SensorLdr ldr = new SensorLdr(AnalogChannels.ANALOG_PIN_A0, 1000, "ldr01")) {
 
                     // Thread sleep the main thread forever.  
-                    // Your newly created sensor runs on it's own thread and in this case wakes up 1000 milliseconds
+                    // Your newly created sensor runs on its own thread and in this case wakes up 1000 milliseconds
                     Thread.Sleep(Timeout.Infinite);
                 }
             }
