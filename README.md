@@ -121,10 +121,10 @@ can be found in the Lab Code folder in the Maker Den Project.
     }
 
 
-## Creating a Sensor
+## Implementing a Sensor
 
 
-### Inherit from SensorBase
+### Inheriting from SensorBase
 
 Your sensor class must inherit from SensorBase.  
 
