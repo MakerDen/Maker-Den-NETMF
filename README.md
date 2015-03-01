@@ -447,7 +447,7 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
     }
 
 
-## Using the newly created Relay Actuator
+## Using your newly created actuator
 
 This example uses the Light Dependent Resistor Sensor to determine the light levels.  Depending on the light level, the Relay will be turned on or off.  The relay could be controlling a light.
 
