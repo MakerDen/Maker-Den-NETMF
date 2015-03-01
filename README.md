@@ -300,7 +300,7 @@ Or
 
 ## Creating an Actuator
 
-The following is a relay switch example with on/off command and control support.
+The following example creates a relay switch with on/off command and control support.
 
     using Glovebox.MicroFramework.Base;
 
