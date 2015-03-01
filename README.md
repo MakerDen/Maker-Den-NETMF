@@ -339,7 +339,7 @@ The ActuatorBase base constructor requires
 
 
         public Relay(Cpu.Pin pin, string name)
-            : base(name, "Relay") {
+            : base(name, "relay") {
             relay = new OutputPort(pin, false);
         }
 
@@ -374,8 +374,13 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
 
             public OutputPort relay;
 
+	        /// <summary>
+	        /// Create a relay control
+	        /// </summary>
+	        /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
+	        /// <param name="name">Unique identifying name for command and control</param>
             public Relay(Cpu.Pin pin, string name)
-                : base(name, ActuatorType.Relay) {
+                : base(name, "relay") {
                 relay = new OutputPort(pin, false);
             }
 
@@ -409,8 +414,13 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
 
             public OutputPort relay;
 
-            public Relay(Cpu.Pin pin, string name)
-                : base(name, ActuatorType.Relay) {
+            /// <summary>
+	        /// Create a relay control
+	        /// </summary>
+	        /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
+	        /// <param name="name">Unique identifying name for command and control</param>
+			public Relay(Cpu.Pin pin, string name)
+                : base(name, "relay") {
                 relay = new OutputPort(pin, false);
             }
 
@@ -468,8 +478,7 @@ This example uses the Light Dependent Resistor Sensor to determine the light lev
             public static void Main() {
 
                 using (Sensorldr ldr = new Sensorldr(AnalogChannels.ANALOG_PIN_A0, -1, "ldr01")) 
-                using (Relay relay = new Relay(Pins.GPIO_PIN_D0, "myRelay01"))
-            
+                using (Relay relay = new Relay(Pins.GPIO_PIN_D0, "relay01"))            
 
                     while (true) {
                         if (ldr.Current < 60) {
