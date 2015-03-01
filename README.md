@@ -260,3 +260,93 @@ Implement the abstract methods and properties for the Sensor class.
 
 
 
+
+# NeoPixels and Netduino
+
+The IoT Solution Accelerator also includes a comprehensive library to drive NeoPixels.  There is support for multiple NeoPixel grids daisy chained together, plus rings and strips.
+
+Below is an example of driving a Happy Birthday Message to three daisy chained 8x8 NeoPixel Grids.  
+
+    using Coatsy.Netduino.NeoPixel;
+    using Coatsy.Netduino.NeoPixel.Grid;
+    using System.Threading;
+
+    namespace MakerDen {
+        public class Program {
+
+            public static void Main() {
+                // main code marker
+
+                // Create new instance of a grid named grid01, there are three 8x8 grids daisy chained
+                NeoPixelGrid8x8 grid = new NeoPixelGrid8x8("grid01", 3);
+
+                while (true) {
+
+                    // Scroll Happy Birthday in from the right
+                    grid.ScrollStringInFromRight("Happy Birthday", grid.PaletteHotLowPower, 10);
+                    Thread.Sleep(500);
+
+                    // write the letter K on the first panel
+                    grid.DrawLetter('K', Pixel.ColourLowPower.HotRed, 0);
+                    // write the letter I on the second panel
+                    grid.DrawLetter('I', Pixel.ColourLowPower.HotGreen, 1);
+                    // write the letter T on the third panel
+                    grid.DrawLetter('T', Pixel.ColourLowPower.HotBlue, 2);
+
+
+                    // now create a randomised pattern by shuntting alternate rows right and left
+                    for (int i = 0; i < grid.Columns * grid.Panels / 2; i++) {
+                        grid.ColumnRollRight(0);
+                        grid.ColumnRollRight(0);
+
+                        grid.ColumnRollLeft(2);
+                        grid.ColumnRollLeft(2);
+
+                        grid.ColumnRollRight(4);
+                        grid.ColumnRollRight(4);
+
+                        grid.ColumnRollLeft(6);
+                        grid.ColumnRollLeft(6);
+
+                        // now draw the frame buffer to the neopixel grids
+                        grid.FrameDraw();
+                        Thread.Sleep(10);
+                    }
+                    Thread.Sleep(1000);
+
+                    // now draw the letters KIT in different colours from the PaletteHotLowPower palette
+                    foreach (var c in grid.PaletteHotLowPower) {
+                        grid.DrawLetter('K', c, 0);
+                        grid.DrawLetter('I', c, 1);
+                        grid.DrawLetter('T', c, 2);
+
+                        // now draw the frame buffer to the neopixel grids
+                        grid.FrameDraw();
+                        Thread.Sleep(500);
+                    }
+
+                    // clear the frame buffer
+                    grid.FrameClear();
+
+                    // scroll in the heart symbols in from the left
+                    grid.ScrollSymbolInFromLeft(new NeoPixelGrid8x8.Symbols[] { NeoPixelGrid8x8.Symbols.Heart, NeoPixelGrid8x8.Symbols.Heart, NeoPixelGrid8x8.Symbols.Heart }, Pixel.ColourLowPower.HotRed, 10);
+                    Thread.Sleep(500);
+
+                    // now redraw the heart symbols in different colours
+                    grid.DrawSymbol(NeoPixelGrid8x8.Symbols.Heart, Pixel.ColourLowPower.HotBlue, 0);
+                    grid.DrawSymbol(NeoPixelGrid8x8.Symbols.Heart, Pixel.ColourLowPower.HotBlue, 1);
+                    grid.DrawSymbol(NeoPixelGrid8x8.Symbols.Heart, Pixel.ColourLowPower.HotBlue, 2);
+                    grid.FrameDraw();
+                    Thread.Sleep(500);
+
+                    grid.DrawSymbol(NeoPixelGrid8x8.Symbols.Heart, Pixel.ColourLowPower.HotGreen, 0);
+                    grid.DrawSymbol(NeoPixelGrid8x8.Symbols.Heart, Pixel.ColourLowPower.HotGreen, 1);
+                    grid.DrawSymbol(NeoPixelGrid8x8.Symbols.Heart, Pixel.ColourLowPower.HotGreen, 2);
+                    grid.FrameDraw();
+                    Thread.Sleep(500);
+
+                }
+            }
+        }
+    }
+
