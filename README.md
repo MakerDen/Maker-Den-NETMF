@@ -198,7 +198,7 @@ Implement the abstract methods and properties for the Sensor class.
     using System;
 
     namespace Glovebox.Netduino.Sensors {
-        class SensorLdr : SensorBase {
+        public class SensorLdr : SensorBase {
 
             protected AnalogInput ldrAnalogPin;
 
