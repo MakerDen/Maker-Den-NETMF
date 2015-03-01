@@ -19,6 +19,13 @@ The IoT Framework for the .NET Micro Framework provides a pluggable foundation t
 The getting started lab code and the [complete Maker Den Lab Guide](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf)
 can be found in the Lab Code folder in the Maker Den Project.
 
+Be sure to read the appendix section to understand:-
+
+1. Trouble Shooting
+2. Software Requirements
+3. Lab Parts
+4. Initial Hardware Setup
+
 
 ![Alt text](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/Maker%20Den%20IoT%20Framework.jpg)
 
@@ -173,7 +180,7 @@ Add a Sensor Constructor and initialise the SensorBase Base constructor.
 The SensorBase base constructor requires
 
 1. **Sensor Type** - arbitrary/sensible type for the sensor.  The value is published alongside the sensor reading to provide some type information.
-2. **Senor Unit** - arbitrary/sensible measurement unit for the sensor.  Example p for percentage, n for numeric etc.  The unit is published alongside the sensor reading to provide some unit information.
+2. **Sensor Unit** - arbitrary/sensible measurement unit for the sensor.  Example p for percentage, n for numeric etc.  The unit is published alongside the sensor reading to provide some unit information.
 3. **Sample Rate in Milliseconds** - how often to take a sensor reading.
 4. **Name** - This is a unique name that you can use to identify a sensor from the command and control service.
 
