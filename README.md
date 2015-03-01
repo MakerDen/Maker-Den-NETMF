@@ -202,12 +202,18 @@ Implement the abstract methods and properties for the Sensor class.
 
             protected AnalogInput ldrAnalogPin;
 
+            /// <summary>
+            /// Light Dependent Resistor Sensor Class
+            /// </summary>
+            /// <param name="pin">Analog Pin</param>
+            /// <param name="SampleRateMilliseconds">How often to sample the sensor on milliseconds</param>
+            /// <param name="name">Sensor target name for command and control</param>
             public SensorLdr(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
                 : base("light", "p", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
                 ldrAnalogPin = new AnalogInput(pin, -1);
 
-                // after initalisation call StartMeasuring() to start sensor sampling at defined sample rate
+                // Call StartMeasuring() after sensor initialisation
                 StartMeasuring();
             }
 
