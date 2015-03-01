@@ -140,7 +140,6 @@ Your sensor class must inherit from SensorBase.
     using Glovebox.MicroFramework.Base;
 
     namespace Glovebox.Netduino.Sensors {
-
         public class SensorLight : SensorBase {
         }
     }
@@ -301,6 +300,8 @@ Or
 ## Creating an Actuator
 
 The following example creates a relay switch with on/off command and control support.
+
+Your MyRelay class must inherit from ActuatorBase.
 
     using Glovebox.MicroFramework.Base;
 
