@@ -250,6 +250,8 @@ Implement the abstract methods and properties for the Sensor class.
 
 ### Using your newly created sensor
 
+When you reference a pin on the Netduino in your code it is important to use the **SecretLabs.NETMF.Hardware.NetduinoPlus** namespace not the Microsoft.SPOT.Hardware.Cpu.Pin which (unfortunately) is the Visual Studio default.
+
 	// program.cs
     using Glovebox.Netduino.Sensors;
     using SecretLabs.NETMF.Hardware.NetduinoPlus;
@@ -410,6 +412,8 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
 
 ### Coder Friendly Relay Class
 
+This version adds an Actions enumeration to make it more developer friendly.
+
     using Glovebox.MicroFramework.Base;
     using Microsoft.SPOT.Hardware;
 
@@ -418,7 +422,7 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
 
             public enum Actions { On, Off }
 
-            public OutputPort relay;
+            private OutputPort relay;
 
             /// <summary>
 	        /// Create a relay control
@@ -472,6 +476,8 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
 ### Using your newly created actuator
 
 This example uses the Light Dependent Resistor Sensor to determine the light levels.  Depending on the light level, the Relay will be turned on or off.  The relay could be controlling a light.
+
+When you reference a pin on the Netduino in your code it is important to use the **SecretLabs.NETMF.Hardware.NetduinoPlus** namespace not the Microsoft.SPOT.Hardware.Cpu.Pin which (unfortunately) is the Visual Studio default.
 
 	// program.cs    
 	using Glovebox.Netduino.Actuators;
@@ -555,7 +561,7 @@ The following example brings it all together and uses all the sensors and actuat
 
 This solution is publishing sensor data to the Mosquitto MQTT Service running on Microsoft Azure.  The data is displayed using the [IoT Dashboard](https://github.com/MakerDen/IoT-Dashboard).
 
-![IoT Dashboard](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoTDashboard.JPG)
+[IoT Dashboard](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoTDashboard.JPG)
 
 
 # NeoPixels and Netduino
