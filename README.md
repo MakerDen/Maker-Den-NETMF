@@ -495,10 +495,10 @@ When you reference a pin on the Netduino in your code it is important to use the
 
                     while (true) {
                         if (ldr.Current < 60) {
-                            relay.Action(MyRelay.Actions.On);
+                            relay.Action(Relay.Actions.On);
                         }
                         else {
-                            relay.Action(MyRelay.Actions.Off);
+                            relay.Action(Relay.Actions.Off);
                         }
                         // good practice not to put your netduino in to a hard loop, so add a thread sleep
                         Thread.Sleep(100);
