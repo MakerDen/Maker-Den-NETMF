@@ -506,6 +506,7 @@ This example uses the Light Dependent Resistor Sensor to determine the light lev
 
 The following example brings it all together and uses all the sensors and actuators defined in the IoT Solution Accelerator.  
 
+	// program.cs
     using Glovebox.MicroFramework.Sensors;
     using Glovebox.Netduino.Actuators;
     using Glovebox.Netduino.Sensors;
@@ -553,6 +554,7 @@ The following example brings it all together and uses all the sensors and actuat
     }
 
 
+![IoT Dashboard](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoTDashboard.JPG)
 
 
 # NeoPixels and Netduino
@@ -561,7 +563,8 @@ The IoT Solution Accelerator also includes a comprehensive library to drive NeoP
 
 Below is an example of driving a Happy Birthday message to three daisy chained 8x8 NeoPixel NeoMatrix Grids.  
 
-    using Coatsy.Netduino.NeoPixel;
+	// program.cs    
+	using Coatsy.Netduino.NeoPixel;
     using Coatsy.Netduino.NeoPixel.Grid;
     using System.Threading;
 
@@ -643,3 +646,16 @@ Below is an example of driving a Happy Birthday message to three daisy chained 8
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
