@@ -7,7 +7,7 @@ using Glovebox.MicroFramework.Base;
 
 namespace Glovebox.Netduino.Sensors {
     public class SensorLight : SensorBase {
-        protected AnalogInput analogPin;
+        private AnalogInput analogPin;
 
         public override double Current { get { return (int)(analogPin.Read() * 100); } }
 

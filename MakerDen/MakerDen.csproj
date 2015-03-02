@@ -110,6 +110,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Lab Code\IoTDashboard.JPG" />
     <Content Include="Lab Code\Lab 1.txt" />
     <Content Include="Lab Code\Lab 2.txt" />
     <Content Include="Lab Code\Lab 3.txt" />

@@ -13,7 +13,7 @@ namespace Glovebox.Netduino.Actuators {
             Off
         }
 
-        public OutputPort relay;
+        private OutputPort relay;
 
         /// <summary>
         /// Create a relay control

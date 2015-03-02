@@ -6,7 +6,7 @@ using Glovebox.MicroFramework.Base;
 
 namespace Glovebox.Netduino.Sensors {
     public class SensorSound : SensorBase {
-        protected AnalogInput analogPin;
+        private AnalogInput analogPin;
 
         // https://www.inkling.com/read/arduino-cookbook-michael-margolis-2nd/chapter-6/recipe-6-7
         // https://randomskk.net/projects/lightstrip/code.html
