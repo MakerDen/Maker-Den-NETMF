@@ -1,17 +1,17 @@
 *Documentation in progress*
 
-## First time deploying code to your Netduino
+# First time deploying code to your Netduino
 After either downloading or cloning the source code you will need to reset the .NET Micro Framework Deployment Transport.  
 
 1. Ensure your Netduino is connected to your PC via the USB cable.  
 2. Right mouse click the MakerDen project, and select Properties.  
-3. From the properties page select the .NET Micro Framework 
+3. From the properties page select the .NET Micro Framework tab
 4. Select Emulator from the Transport dropdown then reselect USB and your Netduino.  
 
 The project should now deploy correctly to your Netduino.
 
 
-## Getting Started
+# Getting Started
 
 The getting started lab code and the complete [Maker Den Lab Guide](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf)
 can be found in the Lab Code folder in the Maker Den Project.
@@ -23,9 +23,9 @@ Be sure to read the Lab Guide appendix section to understand:-
 3. Lab Parts
 4. Initial Hardware Setup
 
-## What is the Internet of Things Solution Accelerator?
+# What is the Internet of Things Solution Accelerator?
 
-The IoT Framework for the .NET Micro Framework provides a pluggable foundation to support sensors, actuators, data serialisation, communications, and command and control. 
+The Internet of Things Solution Accelerator for the .NET Micro Framework provides a pluggable foundation to support sensors, actuators, data serialisation, communications, and command and control. 
 
 
 ![Alt text](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/Maker%20Den%20IoT%20Framework.jpg)
@@ -43,13 +43,13 @@ The IoT Framework for the .NET Micro Framework provides a pluggable foundation t
  * NeoPixel - Supports Strips, Rings, and Grids
     - Low and high level pixel frame transformation primitives 
     - Extensive colour library support along with some predefined palettes
-    - NeoPixel Grids library adds alphanumeric character drawing and scrolling capability 
+    - NeoPixel NeoMatrix Grid library adds alphanumeric character drawing and scrolling capability 
 
 3. Command and Control
  * Control relays, start NeoPixels etc via the communications layer
 
 4. Communications
- * Pluggable – currently implemented on MQTT (MQTT Server running on Azure)
+ * Pluggable – currently implemented on MQTT ([Mosquitto](http://mosquitto.org) MQTT Server running on Azure)
 
 5. Supported and Tested
  * Netduino 2 Plus and Gadgeteer
@@ -128,8 +128,11 @@ The IoT Framework for the .NET Micro Framework provides a pluggable foundation t
         }
     }
 
+# Creating Sensors and Actuators
 
-## Implementing a Sensor
+Be sure to check out the sensors and actuators that have been implemented in the Glovebox.Netduino project.  See the Sensors and Actuators folders, all the code is provided to help you understand how things work.
+
+## Creating a Sensor
 
 
 ### Inheriting from SensorBase
@@ -181,6 +184,7 @@ The SensorBase base constructor requires
 
 1. **Sensor Type** - arbitrary/sensible type for the sensor.  The value is published alongside the sensor reading to provide some type information.
 2. **Sensor Unit** - arbitrary/sensible measurement unit for the sensor.  Example p for percentage, n for numeric etc.  The unit is published alongside the sensor reading to provide some unit information.
+3. **Values Per Sample** - Defines how many values will be collected per reading.  Most sensors generate only one value per sample.  But there are sensors that generate more data.  For example a sensor that sensors both temperature and humidity.
 3. **Sample Rate in Milliseconds** - how often to take a sensor reading.
 4. **Name** - This is a unique name that you can use to identify a sensor from the command and control service.
 
@@ -207,7 +211,7 @@ Implement the abstract methods and properties for the Sensor class.
     namespace Glovebox.Netduino.Sensors {
         public class SensorLdr : SensorBase {
 
-            protected AnalogInput ldrAnalogPin;
+            private AnalogInput ldrAnalogPin;
 
             /// <summary>
             /// Light Dependent Resistor Sensor Class
@@ -246,6 +250,7 @@ Implement the abstract methods and properties for the Sensor class.
 
 ### Using your newly created sensor
 
+	// program.cs
     using Glovebox.Netduino.Sensors;
     using SecretLabs.NETMF.Hardware.NetduinoPlus;
     using System.Threading;
@@ -271,6 +276,7 @@ Implement the abstract methods and properties for the Sensor class.
 
 Or
 
+	// program.cs
     using Glovebox.Netduino.Sensors;
     using SecretLabs.NETMF.Hardware.NetduinoPlus;
     using System.Threading;
@@ -330,7 +336,7 @@ Next right mouse click on ActuatorBase to Implement the Abstract Class.
     }
 
 
-## Implement the class constructor
+### Implement the class constructor
 
 The ActuatorBase base constructor requires
 
@@ -339,17 +345,17 @@ The ActuatorBase base constructor requires
 
 
         public Relay(Cpu.Pin pin, string name)
-            : base(name, "Relay") {
+            : base(name, "relay") {
             relay = new OutputPort(pin, false);
         }
 
-## Implement the Actuator Cleanup
+### Implement the Actuator Cleanup
 
         protected override void ActuatorCleanup() {
             relay.Dispose();
         }
 
-## Implement Command and Control
+### Implement Command and Control
 
 See the Lab Guide Appendix for information on sending a command via MQTT.
 
@@ -364,7 +370,7 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
             }
         }
 
-## The Completed Relay Class
+### The Completed Relay Class
 
     using Glovebox.MicroFramework.Base;
     using Microsoft.SPOT.Hardware;
@@ -372,10 +378,15 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
     namespace Glovebox.Netduino.Actuators {
         public class Relay : ActuatorBase {
 
-            public OutputPort relay;
+            private OutputPort relay;
 
+	        /// <summary>
+	        /// Create a relay control
+	        /// </summary>
+	        /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
+	        /// <param name="name">Unique identifying name for command and control</param>
             public Relay(Cpu.Pin pin, string name)
-                : base(name, ActuatorType.Relay) {
+                : base(name, "relay") {
                 relay = new OutputPort(pin, false);
             }
 
@@ -397,7 +408,7 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
     }
 
 
-## Coder Friendly Relay Class
+### Coder Friendly Relay Class
 
     using Glovebox.MicroFramework.Base;
     using Microsoft.SPOT.Hardware;
@@ -409,8 +420,13 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
 
             public OutputPort relay;
 
-            public Relay(Cpu.Pin pin, string name)
-                : base(name, ActuatorType.Relay) {
+            /// <summary>
+	        /// Create a relay control
+	        /// </summary>
+	        /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
+	        /// <param name="name">Unique identifying name for command and control</param>
+			public Relay(Cpu.Pin pin, string name)
+                : base(name, "relay") {
                 relay = new OutputPort(pin, false);
             }
 
@@ -453,11 +469,12 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
     }
 
 
-## Using your newly created actuator
+### Using your newly created actuator
 
 This example uses the Light Dependent Resistor Sensor to determine the light levels.  Depending on the light level, the Relay will be turned on or off.  The relay could be controlling a light.
 
-    using Glovebox.Netduino.Actuators;
+	// program.cs    
+	using Glovebox.Netduino.Actuators;
     using Glovebox.Netduino.Sensors;
     using SecretLabs.NETMF.Hardware.NetduinoPlus;
     using System.Threading;
@@ -468,8 +485,7 @@ This example uses the Light Dependent Resistor Sensor to determine the light lev
             public static void Main() {
 
                 using (Sensorldr ldr = new Sensorldr(AnalogChannels.ANALOG_PIN_A0, -1, "ldr01")) 
-                using (Relay relay = new Relay(Pins.GPIO_PIN_D0, "myRelay01"))
-            
+                using (Relay relay = new Relay(Pins.GPIO_PIN_D0, "relay01")) {
 
                     while (true) {
                         if (ldr.Current < 60) {
@@ -486,12 +502,64 @@ This example uses the Light Dependent Resistor Sensor to determine the light lev
         }
     }
 
+## Bringing it all together
+
+The following example brings it all together and uses all the sensors and actuators defined in the IoT Solution Accelerator.  
+
+    using Glovebox.MicroFramework.Sensors;
+    using Glovebox.Netduino.Actuators;
+    using Glovebox.Netduino.Sensors;
+    using SecretLabs.NETMF.Hardware.NetduinoPlus;
+    using System.Threading;
+
+    namespace MakerDen {
+        public class Program : MakerBaseIoT {
+
+            public static void Main() {
+                Piezo speaker = new Piezo(PWMChannels.PWM_PIN_D9, "speaker01");
+                speaker.BeebStartup();
+
+                // main code marker
+
+                //Replace the "emul" which is the name of the device with a unique 3 to 5 character name
+                //use your initials or something similar.  This code will be visible on the IoT Dashboard
+                StartNetworkServices("test", true);
+
+                using (SensorTemp temp = new SensorTemp(Pins.GPIO_PIN_D8, 10000, "temp01"))
+                using (SensorLight light = new SensorLight(AnalogChannels.ANALOG_PIN_A0, 1000, "light01"))
+                using (SensorSound sound = new SensorSound(AnalogChannels.ANALOG_PIN_A4, 1000, "sound01"))
+                using (SensorMemory mem = new SensorMemory(5000, "mem01"))
+                using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01"))
+                using (Relay relay = new Relay(Pins.GPIO_PIN_D7, "relay01")) {
+
+                    speaker.BeepOK();
+
+                    temp.OnBeforeMeasurement += OnBeforeMeasure;
+                    temp.OnAfterMeasurement += OnMeasureCompleted;
+
+                    light.OnBeforeMeasurement += OnBeforeMeasure;
+                    light.OnAfterMeasurement += OnMeasureCompleted;
+
+                    sound.OnBeforeMeasurement += OnBeforeMeasure;
+                    sound.OnAfterMeasurement += OnMeasureCompleted;
+
+                    mem.OnBeforeMeasurement += OnBeforeMeasure;
+                    mem.OnAfterMeasurement += OnMeasureCompleted;
+
+                    Thread.Sleep(Timeout.Infinite);
+                }
+            }
+        }
+    }
+
+
+
 
 # NeoPixels and Netduino
 
 The IoT Solution Accelerator also includes a comprehensive library to drive NeoPixels.  There is support for multiple NeoPixel grids daisy chained together such as the [NeoPixel NeoMatrix 8x8 - 64 RGB LED](http://www.adafruit.com/products/1487), plus rings and strips.
 
-Below is an example of driving a Happy Birthday Message to three daisy chained 8x8 NeoPixel Grids.  
+Below is an example of driving a Happy Birthday message to three daisy chained 8x8 NeoPixel NeoMatrix Grids.  
 
     using Coatsy.Netduino.NeoPixel;
     using Coatsy.Netduino.NeoPixel.Grid;
@@ -575,16 +643,3 @@ Below is an example of driving a Happy Birthday Message to three daisy chained 8
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
