@@ -553,6 +553,7 @@ The following example brings it all together and uses all the sensors and actuat
         }
     }
 
+This solution is publishing sensor data to the Mosquitto MQTT Service running on Microsoft Azure.  The data is displayed using the [IoT Dashboard](https://github.com/MakerDen/IoT-Dashboard).
 
 ![IoT Dashboard](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoTDashboard.JPG)
 
