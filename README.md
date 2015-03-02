@@ -502,6 +502,58 @@ This example uses the Light Dependent Resistor Sensor to determine the light lev
         }
     }
 
+## Bringing it all together
+
+The following example brings it all together and uses all the sensors and actuators defined in the IoT Solution Accelerator.  
+
+    using Glovebox.MicroFramework.Sensors;
+    using Glovebox.Netduino.Actuators;
+    using Glovebox.Netduino.Sensors;
+    using SecretLabs.NETMF.Hardware.NetduinoPlus;
+    using System.Threading;
+
+    namespace MakerDen {
+        public class Program : MakerBaseIoT {
+
+            public static void Main() {
+                Piezo speaker = new Piezo(PWMChannels.PWM_PIN_D9, "speaker01");
+                speaker.BeebStartup();
+
+                // main code marker
+
+                //Replace the "emul" which is the name of the device with a unique 3 to 5 character name
+                //use your initials or something similar.  This code will be visible on the IoT Dashboard
+                StartNetworkServices("test", true);
+
+                using (SensorTemp temp = new SensorTemp(Pins.GPIO_PIN_D8, 10000, "temp01"))
+                using (SensorLight light = new SensorLight(AnalogChannels.ANALOG_PIN_A0, 1000, "light01"))
+                using (SensorSound sound = new SensorSound(AnalogChannels.ANALOG_PIN_A4, 1000, "sound01"))
+                using (SensorMemory mem = new SensorMemory(5000, "mem01"))
+                using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01"))
+                using (Relay relay = new Relay(Pins.GPIO_PIN_D7, "relay01")) {
+
+                    speaker.BeepOK();
+
+                    temp.OnBeforeMeasurement += OnBeforeMeasure;
+                    temp.OnAfterMeasurement += OnMeasureCompleted;
+
+                    light.OnBeforeMeasurement += OnBeforeMeasure;
+                    light.OnAfterMeasurement += OnMeasureCompleted;
+
+                    sound.OnBeforeMeasurement += OnBeforeMeasure;
+                    sound.OnAfterMeasurement += OnMeasureCompleted;
+
+                    mem.OnBeforeMeasurement += OnBeforeMeasure;
+                    mem.OnAfterMeasurement += OnMeasureCompleted;
+
+                    Thread.Sleep(Timeout.Infinite);
+                }
+            }
+        }
+    }
+
+
+
 
 # NeoPixels and Netduino
 
@@ -591,16 +643,3 @@ Below is an example of driving a Happy Birthday message to three daisy chained 8
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
