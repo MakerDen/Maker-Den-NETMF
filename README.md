@@ -250,6 +250,8 @@ Implement the abstract methods and properties for the Sensor class.
 
 ### Using your newly created sensor
 
+When you reference a pin on the Netduino in your code it is important to use the **SecretLabs.NETMF.Hardware.NetduinoPlus** namespace not the Microsoft.SPOT.Hardware.Cpu.Pin which (unfortunately) is the Visual Studio default.
+
 	// program.cs
     using Glovebox.Netduino.Sensors;
     using SecretLabs.NETMF.Hardware.NetduinoPlus;
@@ -410,6 +412,8 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
 
 ### Coder Friendly Relay Class
 
+This version adds an Actions enumeration to make it more developer friendly.
+
     using Glovebox.MicroFramework.Base;
     using Microsoft.SPOT.Hardware;
 
@@ -418,7 +422,7 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
 
             public enum Actions { On, Off }
 
-            public OutputPort relay;
+            private OutputPort relay;
 
             /// <summary>
 	        /// Create a relay control
@@ -473,6 +477,8 @@ See the Lab Guide Appendix for information on sending a command via MQTT.
 
 This example uses the Light Dependent Resistor Sensor to determine the light levels.  Depending on the light level, the Relay will be turned on or off.  The relay could be controlling a light.
 
+When you reference a pin on the Netduino in your code it is important to use the **SecretLabs.NETMF.Hardware.NetduinoPlus** namespace not the Microsoft.SPOT.Hardware.Cpu.Pin which (unfortunately) is the Visual Studio default.
+
 	// program.cs    
 	using Glovebox.Netduino.Actuators;
     using Glovebox.Netduino.Sensors;
@@ -489,10 +495,10 @@ This example uses the Light Dependent Resistor Sensor to determine the light lev
 
                     while (true) {
                         if (ldr.Current < 60) {
-                            relay.Action(MyRelay.Actions.On);
+                            relay.Action(Relay.Actions.On);
                         }
                         else {
-                            relay.Action(MyRelay.Actions.Off);
+                            relay.Action(Relay.Actions.Off);
                         }
                         // good practice not to put your netduino in to a hard loop, so add a thread sleep
                         Thread.Sleep(100);
@@ -506,6 +512,7 @@ This example uses the Light Dependent Resistor Sensor to determine the light lev
 
 The following example brings it all together and uses all the sensors and actuators defined in the IoT Solution Accelerator.  
 
+	// program.cs
     using Glovebox.MicroFramework.Sensors;
     using Glovebox.Netduino.Actuators;
     using Glovebox.Netduino.Sensors;
@@ -552,7 +559,9 @@ The following example brings it all together and uses all the sensors and actuat
         }
     }
 
+This solution is publishing sensor data to the Mosquitto MQTT Service running on Microsoft Azure.  The data is displayed using the [IoT Dashboard](https://github.com/MakerDen/IoT-Dashboard).
 
+![IoT Dashboard](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoTDashboard.JPG)
 
 
 # NeoPixels and Netduino
@@ -561,7 +570,8 @@ The IoT Solution Accelerator also includes a comprehensive library to drive NeoP
 
 Below is an example of driving a Happy Birthday message to three daisy chained 8x8 NeoPixel NeoMatrix Grids.  
 
-    using Coatsy.Netduino.NeoPixel;
+	// program.cs    
+	using Coatsy.Netduino.NeoPixel;
     using Coatsy.Netduino.NeoPixel.Grid;
     using System.Threading;
 
@@ -643,3 +653,16 @@ Below is an example of driving a Happy Birthday message to three daisy chained 8
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
