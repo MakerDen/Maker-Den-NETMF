@@ -30,12 +30,6 @@ The Internet of Things Solution Accelerator for the .NET Micro Framework provide
 
 ![Alt text](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/Maker%20Den%20IoT%20Framework.jpg)
 
-## IoT Dashboard
-The IoT Dashboard allows you to visualise the data streamed to Azure. 
-
-![IoT Dashboard](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoTDashboard.JPG)
-
- You can install the IoT Dashboard from [here](http://iotmakerdendashboard.azurewebsites.net/install/publish.htm).  Note, you will need to allow to run from unknown publisher.
 
 
 ## Extensible/pluggable framework supporting
@@ -62,7 +56,13 @@ The IoT Dashboard allows you to visualise the data streamed to Azure.
  * Netduino 2 Plus and Gadgeteer
  * Supports Visual Studio 2012 and 2013, 2013 preferred.
 
- 
+
+## IoT Dashboard
+The IoT Dashboard allows you to visualise the data streamed to Azure. 
+
+![IoT Dashboard](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoTDashboard.JPG)
+
+You can install the IoT Dashboard from [here](http://iotmakerdendashboard.azurewebsites.net/install/publish.htm).  Note, you will need to allow to run from unknown publisher.
 
 ## Programming Models
 
