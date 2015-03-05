@@ -30,6 +30,13 @@ The Internet of Things Solution Accelerator for the .NET Micro Framework provide
 
 ![Alt text](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/Maker%20Den%20IoT%20Framework.jpg)
 
+## IoT Dashboard
+The IoT Dashboard allows you to visualise the data streamed to Azure. 
+
+![IoT Dashboard](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoTDashboard.JPG)
+
+ You can install the IoT Dashboard from [here](http://iotmakerdendashboard.azurewebsites.net/install/publish.htm).  Note, you will need to allow to run from unknown publisher.
+
 
 ## Extensible/pluggable framework supporting
 
@@ -185,8 +192,8 @@ The SensorBase base constructor requires
 1. **Sensor Type** - arbitrary/sensible type for the sensor.  The value is published alongside the sensor reading to provide some type information.
 2. **Sensor Unit** - arbitrary/sensible measurement unit for the sensor.  Example p for percentage, n for numeric etc.  The unit is published alongside the sensor reading to provide some unit information.
 3. **Values Per Sample** - Defines how many values will be collected per reading.  Most sensors generate only one value per sample.  But there are sensors that generate more data.  For example a sensor that sensors both temperature and humidity.
-3. **Sample Rate in Milliseconds** - how often to take a sensor reading.
-4. **Name** - This is a unique name that you can use to identify a sensor from the command and control service.
+4. **Sample Rate in Milliseconds** - how often to take a sensor reading.
+5. **Name** - This is a unique name that you can use to identify a sensor from the command and control service.
 
 
         public SensorLight(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
@@ -456,8 +463,6 @@ This version adds an Actions enumeration to make it more developer friendly.
                         break;
                     case Actions.Off:
                         TurnOff();
-                        break;
-                    default:
                         break;
                 }
             }
