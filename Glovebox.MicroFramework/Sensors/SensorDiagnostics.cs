@@ -8,7 +8,7 @@ namespace Glovebox.MicroFramework.Sensors {
     public class SensorDiagnostics : SensorBase {
 
         public SensorDiagnostics(int SampleRateMilliseconds, string name)
-            : base("diag", "g", ValuesPerSample.Four, SampleRateMilliseconds, name) {
+            : base("diag", "g", ValuesPerSample.Five, SampleRateMilliseconds, name) {
 
                 StartMeasuring();
         }

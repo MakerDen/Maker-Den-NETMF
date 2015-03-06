@@ -138,7 +138,10 @@ namespace Glovebox.MicroFramework
 
             lastSystemRequestTime = now;
 
-            string[] result = IotActionManager.Action(DecodeAction(e.Topic, Utilities.BytesToString(e.Message)));
+            var actionRequest = DecodeAction(e.Topic, Utilities.BytesToString(e.Message));
+            if (actionRequest == null) { return; }
+
+            string[] result = IotActionManager.Action(actionRequest);
             if (result != null)
             {
                 Publish(ConfigurationManager.MqttDeviceAnnounce + ConfigurationManager.DeviceName, SystemConfig(result));
@@ -169,7 +172,7 @@ namespace Glovebox.MicroFramework
                     return ActionParts(topicParts, 2, message);
                 case "gbcmd/dev":
                     // check device guid matches requested
-                    if (topicParts.Length > 2 && topicParts[2] != string.Empty && topicParts[2] != null && topicParts[2] == uniqueDeviceIdentifier)
+                    if (topicParts.Length > 2 && topicParts[2] != string.Empty && topicParts[2] != null && topicParts[2] == uniqueDeviceIdentifier.ToLower())
                     {
                         return ActionParts(topicParts, 3, message);
                     }
