@@ -12,7 +12,7 @@ The project should now deploy correctly to your Netduino.
 
 # Getting Started
 
-The getting started lab code and the complete [Maker Den Lab Guide (click Raw to open in Adobe Reader)](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf)
+The getting started lab code and the complete [Maker Den Lab Guide ](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf) (click Raw to open in Adobe Reader)
 can be found in the Lab Code folder in the Maker Den Project.
 
 
@@ -31,7 +31,7 @@ can be found in the Lab Code folder in the Maker Den Project.
 ## Updating the Netduino Firmware to 4.3.1 (as at March 2015)
 The first time you use the Netduino you will almost certainly need to update the device firmware to the latest version to match the .NET Micro Framework you installed on your PC.
 
-1. Watch the ["How to Update Firmware and set the MAC Address" video guide](https://t.co/m45wF2RMXY)
+1. Watch the ["How to Update Firmware and set the MAC Address"](https://t.co/m45wF2RMXY) video guide
 2. [Download](http://forums.netduino.com/index.php?/topic/10479-netduino-plus-2-firmware-v431/) the Netduino Plus 2 Firmware (ignore the prerequists listed on that page as they are out of date)
 
 ## Initial Hardware Setup
@@ -686,4 +686,16 @@ The safest way is to power a string of NeoPixels seperately.  See this diagram f
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
