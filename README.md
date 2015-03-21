@@ -28,7 +28,7 @@ can be found in the Lab Code folder in the Maker Den Project.
 		2. netmfvs2013 (Visual Studio 2013 add-on)
 4. [Netduino SDK v4.3.1](http://www.netduino.com/downloads/netduinosdk_NETMF43.exe)
 
-## Updating the Netduino Firmware to 4.3.1 (as at March 2015)
+## Updating the Netduino Firmware to 4.3.1
 The first time you use the Netduino you will almost certainly need to update the device firmware to the latest version to match the .NET Micro Framework you installed on your PC.
 
 1. Watch the ["How to Update Firmware and set the MAC Address"](https://t.co/m45wF2RMXY) video guide
@@ -686,16 +686,3 @@ The safest way is to power a string of NeoPixels seperately.  See this diagram f
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
