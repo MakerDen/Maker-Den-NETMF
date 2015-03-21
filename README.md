@@ -3,25 +3,44 @@
 # First time deploying code to your Netduino
 After either downloading or cloning the source code you will need to reset the .NET Micro Framework Deployment Transport.  
 
-1. Ensure your Netduino is connected to your PC via the USB cable.  
+1. Ensure your [Netduino Plus 2](http://www.netduino.com/netduinoplus2/specs.htm) is connected to your PC via the USB cable.  
 2. Right mouse click the MakerDen project, and select Properties.  
 3. From the properties page select the .NET Micro Framework tab
 4. Select Emulator from the Transport dropdown then reselect USB and your Netduino.  
 
 The project should now deploy correctly to your Netduino.
 
-
 # Getting Started
 
-The getting started lab code and the complete [Maker Den Lab Guide](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf)
+The getting started lab code and the complete [Maker Den Lab Guide (click Raw to open in Adobe Reader)](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf)
 can be found in the Lab Code folder in the Maker Den Project.
 
-Be sure to read the Lab Guide appendix section to understand:-
+
+
+##Software Requirements (as at March 2015)
+
+1. Windows 7 or above
+2. [Visual Studio 2013](https://www.visualstudio.com/en-au/products/visual-studio-community-vs) (Community Edition (free), Professional or above)
+3. [.NET Micro Framework SDK v4.3 (QFE2-RTM)](http://netmf.codeplex.com/releases/view/611040)
+	1. Download the “FULL ZIP File of all SDK Files”
+	2. From the unzipped SDK download install
+		1. MicroFrameworkSDK
+		2. netmfvs2013 (Visual Studio 2013 add-on)
+4. [Netduino SDK v4.3.1](http://www.netduino.com/downloads/netduinosdk_NETMF43.exe)
+
+## Updating the Netduino Firmware to 4.3.1 (as at March 2015)
+The first time you use the Netduino you will almost certainly need to update the device firmware to the latest version to match the .NET Micro Framework you installed on your PC.
+
+1. Watch the ["How to Update Firmware and set the MAC Address" video guide](https://t.co/m45wF2RMXY)
+2. [Download](http://forums.netduino.com/index.php?/topic/10479-netduino-plus-2-firmware-v431/) the Netduino Plus 2 Firmware (ignore the prerequists listed on that page as they are out of date)
+
+## Initial Hardware Setup
+Be sure to read the Maker Den Lab Guide appendix section to understand:-
 
 1. Trouble Shooting
-2. Software Requirements
+2. Initial Hardware Setup
 3. Lab Parts
-4. Initial Hardware Setup
+
 
 # What is the Internet of Things Solution Accelerator?
 
@@ -571,9 +590,18 @@ This solution is publishing sensor data to the Mosquitto MQTT Service running on
 
 # NeoPixels and Netduino
 
-The IoT Solution Accelerator also includes a comprehensive library to drive NeoPixels.  There is support for multiple NeoPixel grids daisy chained together such as the [NeoPixel NeoMatrix 8x8 - 64 RGB LED](http://www.adafruit.com/products/1487), plus rings and strips.
+The IoT Solution Accelerator also includes a comprehensive library to drive and control NeoPixel strips, rings and grids.  There is also support for chaining multiple [NeoPixel Grids](http://www.adafruit.com/products/1487) together and treating as one wide panel.  Below is the code to drive a Happy Birthday message to three daisy chained 8x8 NeoPixel NeoMatrix Grids.  
 
-Below is an example of driving a Happy Birthday message to three daisy chained 8x8 NeoPixel NeoMatrix Grids.  
+## Connecting and Powering a NeoPixel
+From the [Netduino Technical Specifications](http://www.netduino.com/netduinoplus2/specs.htm) you will see that you should not draw more than 25 milliamps from any one pin on a Netduino.
+
+For small NeoPixel strings dimly lit you can get away with powering the NeoPixel directly from the Netduino.  Connect the +5v to the +5v, ground to the ground and the Data-In (din) pin to Pin 11.  But be warned, you may damage the Netduino doing this.
+
+The safest way is to power a string of NeoPixels seperately.  See this diagram for connecting and powering a NeoPixel with an Arduino.  Do the same for the Netduino.  **Follow this diagram except connect the Data-In (din) pin to pin 11 on the Netduino**.
+
+![connecting a NeoPixel to an Arduino](https://learn.adafruit.com/assets/17479).
+
+
 
 	// program.cs    
 	using Coatsy.Netduino.NeoPixel;
@@ -658,16 +686,4 @@ Below is an example of driving a Happy Birthday message to three daisy chained 8
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
