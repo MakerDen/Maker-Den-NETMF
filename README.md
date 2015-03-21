@@ -599,7 +599,7 @@ For small NeoPixel strings dimly lit you can get away with powering the NeoPixel
 
 The safest way is to power a string of NeoPixels seperately.  See this diagram for connecting and powering a NeoPixel with an Arduino.  Do the same for the Netduino.  **Follow this diagram except connect the Data-In (din) pin to pin 11 on the Netduino**.
 
-![connecting a NeoPixel to an Arduino](https://learn.adafruit.com/assets/17479).
+![connecting a NeoPixel to an Arduino](https://learn.adafruit.com/system/assets/assets/000/017/479/large1024/leds_basic2.png?1403026653).
 
 
 
