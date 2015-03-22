@@ -1,5 +1,10 @@
 *Documentation in progress*
 
+# Getting Started
+
+The getting started lab code and the complete [Maker Den Lab Guide ](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf) (click Raw to open in Adobe Reader)
+can be found in the Lab Code folder in the Maker Den Project.
+
 # First time deploying code to your Netduino
 After either downloading or cloning the source code you will need to reset the .NET Micro Framework Deployment Transport.  
 
@@ -9,11 +14,6 @@ After either downloading or cloning the source code you will need to reset the .
 4. Select Emulator from the Transport dropdown then reselect USB and your Netduino.  
 
 The project should now deploy correctly to your Netduino.
-
-# Getting Started
-
-The getting started lab code and the complete [Maker Den Lab Guide ](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoT%20Maker%20Den%20v2.0.pdf) (click Raw to open in Adobe Reader)
-can be found in the Lab Code folder in the Maker Den Project.
 
 
 
