@@ -595,7 +595,7 @@ The IoT Solution Accelerator also includes a comprehensive library to drive and 
 ## Connecting and Powering a NeoPixel
 From the [Netduino Technical Specifications](http://www.netduino.com/netduinoplus2/specs.htm) you will see that you should not draw more than 25 milliamps from any one pin on a Netduino.
 
-For small NeoPixel strings dimly lit you can get away with powering the NeoPixel directly from the Netduino.  Connect the +5v to the +5v, ground to the ground and the Data-In (din) pin to Pin 11.  But be warned, you may damage the Netduino doing this.
+For small NeoPixel strings dimly lit you can get away with powering the NeoPixel directly from the Netduino.  Connect the +5v to the +5v, ground to the ground and the Data-In (din) pin to Pin 11.  But be warned, you may damage the Netduino doing this, so don't over do it and use the **Low Power colours and pallettes** in the NeoPixel framework.
 
 The safest way is to power a string of NeoPixels seperately.  Follow this Arduino  wiring example but **connect the Data-In (din) pin to pin 11 on the Netduino**.
 
