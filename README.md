@@ -588,7 +588,7 @@ This solution is publishing sensor data to the Mosquitto MQTT Service running on
 ![IoT Dashboard](https://github.com/MakerDen/IoT-Maker-Den-NETMF/blob/master/MakerDen/Lab%20Code/IoTDashboard.JPG)
 
 
-# NeoPixels and Netduino
+# <a name="NeoPixel"></a>NeoPixels and Netduino
 
 The IoT Solution Accelerator also includes a comprehensive library to drive and control NeoPixel strips, rings and grids.  There is also support for chaining multiple [NeoPixel Grids](http://www.adafruit.com/products/1487) together and treating as one wide panel.  Below is the code to drive a Happy Birthday message to three daisy chained 8x8 NeoPixel NeoMatrix Grids.  
 
