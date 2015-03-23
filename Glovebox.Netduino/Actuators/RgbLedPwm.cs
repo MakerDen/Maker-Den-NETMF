@@ -279,8 +279,18 @@ namespace Glovebox.Netduino.Actuators
             if (colourIndex > 2) { return; }
             switch (action.cmd)
             {
+                case "on":
+                    //check params to get colour?
+                    On((Led)colourIndex);
+                    break;
+                case "blink":
+                    // get rate and duration from action.params
+                    break;
                 case "fade":
                     //get params
+                    break;
+                case "colour":
+                    //get colour from params
                     break;
                 default:
                     base.Action(action);
