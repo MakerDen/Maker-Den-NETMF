@@ -9,16 +9,16 @@ using Glovebox.MicroFramework.IoT;
 namespace Glovebox.Netduino.Actuators {
     public class RgbLed : ActuatorBase {
 
-        class ledState {
+        internal class ledState {
             public int blinkMilliseconds = 0;
             public int blinkRateMilliseconds;
             private bool ledOn = false;
             public OutputPort led;
             public Thread ledThread;
             public AutoResetEvent blink = new AutoResetEvent(false);
-            public bool running = false;
+            public bool running { get; protected set; }
 
-            public void Start() {
+            public virtual void Start() {
                 int currentTickCount;
                 int endTickCount;
                 int blinkRate;
@@ -42,7 +42,7 @@ namespace Glovebox.Netduino.Actuators {
             }
         }
 
-        ledState[] ls = new ledState[3];
+        internal ledState[] ls = new ledState[3];
 
 
         public enum BlinkRate {
@@ -75,7 +75,9 @@ namespace Glovebox.Netduino.Actuators {
             }
         }
 
-        public void Blink(Led l, int Milliseconds, BlinkRate blinkRate) {
+        internal RgbLed(Cpu.Pin red, Cpu.Pin green, Cpu.Pin blue, string name, string type) : base(name, type) { }
+
+        public virtual void Blink(Led l, int Milliseconds, BlinkRate blinkRate) {
             //lazy start thread ondemand
             if (ls[(int)l].ledThread == null) {
                 ls[(int)l].ledThread = new Thread(new ThreadStart(ls[(int)l].Start));
@@ -88,12 +90,12 @@ namespace Glovebox.Netduino.Actuators {
             ls[(int)l].blink.Set();
         }
 
-        public void On(Led l) {
+        public virtual void On(Led l) {
             if (ls[(int)l].running) { return; }
             ls[(int)l].led.Write(true);
         }
 
-        public void Off(Led l) {
+        public virtual void Off(Led l) {
             if (ls[(int)l].running) { return; }
             ls[(int)l].led.Write(false);
         }
