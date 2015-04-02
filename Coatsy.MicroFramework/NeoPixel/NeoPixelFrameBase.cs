@@ -213,11 +213,17 @@ namespace Coatsy.Netduino.NeoPixel {
 
         public Pixel[] Frame { get; set; }
 
+        private Pixel[] blackFrame;
         public NeoPixelFrameBase(int _pixelCount, string name)
             : base(name) {
             pixelCount = _pixelCount;
             neoPixel = new NeoPixelSPI(Pins.GPIO_PIN_D10, SPI.SPI_module.SPI1);
             Frame = new Pixel[pixelCount];
+            blackFrame = new Pixel[pixelCount];
+            for (int i = 0; i < blackFrame.Length; i++)
+            {
+                blackFrame[i] = Pixel.Colour.Black;
+            }
 
             // init frame to all black - specifically not null
             FrameClear();
@@ -424,6 +430,11 @@ namespace Coatsy.Netduino.NeoPixel {
             neoPixel.ShowPixels(Frame);
         }
 
+        private void FrameDraw(Pixel[] tempFrame)
+        {
+            neoPixel.ShowPixels(tempFrame);
+        }
+
         #endregion
 
         #region Higher Level Display Methods
@@ -454,6 +465,20 @@ namespace Coatsy.Netduino.NeoPixel {
                 }
             }
 
+        }
+
+        public void Blink(int blinkDelay, int repeat)
+        {
+            //Pixel[] current = new Pixel[pixelCount];
+            //Frame.CopyTo(current, 0);
+
+            for (int i = 0; i < repeat; i++)
+            {
+                Thread.Sleep(blinkDelay);
+                FrameDraw(blackFrame);
+                Thread.Sleep(blinkDelay);
+                FrameDraw();
+            }
         }
         #endregion
 
@@ -503,6 +528,9 @@ namespace Coatsy.Netduino.NeoPixel {
                 case CommandType.AllOn:
                     FrameSet(getPixel(command.PrimaryColour));
                     FrameDraw();
+                    break;
+                case CommandType.Blink:
+                    Blink(command.PauseBetween, command.Repetitions);
                     break;
                 case CommandType.Spin:
                     SpinColour(getPixel(command.PrimaryColour), command.Cycles, command.StepTime);

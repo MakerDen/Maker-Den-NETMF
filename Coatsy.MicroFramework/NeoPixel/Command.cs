@@ -14,6 +14,7 @@ namespace Coatsy.Netduino.NeoPixel
         Rotate,
         AllOff,
         AllOn,
+        Blink,
         Spin,
         SpinOnBackground,
         AlternateColours,
