@@ -1,0 +1,11 @@
+using (AdaFruitMatrixRun matrix = new AdaFruitMatrixRun())
+
+or 
+
+ using (Adafruit8x8Matrix matrix = new Adafruit8x8Matrix(new Ht16K33I2cConnection(new I2CDevice(new I2CDevice.Configuration(0x70, 200))))) {
+    while (true) {
+        matrix.ScrollStringInFromRight("Hello World", 100);
+        matrix.ScrollSymbolInFromRight(Adafruit8x8Matrix.Symbols.Heart, 100);
+        matrix.ScrollSymbolInFromRight(new Adafruit8x8Matrix.Symbols[] { Adafruit8x8Matrix.Symbols.HappyFace, Adafruit8x8Matrix.Symbols.SadFace }, 100);
+    }
+}
