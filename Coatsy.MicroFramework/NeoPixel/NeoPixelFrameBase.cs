@@ -26,7 +26,7 @@ namespace Coatsy.Netduino.NeoPixel {
             Pixel.ColourLowPower.WarmGreen, 
             Pixel.ColourLowPower.WarmBlue,
             Pixel.ColourLowPower.WarmPurple, 
-            //Pixel.CoolColours.WarmIndigo
+            //Pixel.ColourLowPower.WarmIndigo
         };
 
         /// <summary>
@@ -213,17 +213,15 @@ namespace Coatsy.Netduino.NeoPixel {
 
         public Pixel[] Frame { get; set; }
 
-        private Pixel[] blackFrame;
+        private Pixel[] blinkFrame;
         public NeoPixelFrameBase(int _pixelCount, string name)
             : base(name) {
             pixelCount = _pixelCount;
             neoPixel = new NeoPixelSPI(Pins.GPIO_PIN_D10, SPI.SPI_module.SPI1);
             Frame = new Pixel[pixelCount];
-            blackFrame = new Pixel[pixelCount];
-            for (int i = 0; i < blackFrame.Length; i++)
-            {
-                blackFrame[i] = Pixel.Colour.Black;
-            }
+
+            //lazy initialise in the black/blank in the blink method
+            blinkFrame = new Pixel[pixelCount];
 
             // init frame to all black - specifically not null
             FrameClear();
@@ -447,7 +445,6 @@ namespace Coatsy.Netduino.NeoPixel {
         /// <param name="stepDelay">Delay between steps (ms)</param>
         public void SpinColour(Pixel pixelColour, int cycles = 1, int stepDelay = 250) {
             SpinColourOnBackground(pixelColour, Pixel.Colour.Black, cycles, stepDelay);
-
         }
 
         public void SpinColourOnBackground(Pixel pixelColour, Pixel backgroundColour, int cycles = 1, int stepDelay = 250) {
@@ -469,13 +466,16 @@ namespace Coatsy.Netduino.NeoPixel {
 
         public void Blink(int blinkDelay, int repeat)
         {
-            //Pixel[] current = new Pixel[pixelCount];
-            //Frame.CopyTo(current, 0);
+            if (blinkFrame[0] == null) {
+                for (int i = 0; i < blinkFrame.Length; i++) {
+                    blinkFrame[i] = Pixel.Colour.Black;
+                }
+            }
 
             for (int i = 0; i < repeat; i++)
             {
                 Thread.Sleep(blinkDelay);
-                FrameDraw(blackFrame);
+                FrameDraw(blinkFrame);
                 Thread.Sleep(blinkDelay);
                 FrameDraw();
             }

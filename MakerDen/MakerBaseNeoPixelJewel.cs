@@ -4,27 +4,21 @@ using Coatsy.Netduino.NeoPixel.Jewel;
 using System.Threading;
 using Coatsy.Netduino.NeoPixel;
 
-namespace MakerDen
-{
-    public class MakerBaseNeoPixelJewel : MakerBaseIoT
-    {
+namespace MakerDen {
+    public class MakerBaseNeoPixelJewel : MakerBaseIoT {
         static NeoPixelJewel jewel;
         static Thread neoPixelThread;
 
-        private static void CreateCyclesCollection()
-        {
-
+        private static void CreateCyclesCollection() {
             jewel.cycles = new DoCycle[] {
 
             new DoCycle(jewel.Marigold),
             new DoCycle(jewel.Rainbow),
-            new DoCycle(jewel.LightItUp),
             };
         }
 
-        protected static void StartNeoPixel()
-        {
-            jewel = new NeoPixelJewel(7, "neopixeljewel01");
+        protected static void StartNeoPixel() {
+            jewel = new NeoPixelJewel(7, "jewel");
 
             CreateCyclesCollection();
 
@@ -33,13 +27,9 @@ namespace MakerDen
             neoPixelThread.Start();
         }
 
-
-        private static void StartNeoPixelThread()
-        {
-            while (true)
-            {
-                for (int i = 0; i < jewel.cycles.Length; i++)
-                {
+        private static void StartNeoPixelThread() {
+            while (true) {
+                for (int i = 0; i < jewel.cycles.Length; i++) {
                     jewel.ExecuteCycle(jewel.cycles[i]);
                 }
             }

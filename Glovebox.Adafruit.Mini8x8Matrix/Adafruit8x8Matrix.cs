@@ -1,4 +1,4 @@
-﻿using Glovebox.Adafruit.Mini8x8Matrix.Driver;
+﻿using Glovebox.Adafruit.Mini8x8Matrix;
 using System;
 using System.Threading;
 

@@ -31,7 +31,7 @@
   <ItemGroup>
     <Compile Include="Adafruit8x8Matrix.cs" />
     <Compile Include="AdaFruitMatrixRun.cs" />
-    <Compile Include="Driver\Ht16K33.cs" />
+    <Compile Include="Ht16K33.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

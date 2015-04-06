@@ -72,6 +72,7 @@
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
     <Content Include="Lab Code\Lab 7.txt" />
+    <Compile Include="MakerBaseMiniMatrix.cs" />
     <Compile Include="MakerBaseIoT.cs" />
     <Compile Include="MakerBaseNeoPixelJewel.cs" />
     <Compile Include="MakerBaseNeoPixelRing.cs" />

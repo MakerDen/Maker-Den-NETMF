@@ -6,7 +6,7 @@ using Microsoft.SPOT.Hardware;
 
 #endregion
 
-namespace Glovebox.Adafruit.Mini8x8Matrix.Driver {
+namespace Glovebox.Adafruit.Mini8x8Matrix {
 
     public class Ht16K33I2cConnection {
 

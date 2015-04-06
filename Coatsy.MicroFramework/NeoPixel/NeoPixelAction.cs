@@ -30,7 +30,7 @@ namespace Coatsy.Netduino.NeoPixel
 
         public override void Action(IotAction action) {
             // cap the queue to prevent flooding attack
-            if (actionQueue.Count > 100) { return; }
+            if (actionQueue.Count > 50) { return; }
             actionQueue.Enqueue((object)action);
         }
     }
