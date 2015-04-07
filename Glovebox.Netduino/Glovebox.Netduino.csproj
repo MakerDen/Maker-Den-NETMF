@@ -69,6 +69,8 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="Actuators\Valve.cs" />
+    <Compile Include="Actuators\Switch.cs" />
     <Compile Include="Actuators\Stepper\MotorDirection.cs" />
     <Compile Include="Actuators\Stepper\Stepper.cs" />
     <Compile Include="Actuators\Stepper\StepType.cs" />
