@@ -6,7 +6,8 @@ using Microsoft.SPOT.Hardware;
 using System.Threading;
 using Glovebox.MicroFramework.Base;
 
-namespace Codeblack.Micro.GettingStarted.StepperMotor
+//#acknowledgement: http://blog.codeblack.nl/post/Netduino-Getting-Started-with-steppermotors.aspx
+namespace Glovebox.Netduino.Actuators
 {
     public class Stepper : ActuatorBase
     {

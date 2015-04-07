@@ -19,146 +19,146 @@
 //---------------------------------------------------------------------------
 namespace Glovebox.Netduino.Drivers
 {
-  using System;
-  using System.Runtime.CompilerServices;
-  using System.Threading;
-  using Microsoft.SPOT;
-  using Microsoft.SPOT.Hardware;
-
-  /// <summary>
-  /// Encapsulates the common functionality of DHT sensors.
-  /// </summary>
-  public abstract class DhtSensor : IDisposable
-  {
-    private bool disposed;
-
-    private InterruptPort portIn;
-    private TristatePort portOut;
-
-    private float rhum; // Relative Humidity
-    private float temp; // Temperature
-
-    private long data;
-    private long bitMask;
-    private long lastTicks;
-    private byte[] bytes = new byte[4];
-
-    private AutoResetEvent dataReceived = new AutoResetEvent(false);
-
-    // Instantiated via derived class
-    protected DhtSensor(Cpu.Pin pin1, Cpu.Pin pin2, Port.ResistorMode pullUp)///PullUpResistor pullUp)
-    {
-      var resistorMode = (Port.ResistorMode)pullUp;
-
-      portIn = new InterruptPort(pin2, false, resistorMode, Port.InterruptMode.InterruptEdgeLow);
-      portIn.OnInterrupt += new NativeEventHandler(portIn_OnInterrupt);
-      portIn.DisableInterrupt();  // Enabled automatically in the previous call
-
-      portOut = new TristatePort(pin1, true, false, resistorMode);
-
-      if(!CheckPins())
-      {
-        throw new InvalidOperationException("DHT sensor pins are not connected together.");
-      }
-    }
+    using System;
+    using System.Runtime.CompilerServices;
+    using System.Threading;
+    using Microsoft.SPOT;
+    using Microsoft.SPOT.Hardware;
 
     /// <summary>
-    /// Deletes an instance of the <see cref="DhtSensor"/> class.
+    /// Encapsulates the common functionality of DHT sensors.
     /// </summary>
-    ~DhtSensor()
+    public abstract class DhtSensor : IDisposable
     {
-      Dispose(false);
-    }
+        private bool disposed;
 
-    /// <summary>
-    /// Releases resources used by this <see cref="DhtSensor"/> object.
-    /// </summary>
-    public void Dispose()
-    {
-      Dispose(true);
-      GC.SuppressFinalize(this);
-    }
+        private InterruptPort portIn;
+        private TristatePort portOut;
 
-    /// <summary>
-    /// Releases the resources associated with the <see cref="DhtSensor"/> object.
-    /// </summary>
-    /// <param name="disposing">
-    /// <b>true</b> to release both managed and unmanaged resources;
-    /// <b>false</b> to release only unmanaged resources.
-    /// </param>
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    protected void Dispose(bool disposing)
-    {
-      if(!disposed)
-      {
-        try
+        private float rhum; // Relative Humidity
+        private float temp; // Temperature
+
+        private long data;
+        private long bitMask;
+        private long lastTicks;
+        private byte[] bytes = new byte[4];
+
+        private AutoResetEvent dataReceived = new AutoResetEvent(false);
+
+        // Instantiated via derived class
+        protected DhtSensor(Cpu.Pin pin1, Cpu.Pin pin2, Port.ResistorMode pullUp)///PullUpResistor pullUp)
         {
-          portIn.Dispose();
-          portOut.Dispose();
+            var resistorMode = (Port.ResistorMode)pullUp;
+
+            portIn = new InterruptPort(pin2, false, resistorMode, Port.InterruptMode.InterruptEdgeLow);
+            portIn.OnInterrupt += new NativeEventHandler(portIn_OnInterrupt);
+            portIn.DisableInterrupt();  // Enabled automatically in the previous call
+
+            portOut = new TristatePort(pin1, true, false, resistorMode);
+
+            if (!CheckPins())
+            {
+                throw new InvalidOperationException("DHT sensor pins are not connected together.");
+            }
         }
-        finally
+
+        /// <summary>
+        /// Deletes an instance of the <see cref="DhtSensor"/> class.
+        /// </summary>
+        ~DhtSensor()
         {
-          disposed = true;
+            Dispose(false);
         }
-      }
-    }
 
-    /// <summary>
-    /// Gets the measured temperature value.
-    /// </summary>
-    public float Temperature
-    {
-      get
-      {
-        return temp;
-      }
-      protected set
-      {
-        temp = value;
-      }
-    }
+        /// <summary>
+        /// Releases resources used by this <see cref="DhtSensor"/> object.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-    /// <summary>
-    /// Gets the measured relative humidity value.
-    /// </summary>
-    public float Humidity
-    {
-      get
-      {
-        return rhum;
-      }
-      protected set
-      {
-        rhum = value;
-      }
-    }
+        /// <summary>
+        /// Releases the resources associated with the <see cref="DhtSensor"/> object.
+        /// </summary>
+        /// <param name="disposing">
+        /// <b>true</b> to release both managed and unmanaged resources;
+        /// <b>false</b> to release only unmanaged resources.
+        /// </param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        protected void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                try
+                {
+                    portIn.Dispose();
+                    portOut.Dispose();
+                }
+                finally
+                {
+                    disposed = true;
+                }
+            }
+        }
 
-    /// <summary>
-    /// Gets the start delay, in milliseconds.
-    /// </summary>
-    protected abstract int StartDelay
-    {
-      get;
-    }
+        /// <summary>
+        /// Gets the measured temperature value.
+        /// </summary>
+        public float Temperature
+        {
+            get
+            {
+                return temp;
+            }
+            protected set
+            {
+                temp = value;
+            }
+        }
 
-    /// <summary>
-    /// Converts raw sensor data.
-    /// </summary>
-    /// <param name="data">The sensor raw data, excluding the checksum.</param>
-    /// <remarks>
-    /// If the checksum verification fails, this method is not called.
-    /// </remarks>
-    protected abstract void Convert(byte[] data);
+        /// <summary>
+        /// Gets the measured relative humidity value.
+        /// </summary>
+        public float Humidity
+        {
+            get
+            {
+                return rhum;
+            }
+            protected set
+            {
+                rhum = value;
+            }
+        }
 
-    /// <summary>
-    /// Retrieves measured data from the sensor.
-    /// </summary>
-    /// <returns>
-    /// <c>true</c> if the operation succeeds and the data is valid, otherwise <c>false</c>.
-    /// </returns>
-    public bool Read()
-    {
-                  if (disposed)
+        /// <summary>
+        /// Gets the start delay, in milliseconds.
+        /// </summary>
+        protected abstract int StartDelay
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Converts raw sensor data.
+        /// </summary>
+        /// <param name="data">The sensor raw data, excluding the checksum.</param>
+        /// <remarks>
+        /// If the checksum verification fails, this method is not called.
+        /// </remarks>
+        protected abstract void Convert(byte[] data);
+
+        /// <summary>
+        /// Retrieves measured data from the sensor.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if the operation succeeds and the data is valid, otherwise <c>false</c>.
+        /// </returns>
+        public bool Read()
+        {
+            if (disposed)
             {
                 throw new ObjectDisposedException();
             }
@@ -216,48 +216,48 @@ namespace Glovebox.Netduino.Drivers
                 Debug.Print("DHT sensor data timeout.");  // TODO: TimeoutException?
             }
             return dataValid;
+        }
+
+        // If the received data has invalid checksum too often, adjust this value
+        // based on the actual sensor pulse durations. It may be a little bit
+        // tricky, because the resolution of system clock is only 21.33 µs.
+        private const long BitThreshold = 1050;
+
+        private void portIn_OnInterrupt(uint pin, uint state, DateTime time)
+        {
+            var ticks = time.Ticks;
+            if ((ticks - lastTicks) > BitThreshold)
+            {
+                // If the time between edges exceeds threshold, it is bit '1'
+                data |= bitMask;
+            }
+            if ((bitMask >>= 1) == 0)
+            {
+                // Received the last edge, stop and signal completion
+                portIn.DisableInterrupt();
+                dataReceived.Set();
+            }
+            lastTicks = ticks;
+        }
+
+        // Returns true if the ports are wired together, otherwise false.
+        private bool CheckPins()
+        {
+            return true;
+
+            //bug, apparently with Netduino Firmware 4.3. check is now disabled and initial reads will also fail
+            Debug.Assert(portIn != null, "Input port should not be null.");
+            Debug.Assert(portOut != null, "Output port should not be null.");
+            Debug.Assert(!portOut.Active, "Output port should not be active.");
+            portOut.Active = true;  // Switch to output
+            portOut.Write(false);
+            Thread.Sleep(50);
+            var expectedFalse = portIn.Read();
+            //portOut.Active = false; // Switch to input
+            Thread.Sleep(50);
+            var expectedTrue = portIn.Read();
+            return (expectedTrue && !expectedFalse);
+
+        }
     }
-
-    // If the received data has invalid checksum too often, adjust this value
-    // based on the actual sensor pulse durations. It may be a little bit
-    // tricky, because the resolution of system clock is only 21.33 µs.
-    private const long BitThreshold = 1050;
-
-    private void portIn_OnInterrupt(uint pin, uint state, DateTime time)
-    {
-      var ticks = time.Ticks;
-      if((ticks - lastTicks) > BitThreshold)
-      {
-        // If the time between edges exceeds threshold, it is bit '1'
-        data |= bitMask;
-      }
-      if((bitMask >>= 1) == 0)
-      {
-        // Received the last edge, stop and signal completion
-        portIn.DisableInterrupt();
-        dataReceived.Set();
-      }
-      lastTicks = ticks;
-    }
-
-    // Returns true if the ports are wired together, otherwise false.
-    private bool CheckPins()
-    {
-        return true;
-
-        //bug, apparently with Netduino Firmware 4.3. check is now disabled and initial reads will also fail
-      Debug.Assert(portIn != null, "Input port should not be null.");
-      Debug.Assert(portOut != null, "Output port should not be null.");
-      Debug.Assert(!portOut.Active, "Output port should not be active.");
-      portOut.Active = true;  // Switch to output
-      portOut.Write(false);
-      Thread.Sleep(50);
-      var expectedFalse = portIn.Read();
-      //portOut.Active = false; // Switch to input
-      Thread.Sleep(50);
-      var expectedTrue = portIn.Read();
-      return (expectedTrue && !expectedFalse);
-
-    }
-  }
 }

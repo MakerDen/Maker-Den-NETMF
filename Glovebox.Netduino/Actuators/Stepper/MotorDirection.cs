@@ -1,7 +1,8 @@
 using System;
 using Microsoft.SPOT;
 
-namespace Codeblack.Micro.GettingStarted.StepperMotor
+//#acknowledgement: http://blog.codeblack.nl/post/Netduino-Getting-Started-with-steppermotors.aspx
+namespace Glovebox.Netduino.Actuators
 {
     public enum MotorDirection
     {

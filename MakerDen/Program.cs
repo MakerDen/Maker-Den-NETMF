@@ -118,38 +118,11 @@ namespace MakerDen
 #endif
             var lab = Labs.First;
             EstablishNetworkService(lab);
-            var servo2 = new ServoPwm(PWMChannels.PWM_PIN_D5,"csb01");//, 20000, 1000, 2500, 180, "csb01");
-            //servo.
-            servo2.PositionByDegrees(0);
-
-            servo2.PositionByDegrees(90);// = 50;
-            servo2.PositionByDegrees(0);
-            //servo2.SetDirection(true);
-            servo2.PositionByDegrees(90);// = 50;
-            servo2.PositionByDegrees(0);
-
-            
-            //servo2.Position(1500);
-            return;
-            SensorMoisture moisture = new SensorMoisture(Microsoft.SPOT.Hardware.Cpu.AnalogChannel.ANALOG_0, 1000, "moisture");
-            while (true)
-            {
-                Debug.Print(moisture.Current.ToString());
-                Debug.Print(moisture.ToString());
-                Thread.Sleep(1000);
-            }
             using (SensorTemp temp = new SensorTemp(Pins.GPIO_PIN_D8, 1000, "temp01"))
             using (SensorLight light = new SensorLight(AnalogChannels.ANALOG_PIN_A0, 1000, "light01"))
             using (SensorDistance ultrasonic = new SensorDistance(Pins.GPIO_PIN_D7, Pins.GPIO_PIN_D10, 1000, "sonic01"))
             using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01"))
             {
-
-                /*var servo = new ServoPwm(Microsoft.SPOT.Hardware.Cpu.PWMChannel.PWM_0, "servoCSB");
-                var x = servo.CurrentPosition;
-                servo.Reset();
-                servo.PositionByDegrees(90);
-                */
-                //servo.Action( new Glovebox.MicroFramework.IoT.IotAction(){cmd=}
                 ExecuteStateLoop(temp, light, ultrasonic, rgb, lab);
             }
 
