@@ -1,15 +1,49 @@
-﻿public class Program : MakerBaseNeoPixelRing
+﻿Jewel Lab - Edits to Program.cs in the MakerDen Project
 
-or
+1) Add an addiotion library reference at the top of program.cs
+	
+	using Coatsy.Netduino.NeoPixel.Jewel;
 
-public class Program : MakerBaseNeoPixelGrid
+2) Ensure StartNetworkServices is started with a unique identifier such as your email address
 
-or 
+	StartNetworkServices("your device name", true, "your device identifier goes here");
 
-public class Program : MakerBaseNeoPixelStrip
+3) After the StartNetworkServices() and before the first using statement add
+
+	using (NeoPixelJewelRun jewel = new NeoPixelJewelRun("jewel"))
 
 
-In main class call the StartNeoPixel() to kick off a series of colour cycles.  
-You can extend or create your own the cycles.
+**Your completed program.cs should look like the following**
 
-StartNeoPixel();
+
+using Coatsy.Netduino.NeoPixel.Jewel;
+using Glovebox.Netduino.Actuators;
+using Glovebox.Netduino.Sensors;
+using Microsoft.SPOT;
+using SecretLabs.NETMF.Hardware.NetduinoPlus;
+using System.Threading;
+
+
+namespace MakerDen {
+    public class Program : MakerBaseIoT {
+
+        public static void Main() {
+            // main code marker
+
+            StartNetworkServices("your device name", true, "your email address");
+
+            using (NeoPixelJewelRun jewel = new NeoPixelJewelRun("jewel"))
+            using (SensorTemp temp = new SensorTemp(Pins.GPIO_PIN_D8, 10000, "temp01"))
+            using (SensorLight light = new SensorLight(AnalogChannels.ANALOG_PIN_A0, 1000, "light01"))
+            using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01")) {
+
+                temp.OnBeforeMeasurement += OnBeforeMeasure;
+                temp.OnAfterMeasurement += OnMeasureCompleted;
+                light.OnBeforeMeasurement += OnBeforeMeasure;
+                light.OnAfterMeasurement += OnMeasureCompleted;
+
+                Thread.Sleep(Timeout.Infinite);
+            }
+        }
+    }
+}

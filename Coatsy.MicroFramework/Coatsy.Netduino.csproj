@@ -67,6 +67,7 @@
     <Compile Include="NeoPixel\CommandHelpers_noLib.cs" />
     <Compile Include="NeoPixel\Grid\NeoPixelGrid8x8.cs" />
     <Compile Include="NeoPixel\Jewel\NeoPixelJewel.cs" />
+    <Compile Include="NeoPixel\Jewel\NeoPixelJewelRun.cs" />
     <Compile Include="NeoPixel\NeoPixelAction.cs" />
     <Compile Include="NeoPixel\NeoPixelFrameBase.cs" />
     <Compile Include="NeoPixel\Grid\NeoPixelGrid.cs" />

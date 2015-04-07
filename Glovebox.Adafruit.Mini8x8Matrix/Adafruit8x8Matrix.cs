@@ -1,9 +1,10 @@
 ﻿using Glovebox.Adafruit.Mini8x8Matrix;
+using Glovebox.MicroFramework.IoT;
 using System;
 using System.Threading;
 
 namespace Glovebox.Adafruit.Mini8x8Matrix {
-    public class Adafruit8x8Matrix : IDisposable {
+    public class Adafruit8x8Matrix : AdafruitMatrixAction {
 
         const uint bufferSize = 17;
         private byte[] Frame = new byte[bufferSize];
@@ -136,7 +137,9 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
 
         #endregion
 
-        public Adafruit8x8Matrix(Ht16K33I2cConnection i2Cdriver, ushort panels = 1) {
+        public Adafruit8x8Matrix(Ht16K33I2cConnection i2Cdriver, string name, ushort panels = 1) :
+            base(name) {
+
             this.Panels = panels;
             this.i2Cdriver = i2Cdriver;
         }
@@ -467,6 +470,14 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
 
         public void Dispose() {
 
+        }
+
+        protected override void DoAction(IotAction action) {
+            switch (action.cmd) {
+                case "text":
+                    ScrollStringInFromRight(action.parameters, 100);
+                    break;
+            }
         }
     }
 }

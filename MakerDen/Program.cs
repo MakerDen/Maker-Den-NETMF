@@ -1,16 +1,17 @@
-﻿using Glovebox.MicroFramework.Sensors;
+﻿using Coatsy.Netduino.NeoPixel.Jewel;
 using Glovebox.Netduino.Actuators;
 using Glovebox.Netduino.Sensors;
 using Microsoft.SPOT;
 using SecretLabs.NETMF.Hardware.NetduinoPlus;
 using System.Threading;
 
+
 namespace MakerDen {
-    public class Program : MakerBaseIoT{
+    public class Program : MakerBaseIoT {
 
         public static void Main() {
             // main code marker
-           
+
         }
     }
 }

@@ -30,6 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Adafruit8x8Matrix.cs" />
+    <Compile Include="AdafruitMatrixAction.cs" />
     <Compile Include="AdaFruitMatrixRun.cs" />
     <Compile Include="Ht16K33.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -37,6 +38,12 @@
   <ItemGroup>
     <Reference Include="Microsoft.SPOT.Hardware" />
     <Reference Include="Microsoft.SPOT.Native" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Glovebox.MicroFramework\Glovebox.MicroFramework.csproj">
+      <Project>{FF0DFDCA-3531-4696-A805-D54A038816C8}</Project>
+      <Name>Glovebox.MicroFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Condition="EXISTS('$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets')" Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <Import Condition="!EXISTS('$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets')" Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

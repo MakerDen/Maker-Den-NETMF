@@ -4,25 +4,40 @@ using System;
 using System.Threading;
 
 namespace Glovebox.Adafruit.Mini8x8Matrix {
-    public class AdaFruitMatrixRun : Adafruit8x8Matrix, IDisposable {
-        #region IDisposable implementation
+    public class AdaFruitMatrixRun : Adafruit8x8Matrix {
 
-        void IDisposable.Dispose() {
+        Thread matrixThread;
 
-        }
-
-        #endregion
-
-        //Thread matrix;
-
-        public AdaFruitMatrixRun()
-            : base(new Ht16K33I2cConnection(new I2CDevice(new I2CDevice.Configuration(0x70, 200)))) {
-
-            //matrix = new Thread(new ThreadStart(this.RunSequence));
-            //matrix.Start();
+        public AdaFruitMatrixRun(string name)
+            : base(new Ht16K33I2cConnection(new I2CDevice(new I2CDevice.Configuration(0x70, 200))), name) {
 
             FrameSetBrightness(4);
             FrameSetBlinkRate(BlinkRate.Off);
+
+            CreateCyclesCollection();
+
+            matrixThread = new Thread(StartMiniMatrixThread);
+            matrixThread.Priority = ThreadPriority.Lowest;
+            matrixThread.Start();
+
+        }
+
+        private void StartMiniMatrixThread() {
+            while (true) {
+                for (int i = 0; i < cycles.Length; i++) {
+                    ExecuteCycle(cycles[i]);
+                }
+            }
+        }
+
+        private void CreateCyclesCollection() {
+            cycles = new DoCycle[] {
+
+            new DoCycle(HappyBirthday),
+            new DoCycle(AlphaNumeric),
+            new DoCycle(Hearts),
+            new DoCycle(FollowMe),
+            };
         }
 
         public void HappyBirthday() {
