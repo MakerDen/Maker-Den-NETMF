@@ -16,7 +16,7 @@ namespace Glovebox.Netduino.Sensors {
         const int midpoint = 512;
         int runningAverage = 0;          //the running average of calculated values
         int sample;
-
+        InputPort digitalPin;
         public override double Current { get { return (int)SampleSound(); } }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Glovebox.Netduino.Sensors {
         /// <param name="name">Unique identifying name for command and control</param>
         public SensorSound(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
             : base("sound", "d", ValuesPerSample.One, SampleRateMilliseconds, name) {
-
+                digitalPin = new InputPort(Cpu.Pin.GPIO_Pin0,false,Port.ResistorMode.Disabled);
                 analogPin = new AnalogInput(pin, -1);
                 StartMeasuring();
         }
@@ -45,7 +45,14 @@ namespace Glovebox.Netduino.Sensors {
             int averageReading; //the average of that loop of readings
 
             for (int i = 0; i < numberOfSamples; i++) {
-                sample = (int)(analogPin.Read() * 1024) - midpoint;
+                if(digitalPin !=null){
+                   // Debug.Print(digitalPin.ToString());
+                  //  Debug.Print(digitalPin.Read().ToString());
+                }
+                var sound = analogPin.Read();
+//Debug.Print(sound.ToString());
+             //   sample = (int)(20.0 * System.Math.Log10(sound *1024));
+                sample = (int)(sound * 1024) -midpoint;
 
                 // get absolute value bit shifting a 32 bit int
                 int mask = sample >> 31;
@@ -55,6 +62,7 @@ namespace Glovebox.Netduino.Sensors {
             }
 
             averageReading = sumOfSamples / numberOfSamples;     //calculate running average
+            //return averageReading;
             runningAverage = (((averagedOver - 1) * runningAverage) + averageReading) / averagedOver;
 
             return runningAverage;

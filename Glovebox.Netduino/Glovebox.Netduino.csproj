@@ -69,20 +69,30 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="Actuators\Stepper\MotorDirection.cs" />
+    <Compile Include="Actuators\Stepper\Stepper.cs" />
+    <Compile Include="Actuators\Stepper\StepType.cs" />
     <Compile Include="Drivers\Bluetooth.cs" />
+    <Content Include="Drivers\DHT11.cs" />
+    <Content Include="Drivers\DhtSensor.cs" />
     <Compile Include="Drivers\DS18B20.cs" />
     <Compile Include="Actuators\LedDigital.cs" />
     <Compile Include="Drivers\OneWireBus.cs" />
     <Compile Include="Actuators\Piezo.cs" />
+    <Compile Include="Drivers\PullUpResistor.cs" />
+    <Compile Include="Drivers\Ultrasonic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Actuators\Relay.cs" />
     <Compile Include="Actuators\RgbLed.cs" />
     <Compile Include="Actuators\RgbLedPwm.cs" />
+    <Compile Include="Sensors\Generic\SensorOneAnalogWire.cs" />
     <Compile Include="Sensors\SensorLight.cs" />
+    <Compile Include="Sensors\SensorMoisture.cs" />
     <Compile Include="Sensors\SensorSound.cs" />
     <Compile Include="Sensors\SensorTemp.cs" />
     <Compile Include="Sensors\SensorTempNow.cs" />
     <Compile Include="Actuators\ServoPwm.cs" />
+    <Compile Include="Sensors\SensorDistance.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SPOT.Hardware" />
@@ -92,6 +102,8 @@
     <Reference Include="Microsoft.SPOT.Native">
     </Reference>
     <Reference Include="Microsoft.SPOT.Time" />
+    <Reference Include="SecretLabs.NETMF.Hardware, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="SecretLabs.NETMF.Hardware.Netduino, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>

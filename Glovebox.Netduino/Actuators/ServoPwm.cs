@@ -14,7 +14,7 @@ namespace Glovebox.Netduino.Actuators {
     public class ServoPwm : ActuatorBase {
 
         public enum Actions {
-            Min, Max
+            Min, Max,Position
         }
 
 
@@ -63,11 +63,15 @@ namespace Glovebox.Netduino.Actuators {
             Initialise();
         }
 
+    
+
+
+
         /// <summary>
         /// Initialise the Servo motor
         /// </summary>
         /// <param name="pin">PWM Pin</param>
-        /// <param name="minPulse">minimum pulse duration for servo in microseconds</param>
+        /// <param name="minPulse">minimum pulse durat  ion for servo in microseconds</param>
         /// <param name="maxPulseDuration">maximum pulse duration for servo in microseconds</param>
         /// <param name="maxDegrees">maximum degrees the servo can sweep</param>
         public ServoPwm(Cpu.PWMChannel pin, uint period, uint minPulseDuration, uint maxPulseDuration, uint maxDegrees, string name)
@@ -86,10 +90,9 @@ namespace Glovebox.Netduino.Actuators {
 
             _range = _maxPosition - _minPosition;
             degreesRatio = (float)_range / (float)_maxDegrees;
-
-            _servoMotor = new PWM(_pin, _period, _minPosition, PWM.ScaleFactor.Microseconds, false);
-
+            _servoMotor = new PWM(_pin, 100,0.5,false);
             _servoMotor.DutyCycle = 0;
+            _servoMotor.Duration = _minPosition;
             _servoMotor.Start();
 
             //give the servo enough time to swing to _minPosition
@@ -107,18 +110,29 @@ namespace Glovebox.Netduino.Actuators {
             pos += _minPosition;
 
             _servoMotor.Duration = pos;
-        }
 
+            _servoMotor.Start();
+        }
+        public void SetDirection(int dutyCycle)
+        {
+            _servoMotor.DutyCycle = dutyCycle;
+        }
         /// <summary>
         /// Position the servo by degrees
         /// </summary>
         public void PositionByDegrees(uint degrees) {
+
             uint pos = (uint)(degreesRatio * degrees);
 
             _servoPosition = pos;
             pos += _minPosition;
-
-            _servoMotor.Duration = pos;
+            var newPosition= (uint)map((long)degrees, 0, _maxDegrees, _minPosition, _maxPosition);
+            
+            _servoMotor.Duration = newPosition;
+        }
+        private long map(long x, long in_min, long in_max, long out_min, long out_max)
+        {
+            return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
         }
 
         public void Reset() {
@@ -177,6 +191,11 @@ namespace Glovebox.Netduino.Actuators {
                     Position(Range);
                     break;
             }
+        }
+        public void Dispose()
+        {
+            _servoMotor.DutyCycle = 0; //SetDutyCycle(0);disengage();
+            _servoMotor.Dispose();
         }
     }
 }
