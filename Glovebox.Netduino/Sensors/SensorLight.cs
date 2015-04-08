@@ -7,14 +7,11 @@ using Glovebox.MicroFramework.Base;
 
 namespace Glovebox.Netduino.Sensors {
     public class SensorLight : Generic.SensorOneAnalogWire {
-        private AnalogInput analogPin;
 
         public SensorLight(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
             : base(pin, SampleRateMilliseconds, name, "light", "p")
         {
 
-                analogPin = new AnalogInput(pin, -1);
-                StartMeasuring();
         }
 
     }

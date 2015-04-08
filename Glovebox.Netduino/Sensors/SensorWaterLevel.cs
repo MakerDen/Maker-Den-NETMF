@@ -6,10 +6,10 @@ using Glovebox.MicroFramework;
 using Glovebox.MicroFramework.Base;
 
 namespace Glovebox.Netduino.Sensors {
-    public class SensorMoisture: Generic.SensorOneAnalogWire {
+    public class SensorWaterLevel: Generic.SensorOneAnalogWire {
         
         public SensorMoisture(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
-            : base(pin, SampleRateMilliseconds, name, "moisture", "p")
+            : base(pin, SampleRateMilliseconds, name, "waterlevel", "p")
         {
 
         }
