@@ -1,10 +1,11 @@
 ﻿using Coatsy.Netduino.NeoPixel.Jewel;
+using Glovebox.Adafruit.Mini8x8Matrix;
+using Glovebox.MicroFramework.Sensors;
 using Glovebox.Netduino.Actuators;
 using Glovebox.Netduino.Sensors;
 using Microsoft.SPOT;
 using SecretLabs.NETMF.Hardware.NetduinoPlus;
 using System.Threading;
-
 
 namespace MakerDen {
     public class Program : MakerBaseIoT {
