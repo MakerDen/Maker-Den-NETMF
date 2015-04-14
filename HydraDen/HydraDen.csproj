@@ -124,10 +124,6 @@
     <None Include="Resources\small.tinyfnt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Glovebox.Gadgeteer\Glovebox.Gadgeteer.csproj">
-      <Project>{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}</Project>
-      <Name>Glovebox.Gadgeteer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Glovebox.MicroFramework\Glovebox.MicroFramework.csproj">
       <Project>{FF0DFDCA-3531-4696-A805-D54A038816C8}</Project>
       <Name>Glovebox.MicroFramework</Name>
