@@ -8,12 +8,13 @@ namespace HyrdaDen {
 
         void ProgramStarted() {
 
-            MakerBaseIoT.StartNetworkServices(ethernetENC28, "gdgt", true);
+            MakerBaseIoT.StartNetworkServices(ethernetENC28, "gdgr", true);
 
             using (MakerBaseIoT.relay = new Relay(relayX1, "relay01"))
             using (MakerBaseIoT.led = new Led7R(led7R, "led7r01"))
             using (SensorTemp temp = new SensorTemp(tempHumidity, 2000, "temp01"))
             using (SensorLight light = new SensorLight(lightSense, 1000, "light01")) {
+
                 light.OnBeforeMeasurement += MakerBaseIoT.OnBeforeMeasure;
                 light.OnAfterMeasurement += MakerBaseIoT.OnMeasureCompleted;
 

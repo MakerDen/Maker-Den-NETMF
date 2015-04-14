@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glovebox.Adafruit.Mini8x8Matrix", "..\Glovebox.Adafruit.Mini8x8Matrix\Glovebox.Adafruit.Mini8x8Matrix.csproj", "{6A785BE3-F407-4168-AE7E-541787A7F40E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glovebox.Gadgeteer", "..\Glovebox.Gadgeteer\Glovebox.Gadgeteer.csproj", "{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glovebox.MicroFramework", "..\Glovebox.MicroFramework\Glovebox.MicroFramework.csproj", "{FF0DFDCA-3531-4696-A805-D54A038816C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HydraDen", "..\HydraDen\HydraDen.csproj", "{BC443F86-4662-4091-93B8-8035919FD09B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{22341E93-4398-4D8E-9D5F-ACC18B80E100}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Emulator|Any CPU = Emulator|Any CPU
+		LaughOMeter|Any CPU = LaughOMeter|Any CPU
+		Release|Any CPU = Release|Any CPU
+		RingOnly|Any CPU = RingOnly|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A785BE3-F407-4168-AE7E-541787A7F40E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A785BE3-F407-4168-AE7E-541787A7F40E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A785BE3-F407-4168-AE7E-541787A7F40E}.Emulator|Any CPU.ActiveCfg = Release|Any CPU
+		{6A785BE3-F407-4168-AE7E-541787A7F40E}.Emulator|Any CPU.Build.0 = Release|Any CPU
+		{6A785BE3-F407-4168-AE7E-541787A7F40E}.LaughOMeter|Any CPU.ActiveCfg = Release|Any CPU
+		{6A785BE3-F407-4168-AE7E-541787A7F40E}.LaughOMeter|Any CPU.Build.0 = Release|Any CPU
+		{6A785BE3-F407-4168-AE7E-541787A7F40E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A785BE3-F407-4168-AE7E-541787A7F40E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A785BE3-F407-4168-AE7E-541787A7F40E}.RingOnly|Any CPU.ActiveCfg = Release|Any CPU
+		{6A785BE3-F407-4168-AE7E-541787A7F40E}.RingOnly|Any CPU.Build.0 = Release|Any CPU
+		{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}.Emulator|Any CPU.ActiveCfg = Release|Any CPU
+		{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}.Emulator|Any CPU.Build.0 = Release|Any CPU
+		{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}.LaughOMeter|Any CPU.ActiveCfg = Release|Any CPU
+		{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}.LaughOMeter|Any CPU.Build.0 = Release|Any CPU
+		{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}.RingOnly|Any CPU.ActiveCfg = Release|Any CPU
+		{655CCC0E-E1EB-4ED0-A443-3F5F78055FD8}.RingOnly|Any CPU.Build.0 = Release|Any CPU
+		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Emulator|Any CPU.ActiveCfg = Emulator|Any CPU
+		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Emulator|Any CPU.Build.0 = Emulator|Any CPU
+		{FF0DFDCA-3531-4696-A805-D54A038816C8}.LaughOMeter|Any CPU.ActiveCfg = LaughOMeter|Any CPU
+		{FF0DFDCA-3531-4696-A805-D54A038816C8}.LaughOMeter|Any CPU.Build.0 = LaughOMeter|Any CPU
+		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF0DFDCA-3531-4696-A805-D54A038816C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF0DFDCA-3531-4696-A805-D54A038816C8}.RingOnly|Any CPU.ActiveCfg = RingOnly|Any CPU
+		{FF0DFDCA-3531-4696-A805-D54A038816C8}.RingOnly|Any CPU.Build.0 = RingOnly|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.Emulator|Any CPU.ActiveCfg = Release|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.Emulator|Any CPU.Build.0 = Release|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.Emulator|Any CPU.Deploy.0 = Release|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.LaughOMeter|Any CPU.ActiveCfg = Release|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.LaughOMeter|Any CPU.Build.0 = Release|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.LaughOMeter|Any CPU.Deploy.0 = Release|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.RingOnly|Any CPU.ActiveCfg = Release|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.RingOnly|Any CPU.Build.0 = Release|Any CPU
+		{BC443F86-4662-4091-93B8-8035919FD09B}.RingOnly|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
