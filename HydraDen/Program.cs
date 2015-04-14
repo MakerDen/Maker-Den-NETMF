@@ -8,7 +8,7 @@ namespace HyrdaDen {
 
         void ProgramStarted() {
 
-            MakerBaseIoT.StartNetworkServices(ethernetENC28, "gdgt", true, "dglover");
+            MakerBaseIoT.StartNetworkServices(ethernetENC28, "gdgt", true);
 
             using (MakerBaseIoT.relay = new Relay(relayX1, "relay01"))
             using (MakerBaseIoT.led = new Led7R(led7R, "led7r01"))
