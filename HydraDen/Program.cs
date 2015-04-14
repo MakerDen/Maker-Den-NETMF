@@ -1,42 +1,27 @@
-﻿using System;
-using System.Collections;
+﻿using Glovebox.Gadgeteer.Actuators;
+using Glovebox.Gadgeteer.Sensors;
+using HydraDen;
 using System.Threading;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Presentation;
-using Microsoft.SPOT.Presentation.Controls;
-using Microsoft.SPOT.Presentation.Media;
-using Microsoft.SPOT.Presentation.Shapes;
-using Microsoft.SPOT.Touch;
 
-using Gadgeteer.Networking;
-using GT = Gadgeteer;
-using GTM = Gadgeteer.Modules;
-using Gadgeteer.Modules.GHIElectronics;
-using Glovebox.MicroFramework;
-
-namespace test {
+namespace HyrdaDen {
     public partial class Program {
-
-        SensorLight light;
-        SensorTemp temp;
-        SensorError error;
 
         void ProgramStarted() {
 
-            Message("Initialising");
+            MakerBaseIoT.StartNetworkServices(ethernetENC28, "gdgt", true, "dglover");
 
-            Initialise("fez", true);
+            using (MakerBaseIoT.relay = new Relay(relayX1, "relay01"))
+            using (MakerBaseIoT.led = new Led7R(led7R, "led7r01"))
+            using (SensorTemp temp = new SensorTemp(tempHumidity, 2000, "temp01"))
+            using (SensorLight light = new SensorLight(lightSense, 1000, "light01")) {
+                light.OnBeforeMeasurement += MakerBaseIoT.OnBeforeMeasure;
+                light.OnAfterMeasurement += MakerBaseIoT.OnMeasureCompleted;
 
-            light = new SensorLight(1000);
-            temp = new SensorTemp(20000);
+                temp.OnBeforeMeasurement += MakerBaseIoT.OnBeforeMeasure;
+                temp.OnAfterMeasurement += MakerBaseIoT.OnMeasureCompleted;
 
-            light.OnBeforeMeasurement += OnBeforeMeasure;
-            light.OnAfterMeasurement += OnMeasureCompleted;
-
-            temp.OnBeforeMeasurement += OnBeforeMeasure;
-            temp.OnAfterMeasurement += OnMeasureCompleted;
-
-            Message(string.Empty);
-        }     
+                Thread.Sleep(Timeout.Infinite);
+            }
+        }
     }
 }

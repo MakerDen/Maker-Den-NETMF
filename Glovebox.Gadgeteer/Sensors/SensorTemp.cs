@@ -1,24 +1,22 @@
-using System;
-using Microsoft.SPOT;
+using Glovebox.MicroFramework.Base;
 using GTM = Gadgeteer.Modules;
-using Glovebox.MicroFramework;
 
 
-namespace test {
-    class SensorTemp : SensorBase {
+namespace Glovebox.Gadgeteer.Sensors {
+    public class SensorTemp : SensorBase {
 
-        private Gadgeteer.Modules.GHIElectronics.TempHumidity tempHumidity = new GTM.GHIElectronics.TempHumidity(8);
         private double lastTempReading;
         private double lastHumidityReading;
 
-        protected override double Current { get { return lastTempReading; } }
 
-        public SensorTemp(int sampleRateMilliseconds)
-            : base(SensorType.Temperature, ValuesPerSample.One, sampleRateMilliseconds) {
+        public SensorTemp(GTM.GHIElectronics.TempHumidity tempHumidity, int sampleRateMilliseconds, string name)
+            : base("temp", "c", ValuesPerSample.One, sampleRateMilliseconds, name) {
 
             tempHumidity.MeasurementComplete += tempHumidity_MeasurementComplete;
-            tempHumidity.RequestSingleMeasurement();
-            tempHumidity.MeasurementInterval = 1000 * 60 * 30;  // every 30 minutes
+
+//            tempHumidity.RequestSingleMeasurement();
+
+            tempHumidity.MeasurementInterval = 5000;
             tempHumidity.StartTakingMeasurements();
 
             StartMeasuring();
@@ -36,6 +34,13 @@ namespace test {
 
         protected override string GeoLocation() {
             return string.Empty;
+        }
+
+        public override double Current {
+            get { return lastTempReading; }
+        }
+
+        protected override void SensorCleanup() {
         }
     }
 }
