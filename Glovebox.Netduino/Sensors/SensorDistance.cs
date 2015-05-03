@@ -10,6 +10,11 @@ namespace Glovebox.Netduino.Sensors {
         Drivers.HCSR04 sensor;
         public override double Current { get { return (sensor.Ping()); } }
 
+        public delegate uint SensorEventHandler(object sender, EventArgs e);
+        public event SensorEventHandler OnAfterMeasurement;
+        public event SensorEventHandler OnBeforeMeasurement;
+
+
         /// <summary>
         /// Create and start a light senor
         /// </summary>

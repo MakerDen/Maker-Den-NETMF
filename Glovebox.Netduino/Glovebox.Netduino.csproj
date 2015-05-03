@@ -69,6 +69,7 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="Actuators\PiezoSL.cs" />
     <Compile Include="Actuators\Valve.cs" />
     <Compile Include="Actuators\Switch.cs" />
     <Compile Include="Actuators\Stepper\MotorDirection.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Actuators\Relay.cs" />
     <Compile Include="Actuators\RgbLed.cs" />
     <Compile Include="Actuators\RgbLedPwm.cs" />
+    <Compile Include="Sensors\SensorMultipleBase.cs" />
     <Compile Include="Sensors\SensorWaterLevel.cs" />
     <Compile Include="Sensors\Generic\SensorOneAnalogWire.cs" />
     <Compile Include="Sensors\SensorLight.cs" />
@@ -106,7 +108,10 @@
     </Reference>
     <Reference Include="Microsoft.SPOT.Time" />
     <Reference Include="SecretLabs.NETMF.Hardware, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="SecretLabs.NETMF.Hardware.AnalogInput, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="SecretLabs.NETMF.Hardware.Netduino, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="SecretLabs.NETMF.Hardware.PWM, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="SecretLabs.NETMF.IO, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>

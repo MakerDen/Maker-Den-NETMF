@@ -11,7 +11,8 @@ using Glovebox.Netduino.Drivers;
 using Microsoft.SPOT.Hardware;
 using SecretLabs.NETMF.Hardware.Netduino;
 //using NetMf.CommonExtensions;
-
+using SecretLabs.NETMF.Hardware;
+using SecretLabs.NETMF.Hardware.Netduino;
 
 namespace MakerDen
 {
@@ -116,6 +117,102 @@ namespace MakerDen
 #if NEOPIXEL
             StartNeoPixel();
 #endif
+          /*   PWM speaker = new PWM(Cpu.PWMChannel.PWM_5,0,0,PWM.ScaleFactor.Milliseconds,false);
+             speaker.Duration = 3 * 1000;
+             speaker.Frequency = 505;
+             speaker.Start();
+             Thread.Sleep(3 * 1000);
+             speaker.Dispose();
+           */
+            //using (SensorSound sound = new SensorSound(Cpu.Pin.GPIO_Pin0, 0, "snd01")) {
+            //    sound.StartMeasuring();
+                
+            //for(int i =0; i<50;i++){
+
+            //    Debug.Print(sound.Current.ToString());
+            //  Debug.Print(sound.ToString());
+            //        Thread.Sleep(200);
+                
+            //}
+            
+            //}
+            //using (PiezoSL piezo = new PiezoSL(Pins.GPIO_PIN_D5, "piezo01"))
+            //using (Piezo piezo = new Piezo(Cpu.PWMChannel.PWM_5, "piezo01"))
+            using (PiezoSL piezo = new PiezoSL(Pins.GPIO_PIN_D5, "piezo01"))
+            {
+                //piezo.QueueScript
+                //twinkle
+                piezo.QueueScript("C C G G A A * G ! F F E E D D * C ! G G F F E E * D ! G G F F E E * D ! C C G G A A * G ! F F E E D D * C",4,'h',120);
+                piezo.PlayWait();
+                piezo.QueueScript("C C G G A A * G ! F F E E D D * C ! G G F F E E * D ! G G F F E E * D ! C C G G A A * G ! F F E E D D * C", 4, 'h', 120);
+                //piezo.QueueScript("C C G G A A * G / F ! F E E D D * C / G ! G F F E E * D / G ! G F F E E * D / C ! C G G A A * G / F ! F E E D D * C", 4, 'h', 120);
+                piezo.PlayWait();
+
+                return;
+                //piezo.Wait();
+                //ENTER SANDMAN
+                //starts with intro1 and 2, needs to build 
+                string intro1 = "! E3 * 0 ! D4 C#4 ! * * C4";
+                string intro2 =" ! / E3 E3 E4 E3 E3 D#4 E3 E3 ! D4 C#4 ! * C4";
+                    string intro3 = " ! / E3 E3 B3 E3 E3 A#3 E3 E3 A3 E3 G#3 E3 G3 E3 F#3 E3";
+                    string masterOfPuppets = intro1 + intro2 + intro3 + intro2 + intro3;
+                //EnterSandman = " ! * E3 E3 B3 E3 E3 A#3 E3 E3 A3 E3 G#3 E3 G3 E3 F#3 E3";
+                //preverse 1
+                    string preverse1 = " ! / E3 F3 B3 E3 F3 C4 E3 F3 C#4 E3 F3 C4 E3 F3 B3 B3";
+                //EnterSandman +=" E3 F3 B3 E3 F3 C4 E3 F3 CS4 E3 F3 C4 E3 F3 B3 B3";
+                //preverse 2
+                string preverse2 =" ! / E3 F3 B3 E3 F3 C4 E3 F3 C#4 E3 F3 C4 E3 F3 B3 0";
+                string preverse3 = " ! / E3 F3 B3 E3 F3 C4 E3 F3 G3 FS3 E3 G3 F#3 E3 G3 F#3";
+                string endIntro = " ! / G3 F#3 E3 G3 F#3 E3 G3 F#3 E3 D#4 A5 E3 D#4 A5 E3 D#4 A5 E3 D#4 A5 E3 D#4 ! * A5";
+                string eightVamp = " ! / E3 E3 E3 E3 E3 E3 E3 E3";
+                string verse1 = " ! / 0 G3 A3 0 A#3 A3 G3 A3";
+                string verse2 = " ! / A3 0 A3 0";
+                string eightVampF = " ! / F#3 F#3 F#3 F#3 F#3 F#3 F#3 F#3";
+
+                masterOfPuppets += preverse1 + preverse2 + preverse1 + preverse3 + endIntro;
+                masterOfPuppets += eightVamp + verse1 + eightVamp + verse2;
+                masterOfPuppets += eightVamp + verse1 + eightVamp + verse2;
+                masterOfPuppets += eightVampF;
+                //piezo.QueueScript(masterOfPuppets, 7, 'q', 120);
+                //piezo.PlayWait();
+                //piezo.QueueClear();
+                //return;
+                //mario
+                //piezo.QueueScript("E7 E7 0 E7 0 C7 E7 0 G7 0 0 0 G6 0 0 0 C7 0 0 G6 0 0 E6 0 0 A6 0 B6 0 A#6 A6 0 # G6 E7 G7 ! A7 0 F7 G7 0 E7 0 C7 D7 B6 0 0 C7 0 0 G6 0 0 E6 0 0 A6 0 B6 0 A#6 A6 0 # G6 E7 G7 ! A7 0 F7 G7 0 E7 0 C7 D7 B6 0 0", 7, 'q', 120);
+                //piezo.PlayWait();
+                //return;
+               //imperial march
+                var script = "a3 a3 a3 ^ f3 @ c4 ! a3 ^ f3 @ c4 * a3 ! e4 e4 e4 ^ f4 @ c4 ! g#3 ^ f3 @ c4 * a3 ! a4 ^ a3 @ a3 ! a4 / g#4 g4 $ f#4 f4 / f#4 03 a#3 ! d#4 / d4 c#4 $ c4 b3 / c4 03 $ f3 ! g#3 # f3 $ a3 ! c4 # a3 $ c4 * e4 ! a4 ^ a3 @ a3 ! a4 / g#4 g4 $ f#4 f4 / f#4 03 a#3 ! d#4 / d4 c#4 $ c4 b3 / c4 03 f3 ! g#3 # f3 $ c4 ! a3 # f3 $ c3 * a3 ";
+                script = "a4 a4 a4 ^ f4 @ c5 ! a4 ^ f4 ! @ c5 * a4 ! e5 e5 e5 ^ f5 @ c5 ! g#4 ^ f4 @ c5 * a4 ! a5 ^ a4 @ a4 ! a5 / g#5 g5 $ f#5 f5 / f#5 04 a#4 ! d#5 / d5 c#5 $ c5 b4 / c5 04 $ f4 ! g#4 # f4 $ a4 ! c5 # a4 $ c5 * e5 ! a5 ^ a4 @ a4 ! a5 / g#5 g5 $ f#5 f5 / f#5 04 a#4 ! d#5 / d5 c#5 $ c5 b4 / c5 04 f4 ! g#4 # f4 $ c5 ! a4 # f4 $ c4 * a4 ";
+                
+                //reviewed
+                //script = "a4 a4 a4 ^ f4 @ c5 ! a4 ^ f4 ! @ c5 * a4 ! e5 e5 e5 ^ f5 @ c5 ! g#4 ^ f4 @ c5 * a4 ! a5 ^ a4 @ a4 ! a5 / g#5 g5 $ f#5 f5 / f#5 04 a#4 ! d#5 / d5 c#5 $ c5 b4 / c5 04 $ f4 ! g#4 # f4 $ a4 ! c5 # a4 $ c5 * e5 ! a5 ^ a4 @ a4 ! a5 / g#5 g5 $ f#5 f5 / f#5 04 a#4 ! d#5 / d5 c#5 $ c5 b4 / c5 04 f4 ! g#4 # f4 $ c5 ! a4 # f4 $ c4 * a4 ";
+                piezo.QueueScript(script.ToUpper(), 4, 'e', 120);
+                piezo.PlayWait();
+                piezo.QueueClear();
+                
+                //piezo.QueueScript("E E N E N C E N G N N N - G N N N", 7, 'h', 60);
+                //piezo.QueuePlay();
+
+                //while (piezo.IsActive())
+                //{
+                //    Thread.Sleep(50);
+                //}
+                //piezo.BeebStartup();
+                
+                //while (piezo.IsActive()) {
+                //    Thread.Sleep(50);
+                //}
+                //piezo.QueueClear();
+                //piezo.BeepAlert();
+                //while (piezo.IsActive()) {
+                //    Thread.Sleep(50);
+                //}
+                //piezo.QueueClear();
+            }
+            //PWMChannels.PWM_PIN_D3
+            return;
+
             var lab = Labs.First;
             EstablishNetworkService(lab);
             using (SensorTemp temp = new SensorTemp(Pins.GPIO_PIN_D8, 1000, "temp01"))

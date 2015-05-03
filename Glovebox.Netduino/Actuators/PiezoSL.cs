@@ -1,23 +1,24 @@
+
 using System;
-using Microsoft.SPOT;
-using System.Threading;
-using Microsoft.SPOT.Hardware;
 using System.Collections;
-using Glovebox.MicroFramework;
+using System.Threading;
 using Glovebox.MicroFramework.Base;
 using Glovebox.MicroFramework.IoT;
-//using System.Text.RegularExpressions;
-
-namespace Glovebox.Netduino.Actuators {
-    public class Piezo : ActuatorBase
+using Microsoft.SPOT;
+using Microsoft.SPOT.Hardware;
+using SecretLabs.NETMF.Hardware;
+using SecretLabs.NETMF.Hardware.Netduino;
+namespace Glovebox.Netduino.Actuators
+{
+    public class PiezoSL : ActuatorBase
     {
 
-        static PWM _piezo;
+        static SecretLabs.NETMF.Hardware.PWM _piezo;
         enum BeatCount { Sixteenth, eigth, quarter, half, zero, one, two, three, four, five, six, seven, eight, nine };
         public enum Actions { BeepOk, BeepAlert, BeepStartup }
-
+    
         static Queue toneQueue = new Queue();
-
+        string[] validOctaves = new string[8];
         Thread playToneThread;
 
         /// <summary>
@@ -25,21 +26,40 @@ namespace Glovebox.Netduino.Actuators {
         /// </summary>
         /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.PWMChannels namespace</param>
         /// <param name="name">Unique identifying name for command and control</param>
-        public Piezo(Cpu.PWMChannel pin, string name)
-            : base(name, "piezo")
+        public PiezoSL(Cpu.Pin pin, string name)
+            : base(name, "piezoSL")
         {
-            
-            //_piezo = new PWM(pin, 2048, 0, PWM.ScaleFactor.Milliseconds, false);
-            _piezo = new PWM(pin, 2048, 0, false);
-            _piezo.Start();
+            for (int i = 1; i <= 8; i++)
+            {
+                validOctaves[i - 1] = i.ToString();
+            }
+
+            _piezo = new SecretLabs.NETMF.Hardware.PWM(pin);//,0,0, PWM.ScaleFactor.Microseconds, false);
+            //_piezo.DutyCycle = 0;
+            //_piezo.Start();
+
         }
 
         public void QueuePlay()
         {
+
             if (playToneThread != null && playToneThread.IsAlive) { return; }
+            PlayTone();
 
             playToneThread = new Thread(PlayTone);
             playToneThread.Start();
+        }
+        public void PlayWait()
+        {
+            QueuePlay();
+            Wait();
+        }
+        public void Wait() {
+            while (IsActive())
+            {
+                Thread.Sleep(50);
+            }
+        
         }
         public bool IsActive()
         {
@@ -47,13 +67,21 @@ namespace Glovebox.Netduino.Actuators {
                 return false;
             return playToneThread.IsAlive;
         }
+        private bool ValidOctave(string octave){
+            foreach(var s in validOctaves){
+            if(s == octave)
+                return true;
+            }
+        
+            return false;
+        }
         /// <summary>
         /// Queue a music script.  
         /// </summary>
         /// <param name="script">
         /// A space delimited series of notes and commands. 
-        /// Notes: c,c#,d,d#,e,f,f#,g,g#,a,a#,b.  
-        /// Commands: + increase octave, - decrease octace, * double duration, / half duration.
+        /// Notes: c,c#,d,d#,e,f,f#,g,g#,a,a#,b.    
+        /// Commands: + increase octave, - decrease octace, * double duration, / half duration, # 1/3 duration, $ 1/4 duration ^ 2/3 duration.
         /// Example C C G G A A * G / F F E E D D * C / G G F F E E * D / G G F F E E * D / C C G G A A * G / F F E E D D * C
         /// </param>
         ///<param name="startingOctave">Starting Octave between 0 and 8 inclusive.  Middle C Octave is 4</param>
@@ -63,25 +91,53 @@ namespace Glovebox.Netduino.Actuators {
         {
             byte _octave = startingOctave;
             ushort _thirtySecondthBeatCount = BeatCountInThirtySecondths(beatCount);
-
+            
             if (startingOctave > 8) { _octave = 8; }
             else if (startingOctave < 0) { _octave = 0; }
             else { _octave = startingOctave; }
 
             foreach (string item in script.ToLower().Split(' '))
             {
+                var subitem = item.ToCharArray();
+
                 switch (item)
                 {
+                    case " ":
+                        break;//blank
+                    case "!":
+                        //full duration
+                        _thirtySecondthBeatCount = BeatCountInThirtySecondths(beatCount);
+                        break;
                     case "/":
                         // half duration
+                        //_thirtySecondthBeatCount = BeatCountInThirtySecondths(beatCount);
                         _thirtySecondthBeatCount /= 2;
+                        break;
+                    case "#":
+                        // 3/4 duration
+                        //_thirtySecondthBeatCount = BeatCountInThirtySecondths(beatCount);
+                        _thirtySecondthBeatCount =(ushort)(( _thirtySecondthBeatCount / 4)*3);
+                        break;
+                    case "$":
+                        // quarter duration
+                        //_thirtySecondthBeatCount = BeatCountInThirtySecondths(beatCount);
+                        _thirtySecondthBeatCount /= 4;
+                        break;
+                    case "@":
+                        // 1/3 duration
+                        //_thirtySecondthBeatCount = BeatCountInThirtySecondths(beatCount);
+                        _thirtySecondthBeatCount = (ushort)((_thirtySecondthBeatCount / 3) * 2);
+                        break;
+
+                    case "^":
+                        // 2/3 duration
+                        //_thirtySecondthBeatCount = BeatCountInThirtySecondths(beatCount);
+                        _thirtySecondthBeatCount = (ushort)((_thirtySecondthBeatCount / 3) * 2);
                         break;
                     case "*":
                         // double duration
+                        //_thirtySecondthBeatCount = BeatCountInThirtySecondths(beatCount);
                         _thirtySecondthBeatCount *= 2;
-                        break;
-                    case "!":
-                        _thirtySecondthBeatCount = BeatCountInThirtySecondths(beatCount);
                         break;
                     case "+":
                         // increase octave
@@ -93,7 +149,18 @@ namespace Glovebox.Netduino.Actuators {
                         break;
                     default:
                         //note
-                        AddNoteToQueue(item, _thirtySecondthBeatCount, beatsPerMintue, _octave);
+                        var note = item.Trim().ToLower();
+                        if (item.Length > 1 && item.Substring(item.Length - 1, 1) != "#")
+                        {
+                            note = item;
+                            var noteSignature = item.Substring(item.Length - 1, 1);
+                            if(ValidOctave(noteSignature)){
+                                    _octave = byte.Parse(noteSignature);
+                            }
+                                note = item.Substring(0, item.Length - 1);
+                        }
+
+                        AddNoteToQueue(note, _thirtySecondthBeatCount, beatsPerMintue, _octave);
                         break;
                 }
             }
@@ -211,11 +278,12 @@ namespace Glovebox.Netduino.Actuators {
         {
             int beatTimeInMilliseconds = 60000 / beatsPerMinute; // 60,000 milliseconds per minute
             int pauseTimeInMilliseconds = (int)(beatTimeInMilliseconds * 0.1);
-            int durationTimeInMilliseconds = beatTimeInMilliseconds * thirtySecondthBeatCount / 32 - pauseTimeInMilliseconds;
+            int durationTimeInMilliseconds = ((beatTimeInMilliseconds /16) *  thirtySecondthBeatCount) -pauseTimeInMilliseconds;//) / 16) - pauseTimeInMilliseconds;
+            var time = ((beatTimeInMilliseconds ) - pauseTimeInMilliseconds);
 
             if (durationTimeInMilliseconds <= 0) { durationTimeInMilliseconds = 1; }
 
-            uint frequency = (uint)(CalculateFrequency(octave, note) + 0.5f);  // add 0.5f to round up
+            uint frequency = (uint)(CalculateFrequency(octave, note) );  // add 0.5f to round up
 
             QueueTone(frequency, durationTimeInMilliseconds, pauseTimeInMilliseconds);
         }
@@ -236,8 +304,10 @@ namespace Glovebox.Netduino.Actuators {
         {
             if (playToneThread != null && playToneThread.IsAlive) { playToneThread.Abort(); }
             toneQueue.Clear();
-            _piezo.Period = 0;
-            _piezo.Duration = 0;
+            _piezo.SetPulse(0, 0);
+            /*_piezo.Period = 0;
+
+            _piezo.Duration = 0;*/
             playToneThread = null;
         }
 
@@ -252,15 +322,20 @@ namespace Glovebox.Netduino.Actuators {
                 bd = (ToneDefinition)(toneQueue.Dequeue());
                 if (bd.Frequency != 0)
                 {
-
-//                    myPeriod =         1000000 / bd.Frequency; //261 Hz is middle c
+                                    ///1000000
                     myPeriod = (uint)((1000000) / bd.Frequency); //261 Hz is middle c
-                    _piezo.Period = myPeriod;
-                    _piezo.Duration = myPeriod / 2;  //Duration is the proportion of the period that the wave is high
-                }
-                Thread.Sleep(bd.DurationTimeInMilliseconds);
-                _piezo.DutyCycle = 0;
 
+                    //_piezo.Period = myPeriod;
+                    //_piezo.Duration = myPeriod / 2;  //Duration is the proportion of the period that the wave is high
+                    _piezo.SetPulse(myPeriod, myPeriod / 2);
+                }
+                else {
+                    _piezo.SetPulse(0,0); 
+                }
+                
+                Thread.Sleep(bd.DurationTimeInMilliseconds);
+                // _piezo.DutyCycle = 0;
+                _piezo.SetPulse(0, 0); 
                 Thread.Sleep(bd.PauseTimeInMilliseconds);
             }
         }
@@ -284,9 +359,9 @@ namespace Glovebox.Netduino.Actuators {
                     // Multiply initial note by 2 to the power (n / 12) to get correct frequency, 
                     //  (where n is the number of notes above the first note). 
                     //  Then mutiply that value by 2 to go up each octave
-
-                    return (16.35f * (float)System.Math.Pow(2, (float)n / 12))
-                        * (float)System.Math.Pow(2, octave);
+                    var result =( (16.35f * (float)System.Math.Pow(2, (float)n / 12))
+                        * (float)System.Math.Pow(2, octave)) + 0.5f;//0.5f is round up(??)
+                    return result;
                 }
             }
             // throw new ArgumentException("No frequency found for note : " + note, note);
@@ -296,7 +371,8 @@ namespace Glovebox.Netduino.Actuators {
         protected override void ActuatorCleanup()
         {
             if (_piezo == null) { return; }
-            _piezo.Stop();
+            //_piezo.Stop();
+
             _piezo.Dispose();
         }
 
@@ -363,31 +439,16 @@ namespace Glovebox.Netduino.Actuators {
             var index = command.IndexOf(',');
             if (index < 0 || index + 1 == command.Length) { return; }
 
-            if (!double.TryParse(command.Substring(0, index), out beatsPerMinute)) {return;}
-            score = command.Substring(index + 1).Trim().ToLower();          
+            if (!double.TryParse(command.Substring(0, index), out beatsPerMinute)) { return; }
+            score = command.Substring(index + 1).Trim().ToLower();
 
-            if (score != string.Empty) { 
+            if (score != string.Empty)
+            {
                 QueueScore(score, (int)beatsPerMinute);
                 QueuePlay();
             }
         }
     }
 
-    
 
-    internal class ToneDefinition {
-        uint _frequency;
-        int _durationTimeInMilliseconds;
-        int _pauseTimeInMilliseconds;
-
-        public uint Frequency { get { return _frequency; } }
-        public int DurationTimeInMilliseconds { get { return _durationTimeInMilliseconds; } }
-        public int PauseTimeInMilliseconds { get { return _pauseTimeInMilliseconds; } }
-
-        public ToneDefinition(uint frequency, int durationTimeInMilliseconds, int pauseTimeInMilliseconds) {
-            _frequency = frequency;
-            _durationTimeInMilliseconds = durationTimeInMilliseconds;
-            _pauseTimeInMilliseconds = pauseTimeInMilliseconds;
-        }
-    }
 }

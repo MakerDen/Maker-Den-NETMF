@@ -113,10 +113,7 @@ namespace Glovebox.Netduino.Actuators {
 
             _servoMotor.Start();
         }
-        public void SetDirection(int dutyCycle)
-        {
-            _servoMotor.DutyCycle = dutyCycle;
-        }
+      
         /// <summary>
         /// Position the servo by degrees
         /// </summary>

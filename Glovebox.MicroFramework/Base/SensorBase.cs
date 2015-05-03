@@ -1,13 +1,12 @@
 using System;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
 using System.Threading;
-using Glovebox.MicroFramework.Json;
 using Glovebox.MicroFramework.IoT;
-using System.Runtime.CompilerServices;
+using Glovebox.MicroFramework.Json;
+using Microsoft.SPOT;
 
-namespace Glovebox.MicroFramework.Base {
-    public abstract class SensorBase : IotBase {
+namespace Glovebox.MicroFramework.Base
+{
+    public abstract class SensorBase: IotBase {
         public enum Actions { Start, Stop, Measure };
 
         protected abstract void Measure(double[] value);
@@ -21,7 +20,7 @@ namespace Glovebox.MicroFramework.Base {
         //public enum SensorType { Light, Memory, MemFezHydra, Sound, Temperature, Error, TempAndHumidity, Miscellaneous, Diagnostic, Challenge }
         public enum ValuesPerSample { One = 1, Two = 2, Three = 3, Four = 4, Five = 5 };
 
-        JSONWriter jw = new JSONWriter();
+        protected JSONWriter jw = new JSONWriter();
 
         public delegate uint SensorEventHandler(object sender, EventArgs e);
         public event SensorEventHandler OnAfterMeasurement;
@@ -73,20 +72,16 @@ namespace Glovebox.MicroFramework.Base {
         private readonly string topic;
 
 
-        private readonly string unit;
-        private double[] value;
-        private string Geo { get; set; }
+        protected string Geo { get; set; }
         private int sampleRateMilliseconds;
 
 
-        private static int msgId;
+        protected static int msgId;
 
         public SensorBase(string sensorType, string sensorUnit, ValuesPerSample valuesPerSensor, int SampleRateMilliseconds, string name)
             : base(name == null ? sensorType : name, sensorType) {
 
-            this.unit = sensorUnit;
             topic = topicNamespace + deviceName + "/" + type;
-            value = new double[(uint)valuesPerSensor];
             this.sampleRateMilliseconds = SampleRateMilliseconds;
             this.ThisIotType = IotType.Sensor;
 
@@ -114,14 +109,14 @@ namespace Glovebox.MicroFramework.Base {
         }
 
 
-        private void DoMeasure() {
-            //lock (threadSync) {
+        protected void DoMeasure() {
+            ////lock (threadSync) {
             TotalSensorMeasurements++;
             BeforeMeasurement(new SensorIdEventArgs(id));
-            Measure(value);
+            //Measure(value);
             Geo = GeoLocation();
-            sensorErrorCount = AfterMeasurement(new SensorItemEventArgs(ToJson(), topic, type, value, msgId));
-            //}
+            //sensorErrorCount = AfterMeasurement(new SensorItemEventArgs(ToJson(), topic, type, value, msgId));
+            ////}
         }
 
 
@@ -136,28 +131,7 @@ namespace Glovebox.MicroFramework.Base {
             if (OnBeforeMeasurement != null) { OnBeforeMeasurement(this, e); }
         }
 
-        private byte[] ToJson() {
-            jw.Begin();
-            jw.AddProperty("Dev", deviceName);
-            jw.AddProperty("Type", type);
-            jw.AddProperty("Val", value, "f");
-            jw.AddProperty("Unit", unit);
-            jw.AddProperty("Utc", DateTime.UtcNow);
-            if (Geo != string.Empty) { jw.AddProperty("Geo", Geo); }
-            jw.AddProperty("Id", msgId++);
-            jw.End();
 
-            return jw.ToArray();
-        }
-
-        public override string ToString() {
-            Measure(value);
-            Geo = GeoLocation();
-            var j = ToJson();
-            char[] Output = new char[j.Length];
-            for (int Counter = 0; Counter < j.Length; ++Counter) { Output[Counter] = (char)j[Counter]; }
-            return new string(Output);
-        }
 
         public override void Action(IotAction action) {
             double sampleRate;
@@ -208,7 +182,13 @@ namespace Glovebox.MicroFramework.Base {
 
         protected override void CleanUp() {
             SensorCleanup();
-            SensorThread.Abort();
+            if (SensorThread != null)
+            {
+                SensorThread.Abort();
+            }
         }
     }
 }
+
+  
+
