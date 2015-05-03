@@ -88,7 +88,6 @@
     <Compile Include="Actuators\Relay.cs" />
     <Compile Include="Actuators\RgbLed.cs" />
     <Compile Include="Actuators\RgbLedPwm.cs" />
-    <Compile Include="Sensors\SensorMultipleBase.cs" />
     <Compile Include="Sensors\SensorWaterLevel.cs" />
     <Compile Include="Sensors\Generic\SensorOneAnalogWire.cs" />
     <Compile Include="Sensors\SensorLight.cs" />
