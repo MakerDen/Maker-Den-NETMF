@@ -11,7 +11,7 @@ namespace Glovebox.Gadgeteer.Sensors
 
 
         public SensorLight(GTM.GHIElectronics.LightSense lightSense, int sampleRateMilliseconds, string name)
-            : base(name, "l", ValuesPerSample.One, sampleRateMilliseconds, "light01")
+            : base(light", "p", ValuesPerSample.One, sampleRateMilliseconds, name)
         {
 
             this.lightSense = lightSense;

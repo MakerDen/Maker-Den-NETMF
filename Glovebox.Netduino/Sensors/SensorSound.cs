@@ -1,12 +1,13 @@
 using System;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
 using Glovebox.MicroFramework;
 using Glovebox.MicroFramework.Base;
+using Microsoft.SPOT.Hardware;
+using SecretLabs.NETMF.Hardware;
+using SecretLabs.NETMF.Hardware.Netduino;
 
 namespace Glovebox.Netduino.Sensors {
-    public class SensorSound : SensorBase {
-        private AnalogInput analogPin;
+    public class SensorSound : SingleSensor {
+        private SecretLabs.NETMF.Hardware.AnalogInput analogPin;
 
         // https://www.inkling.com/read/arduino-cookbook-michael-margolis-2nd/chapter-6/recipe-6-7
         // https://randomskk.net/projects/lightstrip/code.html
@@ -16,7 +17,7 @@ namespace Glovebox.Netduino.Sensors {
         const int midpoint = 512;
         int runningAverage = 0;          //the running average of calculated values
         int sample;
-
+        InputPort digitalPin;
         public override double Current { get { return (int)SampleSound(); } }
 
         /// <summary>
@@ -25,10 +26,10 @@ namespace Glovebox.Netduino.Sensors {
         /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels namespace</param>
         /// <param name="SampleRateMilliseconds">How often to measure in milliseconds or -1 to disable auto timed sensor readings</param>
         /// <param name="name">Unique identifying name for command and control</param>
-        public SensorSound(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
+        public SensorSound(Cpu.Pin pin, int SampleRateMilliseconds, string name)
             : base("sound", "d", ValuesPerSample.One, SampleRateMilliseconds, name) {
-
-                analogPin = new AnalogInput(pin, -1);
+                analogPin = new SecretLabs.NETMF.Hardware.AnalogInput(Pins.GPIO_PIN_A0);
+            
                 StartMeasuring();
         }
 
@@ -45,19 +46,15 @@ namespace Glovebox.Netduino.Sensors {
             int averageReading; //the average of that loop of readings
 
             for (int i = 0; i < numberOfSamples; i++) {
-                sample = (int)(analogPin.Read() * 1024) - midpoint;
-
-                // get absolute value bit shifting a 32 bit int
-                int mask = sample >> 31;
-                sample = (mask + sample) ^ mask;
-
+                var sound = analogPin.Read();
                 sumOfSamples += sample;
             }
 
             averageReading = sumOfSamples / numberOfSamples;     //calculate running average
+            //return averageReading;
             runningAverage = (((averagedOver - 1) * runningAverage) + averageReading) / averagedOver;
 
-            return runningAverage;
+            return averageReading;
         }
 
         protected override void SensorCleanup() {
