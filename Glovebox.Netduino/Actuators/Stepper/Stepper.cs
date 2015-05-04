@@ -1,14 +1,10 @@
-using System;
-using Microsoft.SPOT;
+using Glovebox.MicroFramework.Base;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
-using Glovebox.MicroFramework.Base;
 
 //#acknowledgement: http://blog.codeblack.nl/post/Netduino-Getting-Started-with-steppermotors.aspx
-namespace Glovebox.Netduino.Actuators
-{
-    public class Stepper : ActuatorBase
-    {
+namespace Glovebox.Netduino.Actuators {
+    public class Stepper : ActuatorBase {
         #region Private fields
 
         private uint usPerStep = 0;
@@ -33,8 +29,8 @@ namespace Glovebox.Netduino.Actuators
 
         #region Constructors
 
-        public Stepper(Cpu.Pin pinCoil1A, Cpu.Pin pinCoil1B, Cpu.Pin pinCoil2A, Cpu.Pin pinCoil2B, uint stepsPerRevolution, string name):base(name,"stepper")
-        {
+        public Stepper(Cpu.Pin pinCoil1A, Cpu.Pin pinCoil1B, Cpu.Pin pinCoil2A, Cpu.Pin pinCoil2B, uint stepsPerRevolution, string name)
+            : base(name, "stepper") {
             // remember the steps per revolution
             this.StepsPerRevolution = stepsPerRevolution;
 
@@ -46,15 +42,15 @@ namespace Glovebox.Netduino.Actuators
 
             Thread.Sleep(500);
             this.portCoil1B = new OutputPort(pinCoil1B, false);
-            
+
             Thread.Sleep(500);
             this.portCoil2A = new OutputPort(pinCoil2A, false);
-            
+
             Thread.Sleep(500);
-     
+
             this.portCoil2B = new OutputPort(pinCoil2B, false);
 
-           
+
 
             // set the maximum speed
             SetSpeed(120);
@@ -65,10 +61,8 @@ namespace Glovebox.Netduino.Actuators
             this.portCoil2A.Dispose();
             this.portCoil2B.Dispose();
         }
-        public override void Action(Glovebox.MicroFramework.IoT.IotAction action)
-        {
-            switch (action.cmd.ToLower())
-            {
+        public override void Action(Glovebox.MicroFramework.IoT.IotAction action) {
+            switch (action.cmd.ToLower()) {
                 case "forward":
                     Step(this.StepsPerRevolution, MotorDirection.Forward);
                     break;
@@ -81,33 +75,28 @@ namespace Glovebox.Netduino.Actuators
             }
         }
 
-        public Stepper(uint stepsPerRevolution,string name)
-            : this(Cpu.Pin.GPIO_Pin0, Cpu.Pin.GPIO_Pin1, Cpu.Pin.GPIO_Pin2, Cpu.Pin.GPIO_Pin3, stepsPerRevolution, name)
-        {
+        public Stepper(uint stepsPerRevolution, string name)
+            : this(Cpu.Pin.GPIO_Pin0, Cpu.Pin.GPIO_Pin1, Cpu.Pin.GPIO_Pin2, Cpu.Pin.GPIO_Pin3, stepsPerRevolution, name) {
         }
 
         #endregion
 
         #region Methods
 
-        public void Step(uint steps, MotorDirection direction, StepType style = StepType.Single)
-        {
+        public void Step(uint steps, MotorDirection direction, StepType style = StepType.Single) {
             uint usPerStep = this.usPerStep;
 
-            if (style == StepType.Interleave)
-            {
+            if (style == StepType.Interleave) {
                 // corrections for interleave; interleave contains twice the steps (both single & double), so wait only halve the time
                 usPerStep /= 2;
             }
 
             int waitTime = (int)usPerStep / 1000;
-            if (waitTime <= 0)
-            {
+            if (waitTime <= 0) {
                 waitTime = 1;
             }
 
-            while (steps-- > 0)
-            {
+            while (steps-- > 0) {
                 // execute a single step
                 OneStep(direction, style);
 
@@ -116,13 +105,11 @@ namespace Glovebox.Netduino.Actuators
             }
         }
 
-        public void SetSpeed(uint speed)
-        {
+        public void SetSpeed(uint speed) {
             // maximize the speed at 120
             // a higher speed will cause a wait-time of 0 ms for each step, which will not allow a step to take place
             // for interleave a 0 ms wait-time works, but it will not run faster then 120
-            if (speed > 120)
-            {
+            if (speed > 120) {
                 speed = 120;
             }
 
@@ -134,10 +121,8 @@ namespace Glovebox.Netduino.Actuators
 
         #region Protected methods
 
-        protected int OneStep(MotorDirection direction, StepType stepStyle = StepType.Single)
-        {
-            switch (stepStyle)
-            {
+        protected int OneStep(MotorDirection direction, StepType stepStyle = StepType.Single) {
+            switch (stepStyle) {
                 // single coil activation only uses the even stages (0, 2, 4, 6)
                 case StepType.Single:
                     if (this.currentStep % 2 != 0)  // we're at an odd step
@@ -145,8 +130,7 @@ namespace Glovebox.Netduino.Actuators
                         // add or retract 1, depending on the direction, to get back into the next/previous even stage
                         this.currentStep += direction == MotorDirection.Forward ? 1 : -1;
                     }
-                    else
-                    {
+                    else {
                         // add or retract 2, depending on the direction, to advance to the next/previous stage
                         this.currentStep += direction == MotorDirection.Forward ? 2 : -2;
                     }
@@ -159,8 +143,7 @@ namespace Glovebox.Netduino.Actuators
                         // add or retract 1, depending on the direction, to get back into the next/previous odd stage
                         this.currentStep += direction == MotorDirection.Forward ? 1 : -1;
                     }
-                    else
-                    {
+                    else {
                         // add or retract 2, depending on the direction, to advance to the next/previous stage
                         this.currentStep += direction == MotorDirection.Forward ? 2 : -2;
                     }
@@ -177,8 +160,7 @@ namespace Glovebox.Netduino.Actuators
             this.currentStep += 8;
             this.currentStep %= 8;
 
-            switch (this.currentStep)
-            {
+            switch (this.currentStep) {
                 case 0:                         // energize coil 1A
                     this.portCoil1B.Write(false);
                     this.portCoil2A.Write(false);

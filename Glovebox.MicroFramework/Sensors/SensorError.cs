@@ -1,6 +1,3 @@
-using System;
-using Microsoft.SPOT;
-using Glovebox.MicroFramework;
 using Glovebox.MicroFramework.Base;
 
 namespace Glovebox.MicroFramework.Sensors {
@@ -11,7 +8,7 @@ namespace Glovebox.MicroFramework.Sensors {
         public SensorError(int SampleRateMilliseconds, string name)
             : base("error", "n", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
-                StartMeasuring();
+            StartMeasuring();
         }
 
         protected override void Measure(double[] value) {

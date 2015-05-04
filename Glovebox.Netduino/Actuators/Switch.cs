@@ -1,8 +1,5 @@
-using System;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
-using Glovebox.MicroFramework;
 using Glovebox.MicroFramework.Base;
+using Microsoft.SPOT.Hardware;
 
 
 // www.dfrobot.com relay module V3.1

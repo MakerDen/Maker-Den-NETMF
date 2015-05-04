@@ -1,12 +1,7 @@
-using System;
-using Microsoft.SPOT;
 
 //#acknowledgement: http://blog.codeblack.nl/post/Netduino-Getting-Started-with-steppermotors.aspx
-namespace Glovebox.Netduino.Actuators
-
-{
-    public enum StepType
-    {
+namespace Glovebox.Netduino.Actuators {
+    public enum StepType {
         /// <summary>
         /// Single Coil activation.
         /// </summary>

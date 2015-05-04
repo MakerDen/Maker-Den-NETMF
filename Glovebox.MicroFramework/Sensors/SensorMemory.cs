@@ -1,7 +1,5 @@
-using System;
-using Microsoft.SPOT;
-using Glovebox.MicroFramework;
 using Glovebox.MicroFramework.Base;
+using Microsoft.SPOT;
 
 namespace Glovebox.MicroFramework.Sensors {
     public class SensorMemory : SensorBase {
@@ -10,7 +8,7 @@ namespace Glovebox.MicroFramework.Sensors {
         public SensorMemory(int SampleRateMilliseconds, string name)
             : base("mem", "b", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
-                StartMeasuring();
+            StartMeasuring();
         }
 
         protected override void Measure(double[] value) {

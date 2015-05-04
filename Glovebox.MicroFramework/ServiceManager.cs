@@ -1,21 +1,17 @@
-using System;
-using Microsoft.SPOT;
-using uPLibrary.Networking.M2Mqtt;
-using System.Threading;
-using uPLibrary.Networking.M2Mqtt.Messages;
-using Microsoft.SPOT.Net.NetworkInformation;
-using Microsoft.SPOT.Hardware;
 using Glovebox.MicroFramework.IoT;
+using Glovebox.MicroFramework.Json;
+using Microsoft.SPOT;
+using Microsoft.SPOT.Net.NetworkInformation;
+using System;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using System.Text;
-using Glovebox.MicroFramework.Json;
+using System.Threading;
+using uPLibrary.Networking.M2Mqtt;
+using uPLibrary.Networking.M2Mqtt.Messages;
 
 
-namespace Glovebox.MicroFramework
-{
-    public class ServiceManager
-    {
+namespace Glovebox.MicroFramework {
+    public class ServiceManager {
         const int networkSettleTime = 6000;
         const uint MaxRetryCount = 10;
         uint errorCount;
@@ -31,8 +27,7 @@ namespace Glovebox.MicroFramework
         int lastSystemrequest = Environment.TickCount;
         DateTime lastSystemRequestTime = DateTime.Now;
 
-        public ServiceManager(string serviceAddress, bool connected)
-        {
+        public ServiceManager(string serviceAddress, bool connected) {
             uint retryCount = 0;
             this.serviceAddress = serviceAddress;
             this.connected = connected;
@@ -50,44 +45,37 @@ namespace Glovebox.MicroFramework
                 try { StartMqtt(); }
                 catch { retryCount++; }
             }
-        
+
         }
 
-        private string CreateClientId()
-        {
+        private string CreateClientId() {
             DateTime utc = DateTime.UtcNow;
             string cid = utc.Hour.ToString() + utc.Minute.ToString() + utc.Second.ToString() + "-" + Utilities.GetMacAddress();
             return cid.Length > 23 ? cid.Substring(0, 23) : cid;  //23 chars for clientid is mqtt max allowed
         }
 
-        private string GetUniqueDeviceIdentifier(string value)
-        {
+        private string GetUniqueDeviceIdentifier(string value) {
             string id = string.Empty;
 
-            if (value == null || value == string.Empty)
-            {
+            if (value == null || value == string.Empty) {
                 id = Utilities.GetMacAddress();
-                if (id == null || id == string.Empty)
-                {
+                if (id == null || id == string.Empty) {
                     id = Guid.NewGuid().ToString();
                 }
             }
-            else
-            {
+            else {
                 Regex r = new Regex("/");
                 id = r.Replace(value, "");
             }
             return id;
         }
 
-        void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
-        {
+        void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e) {
             networkAvailable = e.IsAvailable;
             networkChanged = true;
         }
 
-        void StartMqtt()
-        {
+        void StartMqtt() {
             Debug.GC(true);
             bool networkReset = false;
             if (!connected) { return; }
@@ -95,11 +83,9 @@ namespace Glovebox.MicroFramework
             // give the network some settle time
             Thread.Sleep(networkSettleTime);
 
-            while (mqtt == null || !mqtt.IsConnected)
-            {
+            while (mqtt == null || !mqtt.IsConnected) {
                 networkReset = false;
-                while (!networkAvailable)
-                {
+                while (!networkAvailable) {
                     Thread.Sleep(2000);
                     networkReset = true;
                 }
@@ -115,23 +101,19 @@ namespace Glovebox.MicroFramework
             mqtt.Subscribe(ConfigurationManager.MqqtSubscribe, new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
         }
 
-        void ReconnectMqtt()
-        {
+        void ReconnectMqtt() {
             ResetMqtt();
             StartMqtt();
         }
 
-        void ResetMqtt()
-        {
-            if (mqtt != null)
-            {
+        void ResetMqtt() {
+            if (mqtt != null) {
                 mqtt.MqttMsgPublishReceived -= mqtt_MqttMsgPublishReceived;
                 mqtt = null;
             }
         }
 
-        void mqtt_MqttMsgPublishReceived(object sender, uPLibrary.Networking.M2Mqtt.Messages.MqttMsgPublishEventArgs e)
-        {
+        void mqtt_MqttMsgPublishReceived(object sender, uPLibrary.Networking.M2Mqtt.Messages.MqttMsgPublishEventArgs e) {
             DateTime now = DateTime.Now;
 
             if (now < lastSystemRequestTime.AddSeconds(2) || e.Message.Length > 4096 || e.Topic.Length > 256) { return; }
@@ -142,14 +124,12 @@ namespace Glovebox.MicroFramework
             if (actionRequest == null) { return; }
 
             string[] result = IotActionManager.Action(actionRequest);
-            if (result != null)
-            {
+            if (result != null) {
                 Publish(ConfigurationManager.MqttDeviceAnnounce + ConfigurationManager.DeviceName, SystemConfig(result));
             }
         }
 
-        private byte[] SystemConfig(string[] IotItems)
-        {
+        private byte[] SystemConfig(string[] IotItems) {
             JSONWriter jw = new JSONWriter();
             jw.Begin();
             jw.AddProperty("Dev", ConfigurationManager.DeviceName);
@@ -160,20 +140,17 @@ namespace Glovebox.MicroFramework
             return jw.ToArray();
         }
 
-        private IotAction DecodeAction(string topic, string message)
-        {
+        private IotAction DecodeAction(string topic, string message) {
             string[] topicParts = topic.ToLower().Split('/');
 
             if (topic.Length < 9) { return null; }
 
-            switch (topic.Substring(0, 9))
-            {
+            switch (topic.Substring(0, 9)) {
                 case "gbcmd/all":
                     return ActionParts(topicParts, 2, message);
                 case "gbcmd/dev":
                     // check device guid matches requested
-                    if (topicParts.Length > 2 && topicParts[2] != string.Empty && topicParts[2] != null && topicParts[2] == uniqueDeviceIdentifier.ToLower())
-                    {
+                    if (topicParts.Length > 2 && topicParts[2] != string.Empty && topicParts[2] != null && topicParts[2] == uniqueDeviceIdentifier.ToLower()) {
                         return ActionParts(topicParts, 3, message);
                     }
                     else { return null; }
@@ -181,17 +158,14 @@ namespace Glovebox.MicroFramework
             return null;
         }
 
-        private IotAction ActionParts(string[] topicParts, int startPos, string message)
-        {
+        private IotAction ActionParts(string[] topicParts, int startPos, string message) {
             IotAction action = new IotAction();
             action.parameters = message;
 
-            for (int i = startPos, p = 0; i < topicParts.Length; i++, p++)
-            {
+            for (int i = startPos, p = 0; i < topicParts.Length; i++, p++) {
                 string part = topicParts[i].Length == 0 ? null : topicParts[i];
                 if (part == null) { continue; }
-                switch (p)
-                {
+                switch (p) {
                     case 0:
                         action.cmd = part;
                         break;
@@ -208,40 +182,33 @@ namespace Glovebox.MicroFramework
             return action;
         }
 
-        private void PublishData(string topic, byte[] data)
-        {
+        private void PublishData(string topic, byte[] data) {
             Thread.Sleep((int)mqttPrePublishDelay);
-            try
-            {
+            try {
                 ExecutionConstraint.Install(20000, 0);
-                while (mqtt == null || !mqtt.IsConnected || networkChanged)
-                {
+                while (mqtt == null || !mqtt.IsConnected || networkChanged) {
                     networkChanged = false;
                     ReconnectMqtt();
                 }
                 mqtt.Publish(topic, data);
             }
-            catch (ConstraintException)
-            {
+            catch (ConstraintException) {
                 networkChanged = true;
                 errorCount++;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Debug.Print(ex.Message);
                 networkChanged = true;
                 errorCount++;
             }
-            finally
-            {
+            finally {
                 ExecutionConstraint.Install(-1, 0);
                 Thread.Sleep((int)mqttPostPublishDelay);
             }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public uint Publish(string topic, byte[] data)
-        {
+        public uint Publish(string topic, byte[] data) {
             if (!connected) { return 0; }
 
             PublishData(topic, data);

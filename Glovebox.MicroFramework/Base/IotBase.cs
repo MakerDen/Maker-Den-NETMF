@@ -1,10 +1,8 @@
-using System;
-using Microsoft.SPOT;
-using System.Threading;
 using Glovebox.MicroFramework.IoT;
+using System;
 
 namespace Glovebox.MicroFramework.Base {
-    public abstract class IotBase: IDisposable {
+    public abstract class IotBase : IDisposable {
         protected abstract void CleanUp();
 
         public enum IotType { Sensor, Actuator };
@@ -12,7 +10,7 @@ namespace Glovebox.MicroFramework.Base {
 
         protected readonly string deviceName = ConfigurationManager.DeviceName;
         private readonly string name;
-        public string Name {get { return name; }}
+        public string Name { get { return name; } }
 
         protected readonly string type;
         public string Type { get { return type; } }
@@ -29,7 +27,7 @@ namespace Glovebox.MicroFramework.Base {
             this.id = IotActionManager.AddItem(this);
         }
 
-        public void IncrementActionCount(){
+        public void IncrementActionCount() {
             TotalActionCount++;
         }
 
@@ -38,6 +36,6 @@ namespace Glovebox.MicroFramework.Base {
             CleanUp();
         }
 
-        public virtual void Action(IotAction action){}
+        public virtual void Action(IotAction action) { }
     }
 }

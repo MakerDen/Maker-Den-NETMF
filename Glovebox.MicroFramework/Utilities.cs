@@ -1,11 +1,9 @@
-using System;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Time;
-using System.Net;
-using System.Threading;
-using System.Text;
-using Microsoft.SPOT.Hardware;
 using Microsoft.SPOT.Net.NetworkInformation;
+using Microsoft.SPOT.Time;
+using System;
+using System.Net;
+using System.Text;
+using System.Threading;
 
 namespace Glovebox.MicroFramework {
     public static class Utilities {
@@ -25,7 +23,7 @@ namespace Glovebox.MicroFramework {
                 //network settle time
                 Thread.Sleep(networkSettleTime);
                 var ntpAddress = GetTimeServiceAddress(ntpServer);
-                if (ntpAddress == null) {return false;}
+                if (ntpAddress == null) { return false; }
 
                 TimeService.UpdateNow(ntpAddress, 200);
 
@@ -49,11 +47,9 @@ namespace Glovebox.MicroFramework {
             return postcodes[rnd.Next(postcodes.Length)];
         }
 
-        public static string BytesToString(byte[] Input)
-        {
+        public static string BytesToString(byte[] Input) {
             char[] Output = new char[Input.Length];
-            for (int Counter = 0; Counter < Input.Length; ++Counter)
-            {
+            for (int Counter = 0; Counter < Input.Length; ++Counter) {
                 Output[Counter] = (char)Input[Counter];
             }
             return new string(Output);

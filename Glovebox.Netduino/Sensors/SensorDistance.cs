@@ -1,9 +1,8 @@
-using System;
+using Glovebox.MicroFramework;
+using Glovebox.MicroFramework.Base;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
-using Glovebox.MicroFramework;
-using Glovebox.MicroFramework.Base;
 
 namespace Glovebox.Netduino.Sensors {
     public class SensorDistance : SensorBase {
@@ -23,12 +22,12 @@ namespace Glovebox.Netduino.Sensors {
         /// <param name="name">Unique identifying name for command and control</param>
         public SensorDistance(Cpu.Pin echo, Cpu.Pin trigger, int SampleRateMilliseconds, string name)
             : base("ultrasonic", "p", ValuesPerSample.One, SampleRateMilliseconds, name) {
-                sensor = new Drivers.HCSR04(echo, trigger);
-                StartMeasuring();
+            sensor = new Drivers.HCSR04(echo, trigger);
+            StartMeasuring();
         }
 
         protected override void Measure(double[] value) {
-            
+
             Thread.Sleep(200);
 
             value[0] = (sensor.Ping() * 100);

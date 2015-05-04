@@ -1,5 +1,4 @@
 using System;
-using Microsoft.SPOT;
 
 namespace Glovebox.MicroFramework.Json {
     public class JSONWriter : ByteArrayBuilder {
@@ -13,7 +12,7 @@ namespace Glovebox.MicroFramework.Json {
 
 
         public void End() {
-            Append("}");    
+            Append("}");
         }
 
         public override byte[] ToArray() {
@@ -26,7 +25,7 @@ namespace Glovebox.MicroFramework.Json {
 
         public string BytesToString() {
             byte[] input = base.ToArray();
-            char[] output = new char[input.Length];            
+            char[] output = new char[input.Length];
 
             for (int Counter = 0; Counter < input.Length; ++Counter) {
                 output[Counter] = (char)input[Counter];
@@ -51,8 +50,7 @@ namespace Glovebox.MicroFramework.Json {
             AddPropertyValue(value);
         }
 
-        public void AddProperty(string name, double[] value, string format)
-        {
+        public void AddProperty(string name, double[] value, string format) {
             AddPropertyName(name);
             AddPropertyValue(value, format);
         }
@@ -83,14 +81,11 @@ namespace Glovebox.MicroFramework.Json {
         }
 
         //"Val":[14.00,14.00,14.00]
-        private void AddPropertyValue(double[] value, string format)
-        {
+        private void AddPropertyValue(double[] value, string format) {
             Append("[");
-            for (int i = 0; i < value.Length; i++)
-            {
+            for (int i = 0; i < value.Length; i++) {
                 Append(value[i].ToString(format));
-                if (i < value.Length - 1)
-                {
+                if (i < value.Length - 1) {
                     Append(",");
                 }
             }

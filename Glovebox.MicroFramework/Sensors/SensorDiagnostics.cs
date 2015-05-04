@@ -1,8 +1,6 @@
-using System;
-using Microsoft.SPOT;
-using Glovebox.MicroFramework;
 using Glovebox.MicroFramework.Base;
 using Glovebox.MicroFramework.IoT;
+using Microsoft.SPOT;
 
 namespace Glovebox.MicroFramework.Sensors {
     public class SensorDiagnostics : SensorBase {
@@ -10,7 +8,7 @@ namespace Glovebox.MicroFramework.Sensors {
         public SensorDiagnostics(int SampleRateMilliseconds, string name)
             : base("diag", "g", ValuesPerSample.Five, SampleRateMilliseconds, name) {
 
-                StartMeasuring();
+            StartMeasuring();
         }
 
         protected override void Measure(double[] value) {
@@ -26,10 +24,10 @@ namespace Glovebox.MicroFramework.Sensors {
         }
 
         public override double Current {
-            get { return Debug.GC(false); } 
+            get { return Debug.GC(false); }
         }
 
-        protected override void SensorCleanup() {        
+        protected override void SensorCleanup() {
         }
     }
 }

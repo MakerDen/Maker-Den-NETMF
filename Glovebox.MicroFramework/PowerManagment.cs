@@ -46,8 +46,8 @@
  * 
  */
 
-using System;
 using Microsoft.SPOT.Hardware;
+using System;
 
 //namespace VariableLabs.PowerManagment
 namespace Glovebox.MicroFramework {

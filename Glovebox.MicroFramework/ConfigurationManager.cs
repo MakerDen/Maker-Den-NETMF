@@ -1,6 +1,3 @@
-using System;
-using Microsoft.SPOT;
-using System.Text.RegularExpressions;
 
 namespace Glovebox.MicroFramework {
     public static class ConfigurationManager {

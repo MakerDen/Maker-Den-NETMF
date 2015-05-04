@@ -1,9 +1,6 @@
-using System;
-using Microsoft.SPOT;
+using Glovebox.MicroFramework.Base;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
-using Glovebox.MicroFramework.Base;
-using Glovebox.MicroFramework.IoT;
 
 
 namespace Glovebox.Netduino.Actuators {
@@ -14,7 +11,7 @@ namespace Glovebox.Netduino.Actuators {
     public class ServoPwm : ActuatorBase {
 
         public enum Actions {
-            Min, Max,Position
+            Min, Max, Position
         }
 
 
@@ -63,7 +60,7 @@ namespace Glovebox.Netduino.Actuators {
             Initialise();
         }
 
-    
+
 
 
 
@@ -90,7 +87,7 @@ namespace Glovebox.Netduino.Actuators {
 
             _range = _maxPosition - _minPosition;
             degreesRatio = (float)_range / (float)_maxDegrees;
-            _servoMotor = new PWM(_pin, 100,0.5,false);
+            _servoMotor = new PWM(_pin, 100, 0.5, false);
             _servoMotor.DutyCycle = 0;
             _servoMotor.Duration = _minPosition;
             _servoMotor.Start();
@@ -113,7 +110,7 @@ namespace Glovebox.Netduino.Actuators {
 
             _servoMotor.Start();
         }
-      
+
         /// <summary>
         /// Position the servo by degrees
         /// </summary>
@@ -123,12 +120,11 @@ namespace Glovebox.Netduino.Actuators {
 
             _servoPosition = pos;
             pos += _minPosition;
-            var newPosition= (uint)map((long)degrees, 0, _maxDegrees, _minPosition, _maxPosition);
-            
+            var newPosition = (uint)map((long)degrees, 0, _maxDegrees, _minPosition, _maxPosition);
+
             _servoMotor.Duration = newPosition;
         }
-        private long map(long x, long in_min, long in_max, long out_min, long out_max)
-        {
+        private long map(long x, long in_min, long in_max, long out_min, long out_max) {
             return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
         }
 
@@ -189,8 +185,7 @@ namespace Glovebox.Netduino.Actuators {
                     break;
             }
         }
-        public void Dispose()
-        {
+        public void Dispose() {
             _servoMotor.DutyCycle = 0; //SetDutyCycle(0);disengage();
             _servoMotor.Dispose();
         }

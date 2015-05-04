@@ -1,7 +1,5 @@
-using System;
-using Microsoft.SPOT;
-using System.Threading;
 using Glovebox.MicroFramework.Base;
+using System;
 
 namespace Glovebox.MicroFramework.IoT {
     public static class IotActionManager {

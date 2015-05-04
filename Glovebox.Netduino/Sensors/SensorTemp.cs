@@ -1,11 +1,8 @@
-using System;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
-using System.Threading;
 using Glovebox.MicroFramework;
-using Glovebox.Netduino;
 using Glovebox.MicroFramework.Base;
 using Glovebox.Netduino.Drivers;
+using Microsoft.SPOT.Hardware;
+using System;
 
 
 namespace Glovebox.Netduino.Sensors {

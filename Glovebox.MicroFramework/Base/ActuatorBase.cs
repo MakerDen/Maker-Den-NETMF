@@ -1,5 +1,3 @@
-using System;
-using Microsoft.SPOT;
 using Glovebox.MicroFramework.IoT;
 
 namespace Glovebox.MicroFramework.Base {

@@ -1,12 +1,11 @@
-using System;
-using System.Threading;
 using Glovebox.MicroFramework.IoT;
 using Glovebox.MicroFramework.Json;
 using Microsoft.SPOT;
+using System;
+using System.Threading;
 
-namespace Glovebox.MicroFramework.Base
-{
-    public abstract class SensorBase: IotBase {
+namespace Glovebox.MicroFramework.Base {
+    public abstract class SensorBase : IotBase {
         public enum Actions { Start, Stop, Measure };
 
         protected abstract void Measure(double[] value);
@@ -182,13 +181,12 @@ namespace Glovebox.MicroFramework.Base
 
         protected override void CleanUp() {
             SensorCleanup();
-            if (SensorThread != null)
-            {
+            if (SensorThread != null) {
                 SensorThread.Abort();
             }
         }
     }
 }
 
-  
+
 

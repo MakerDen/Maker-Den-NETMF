@@ -1,7 +1,4 @@
-using System;
-using Microsoft.SPOT;
 using Glovebox.MicroFramework.Base;
-using Glovebox.MicroFramework.IoT;
 
 namespace Glovebox.MicroFramework.Sensors {
     public class Challenge : SensorBase {
@@ -9,7 +6,7 @@ namespace Glovebox.MicroFramework.Sensors {
 
         public Challenge(IotBase iotItem, string userDefinedType)
             : base(userDefinedType, "n", ValuesPerSample.One, 60000, "challenge") {
-                this.iotItem = iotItem;
+            this.iotItem = iotItem;
 
             StartMeasuring();
         }

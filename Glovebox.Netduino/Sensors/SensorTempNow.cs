@@ -1,11 +1,7 @@
-using System;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
-using System.Threading;
 using Glovebox.MicroFramework;
-using Glovebox.Netduino;
 using Glovebox.MicroFramework.Base;
 using Glovebox.Netduino.Drivers;
+using Microsoft.SPOT.Hardware;
 
 
 namespace Glovebox.Netduino.Sensors {
@@ -24,8 +20,8 @@ namespace Glovebox.Netduino.Sensors {
         public SensorTempNow(Cpu.Pin pin, int SampleRateMilliseconds, string name)
             : base("temp", "c", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
-                ds = new DS18B20(pin);
-                StartMeasuring();
+            ds = new DS18B20(pin);
+            StartMeasuring();
         }
 
         protected override void Measure(double[] value) {

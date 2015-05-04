@@ -1,10 +1,8 @@
-using System;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
-using System.Threading;
-using Glovebox.MicroFramework;
 using Glovebox.MicroFramework.Base;
 using Glovebox.MicroFramework.IoT;
+using Microsoft.SPOT.Hardware;
+using System;
+using System.Threading;
 
 namespace Glovebox.Netduino.Actuators {
     public class RgbLed : ActuatorBase {

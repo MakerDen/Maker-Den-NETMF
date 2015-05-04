@@ -1,10 +1,9 @@
 using System;
-using Microsoft.SPOT;
 using System.IO;
 using System.Text;
 
 namespace Glovebox.MicroFramework.Json {
-    public class ByteArrayBuilder: IDisposable {
+    public class ByteArrayBuilder : IDisposable {
 
         MemoryStream ms = new MemoryStream();
         UTF8Encoding encoder = new UTF8Encoding();
