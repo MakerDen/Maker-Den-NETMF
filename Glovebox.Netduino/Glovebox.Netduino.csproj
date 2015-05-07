@@ -93,8 +93,8 @@
     <Compile Include="Sensors\SensorLight.cs" />
     <Compile Include="Sensors\SensorMoisture.cs" />
     <Compile Include="Sensors\SensorSound.cs" />
+    <Compile Include="Sensors\SensorTempCached.cs" />
     <Compile Include="Sensors\SensorTemp.cs" />
-    <Compile Include="Sensors\SensorTempNow.cs" />
     <Compile Include="Actuators\ServoPwm.cs" />
     <Compile Include="Sensors\SensorDistance.cs" />
   </ItemGroup>

@@ -2,22 +2,18 @@ using Glovebox.MicroFramework;
 using Glovebox.MicroFramework.Base;
 using Glovebox.Netduino.Drivers;
 using Microsoft.SPOT.Hardware;
-using System;
 
 
 namespace Glovebox.Netduino.Sensors {
     public class SensorTemp : SensorBase {
-        const uint temperatureCacheSeconds = 60 * 10;
 
         DS18B20 ds = null;
-        DateTime nextTemperatureReading = DateTime.MinValue;
-        float lastTemperatureReadingValue = 0.0f;
+        private const int CallibrationOffset = -3;
 
-        public override double Current { get { return GetTemperature(); } }
+        public override double Current { get { return ds.ConvertAndReadTemperature() + CallibrationOffset; } }
 
         /// <summary>
-        /// Create and start a temperature senor.  Note temperature is cached for 10 minutes
-        /// as temperature chip tends to heat up if read too often
+        /// Create and start a temperature senor.  Non cached version
         /// </summary>
         /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.Pins namespace</param>
         /// <param name="SampleRateMilliseconds">How often to measure in milliseconds or -1 to disable auto timed sensor readings</param>
@@ -25,31 +21,17 @@ namespace Glovebox.Netduino.Sensors {
         public SensorTemp(Cpu.Pin pin, int SampleRateMilliseconds, string name)
             : base("temp", "c", ValuesPerSample.One, SampleRateMilliseconds, name) {
 
-                ds = new DS18B20(pin);
-                StartMeasuring();
+            ds = new DS18B20(pin);
+            StartMeasuring();
         }
 
         protected override void Measure(double[] value) {
-            value[0] = GetTemperature();
+            value[0] = ds.ConvertAndReadTemperature() + CallibrationOffset;
         }
 
         protected override string GeoLocation() {
             return Utilities.RandomPostcode();
         }
-
-        private double GetTemperature() {
-            DateTime now = DateTime.Now;
-            // cache temperature 
-            if (now > nextTemperatureReading) {
-                lastTemperatureReadingValue = ds.ConvertAndReadTemperature();
-                nextTemperatureReading = now.AddSeconds(temperatureCacheSeconds);
-            }
-            return lastTemperatureReadingValue;
-        }
-
-        //void IDisposable.Dispose() {
-        //    ds.Dispose();
-        //}
 
         protected override void SensorCleanup() {
             ds.Dispose();
