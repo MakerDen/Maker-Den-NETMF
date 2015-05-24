@@ -418,7 +418,7 @@ namespace Coatsy.Netduino.NeoPixel {
         public void FrameShift(int increment = 1) {
             //this creates less garbage:)
             if (increment > 0) { FrameShiftForward((ushort)increment); }
-            else if (increment < 0) { FrameShiftBack((ushort)Utilities.Absolute(increment)); }
+            else if (increment < 0) { FrameShiftBack((ushort)System.Math.Abs(increment)); }
         }
 
         /// <summary>

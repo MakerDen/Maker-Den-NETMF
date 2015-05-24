@@ -1,12 +1,15 @@
+using System;
+using Microsoft.SPOT;
+using Microsoft.SPOT.Hardware;
 using Glovebox.MicroFramework;
 using Glovebox.MicroFramework.Base;
-using Microsoft.SPOT.Hardware;
-using SecretLabs.NETMF.Hardware.NetduinoPlus;
-
 
 namespace Glovebox.Netduino.Sensors {
+
+    //Breakout Board for Electret Microphone BOB-09964
+    //http://littlebirdelectronics.com.au/products/breakout-board-for-electret-microphone
     public class SensorSound : SensorBase {
-        private SecretLabs.NETMF.Hardware.AnalogInput analogPin;
+        private AnalogInput analogPin;
 
         // https://www.inkling.com/read/arduino-cookbook-michael-margolis-2nd/chapter-6/recipe-6-7
         // https://randomskk.net/projects/lightstrip/code.html
@@ -25,10 +28,10 @@ namespace Glovebox.Netduino.Sensors {
         /// <param name="pin">From the SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels namespace</param>
         /// <param name="SampleRateMilliseconds">How often to measure in milliseconds or -1 to disable auto timed sensor readings</param>
         /// <param name="name">Unique identifying name for command and control</param>
-        public SensorSound(Cpu.Pin pin, int SampleRateMilliseconds, string name)
+        public SensorSound(Cpu.AnalogChannel pin, int SampleRateMilliseconds, string name)
             : base("sound", "d", ValuesPerSample.One, SampleRateMilliseconds, name) {
-            analogPin = new SecretLabs.NETMF.Hardware.AnalogInput(Pins.GPIO_PIN_A0);
 
+            analogPin = new AnalogInput(pin, -1);
             StartMeasuring();
         }
 
@@ -45,15 +48,17 @@ namespace Glovebox.Netduino.Sensors {
             int averageReading; //the average of that loop of readings
 
             for (int i = 0; i < numberOfSamples; i++) {
-                var sound = analogPin.Read();
+                sample = (int)(analogPin.Read() * 1024) - midpoint;
+
+                sample = System.Math.Abs(sample);
+
                 sumOfSamples += sample;
             }
 
             averageReading = sumOfSamples / numberOfSamples;     //calculate running average
-            //return averageReading;
             runningAverage = (((averagedOver - 1) * runningAverage) + averageReading) / averagedOver;
 
-            return averageReading;
+            return runningAverage;
         }
 
         protected override void SensorCleanup() {

@@ -89,11 +89,5 @@ namespace Glovebox.MicroFramework {
             }
             return result.Substring(0, result.Length - 1);
         }
-
-        public static int Absolute(int value) {
-            // get absolute value bit shifting a 32 bit int
-            int mask = value >> 31;
-            return (mask + value) ^ mask;
-        }
     }
 }
