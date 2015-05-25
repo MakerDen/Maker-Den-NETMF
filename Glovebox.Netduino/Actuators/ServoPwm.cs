@@ -1,5 +1,6 @@
+using Glovebox.IoT;
 using Glovebox.IoT.Base;
-using Glovebox.IoT.IoT;
+using Glovebox.IoT.Command;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
 
@@ -94,7 +95,7 @@ namespace Glovebox.Netduino.Actuators {
             _servoMotor.Start();
 
             //give the servo enough time to swing to _minPosition
-            Thread.Sleep(250);
+            Util.Delay(250);
         }
 
 
@@ -131,7 +132,7 @@ namespace Glovebox.Netduino.Actuators {
 
         public void Reset() {
             _servoMotor.Duration = _minPosition;
-            Thread.Sleep(500);
+            Util.Delay(500);
         }
 
         protected override void ActuatorCleanup() {

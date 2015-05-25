@@ -2,7 +2,7 @@ using System;
 using Microsoft.SPOT;
 using Coatsy.Netduino.NeoPixel;
 using System.Threading;
-using Glovebox.IoT.IoT;
+using Glovebox.IoT;
 
 namespace Coatsy.Netduino.NeoPixel.Grid {
 
@@ -33,7 +33,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
         public void ExecuteCycle(DoCycle doCycle) {
             try {
                 doCycle();
-                Thread.Sleep(50);
+                Util.Delay(50);
             }
             catch { ActuatorErrorCount++; }
         }

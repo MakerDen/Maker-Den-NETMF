@@ -1,7 +1,7 @@
 using Glovebox.IoT.Base;
 using System;
 
-namespace Glovebox.IoT.IoT {
+namespace Glovebox.IoT.Command {
     public static class IotActionManager {
         const uint maxIoT = 64;
         private static uint _actionErrors;

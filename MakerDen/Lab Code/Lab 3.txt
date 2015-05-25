@@ -28,9 +28,9 @@ using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "r
         Debug.Print(temp.ToString());
 
 		rgb.On(RgbLed.Led.Red);
-        Thread.Sleep(500);
+        Util.Delay(500);
         rgb.Off(RgbLed.Led.Red);
-        Thread.Sleep(500);
+        Util.Delay(500);
     }  // End of while loop
 }
 

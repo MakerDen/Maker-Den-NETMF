@@ -2,8 +2,9 @@ using System;
 using Microsoft.SPOT;
 using System.Collections;
 using System.Threading;
-using Glovebox.IoT.IoT;
 using Coatsy.Netduino.Helpers;
+using Glovebox.IoT.Command;
+using Glovebox.IoT;
 
 
 namespace Coatsy.Netduino.NeoPixel.Ring {
@@ -38,12 +39,12 @@ namespace Coatsy.Netduino.NeoPixel.Ring {
         public void ExecuteCycle(DoCycle doCycle) {
             try {
                 doCycle();
-                Thread.Sleep(50);
+                Util.Delay(50);
 
                 var a = GetNextAction();
                 while (a != null) {
                     DoAction(a);
-                    Thread.Sleep(50);
+                    Util.Delay(50);
                     a = GetNextAction();
                 }
             }
@@ -167,14 +168,14 @@ namespace Coatsy.Netduino.NeoPixel.Ring {
             for (int i = 0; i < 36; i++) {
                 FrameShift();
                 FrameDraw();
-                Thread.Sleep(50);
+                Util.Delay(50);
             }
             FrameSetBlocks(new Pixel[] { Pixel.Colour.Yellow, Pixel.Colour.Cyan, Pixel.Colour.Magenta, Pixel.Colour.Black, });
             FrameDraw();
             for (int i = 0; i < 36; i++) {
                 FrameShift(-1);
                 FrameDraw();
-                Thread.Sleep(50);
+                Util.Delay(50);
             }
         }
 
@@ -184,21 +185,21 @@ namespace Coatsy.Netduino.NeoPixel.Ring {
             for (int i = 0; i < 36; i++) {
                 FrameShift();
                 FrameDraw();
-                Thread.Sleep(50);
+                Util.Delay(50);
             }
         }
 
         public void RomanCandle() {
             SpinColourOnBackground(Pixel.Colour.Green, Pixel.Colour.Red, 2, 50);
-            Thread.Sleep(500);
+            Util.Delay(500);
             SpinColourOnBackground(Pixel.Colour.Green, Pixel.Colour.Yellow, 2, 50);
-            Thread.Sleep(500);
+            Util.Delay(500);
             SpinColourOnBackground(Pixel.Colour.Green, Pixel.Colour.White, 2, 50);
-            Thread.Sleep(500);
+            Util.Delay(500);
             SpinColourOnBackground(Pixel.Colour.Red, Pixel.Colour.Green, 2, 50);
-            Thread.Sleep(500);
+            Util.Delay(500);
             SpinColourOnBackground(Pixel.Colour.Red, Pixel.Colour.Yellow, 2, 50);
-            Thread.Sleep(500);
+            Util.Delay(500);
             SpinColourOnBackground(Pixel.Colour.Red, Pixel.Colour.Blue, 2, 50);
         }
 
@@ -215,18 +216,18 @@ namespace Coatsy.Netduino.NeoPixel.Ring {
                         (ushort)rand.Next(Length)
                         );
                     FrameDraw();
-                    Thread.Sleep(25);
+                    Util.Delay(25);
                 }
 
                 for (int j = 0; j < 12; j++) {
                     FrameShift();
                     FrameDraw();
-                    Thread.Sleep(50);
+                    Util.Delay(50);
                 }
                 for (int j = 0; j < 12; j++) {
                     FrameShift(-1);
                     FrameDraw();
-                    Thread.Sleep(50);
+                    Util.Delay(50);
                 }
             }
         }
@@ -235,17 +236,17 @@ namespace Coatsy.Netduino.NeoPixel.Ring {
 
             FrameSetBlocks(new Pixel[] { Pixel.Colour.Red, Pixel.Colour.Green, Pixel.Colour.Blue });
             FrameDraw();
-            Thread.Sleep(200);
+            Util.Delay(200);
             for (int j = 1; j < 5; j++) {
                 for (int i = 0; i < 20; i++) {
                     FrameShift();
                     FrameDraw();
-                    Thread.Sleep(100);
+                    Util.Delay(100);
                 }
                 for (int h = 0; h < 20; h++) {
                     FrameShift(-1);
                     FrameDraw();
-                    Thread.Sleep(100);
+                    Util.Delay(100);
                 }
             }
         }
@@ -261,12 +262,12 @@ namespace Coatsy.Netduino.NeoPixel.Ring {
             FrameSet(Pixel.Colour.Green, (ushort)6);
 
             FrameDraw();
-            Thread.Sleep(200);
+            Util.Delay(200);
 
             for (int i = 0; i < 100; i++) {
                 FrameShift();
                 FrameDraw();
-                Thread.Sleep(100);
+                Util.Delay(100);
             }
         }
 
@@ -274,12 +275,12 @@ namespace Coatsy.Netduino.NeoPixel.Ring {
             FrameSetBlocks(new Pixel[] { Pixel.Colour.Red, Pixel.Colour.Green, Pixel.Colour.Blue });
             FrameDraw();
 
-            Thread.Sleep(200);
+            Util.Delay(200);
 
             for (int i = 0; i < 100; i++) {
                 FrameShift();
                 FrameDraw();
-                Thread.Sleep(100);
+                Util.Delay(100);
             }
         }
 
@@ -291,7 +292,7 @@ namespace Coatsy.Netduino.NeoPixel.Ring {
 
         public void Xbox() {
             GreenSegments();
-            Thread.Sleep(3000);
+            Util.Delay(3000);
             FrameClear();
             FrameDraw();
         }
@@ -313,7 +314,7 @@ namespace Coatsy.Netduino.NeoPixel.Ring {
             FrameSet(new Pixel[] { Pixel.Colour.Green, Pixel.Colour.Black, Pixel.Colour.Black, Pixel.Colour.Black});
             FrameDraw();
             for (int i = 0; i < 12; i++) {
-                Thread.Sleep(250);
+                Util.Delay(250);
                 FrameShift(3);
                 FrameDraw();
             }

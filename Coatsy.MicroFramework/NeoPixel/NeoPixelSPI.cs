@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
+using Glovebox.IoT;
 
 /// This code is provided as-is, without any warrenty, so use it at your own risk.
 /// You can freely use and modify this code.
@@ -118,7 +119,7 @@ namespace Coatsy.Netduino.NeoPixel
         {            
             // send "low" and wait
             this.spi.Write(bitSilence);
-            Thread.Sleep(1);
+            Util.Delay(1);
         }
 
     }

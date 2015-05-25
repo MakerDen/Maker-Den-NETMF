@@ -8,7 +8,7 @@ Add this code before the first using statement
 StartNetworkServices("emul", true);
 
 Delete the while loop and its enclosed code.
-After the last using statement add these event handlers and the thread.sleep statements
+After the last using statement add these event handlers and the Util.Delay statements
 The implementation for the event handlers is in the MakerBase.cs
 
 
@@ -16,7 +16,7 @@ light.OnBeforeMeasurement += OnBeforeMeasure;
 light.OnAfterMeasurement += OnMeasureCompleted;
 temp.OnBeforeMeasurement += OnBeforeMeasure;
 temp.OnAfterMeasurement += OnMeasureCompleted;
-Thread.Sleep(Timeout.Infinite);
+Util.Delay(Timeout.Infinite);
 
 
 Your main section code should now look like
@@ -35,7 +35,7 @@ using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "r
     temp.OnAfterMeasurement += OnMeasureCompleted;
     light.OnBeforeMeasurement += OnBeforeMeasure;
     light.OnAfterMeasurement += OnMeasureCompleted;
-    Thread.Sleep(Timeout.Infinite);
+    Util.Delay(Timeout.Infinite);
 }
 
 

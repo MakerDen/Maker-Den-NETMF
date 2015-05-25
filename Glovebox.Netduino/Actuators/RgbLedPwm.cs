@@ -1,4 +1,5 @@
-using Glovebox.IoT.IoT;
+using Glovebox.IoT;
+using Glovebox.IoT.Command;
 using Microsoft.SPOT.Hardware;
 ///Author: Russell Peake
 ///Email: rdpeake@adam.com.au
@@ -60,7 +61,7 @@ namespace Glovebox.Netduino.Actuators {
 
                 for (int i = (int)startPulseDuration; Environment.TickCount < currentTickCount + milliseconds && !Cancel; i += increment) {
                     led.Duration = (uint)i;
-                    Thread.Sleep((int)PulseStep);
+                    Util.Delay((int)PulseStep);
                 }
 
                 led.Duration = endPulseDuration;
@@ -73,7 +74,7 @@ namespace Glovebox.Netduino.Actuators {
                 bool ledOn = true;
 
                 while (Environment.TickCount < currentTickCount + milliseconds && !Cancel) {
-                    Thread.Sleep(blinkRateMilliseconds);
+                    Util.Delay(blinkRateMilliseconds);
                     ledOn = !ledOn;
                     led.Duration = ledOn ? level : 0;
                 }

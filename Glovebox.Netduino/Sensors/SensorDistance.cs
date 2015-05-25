@@ -28,13 +28,13 @@ namespace Glovebox.Netduino.Sensors {
 
         protected override void Measure(double[] value) {
 
-            Thread.Sleep(200);
+            Util.Delay(200);
 
             value[0] = (sensor.Ping() * 100);
         }
 
         protected override string GeoLocation() {
-            return Utilities.RandomPostcode();
+            return Util.RandomPostcode();
         }
 
         protected override void SensorCleanup() {

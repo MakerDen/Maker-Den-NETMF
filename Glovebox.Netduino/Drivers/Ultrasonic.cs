@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
+using Glovebox.IoT;
 
 //http://blogs.msdn.com/b/laurelle/archive/2013/05/27/ultrasound-sensor-and-net-microframework-netmf.aspx
 namespace Glovebox.Netduino.Drivers {
@@ -44,7 +45,7 @@ namespace Glovebox.Netduino.Drivers {
         {
             // Reset Sensor
             trigger.Write(true);
-            Thread.Sleep(1);
+            Util.Delay(1);
 
             // Start Clock
             endTick = 0L;
@@ -53,7 +54,7 @@ namespace Glovebox.Netduino.Drivers {
             trigger.Write(false);
 
             // Wait 1/20 second (this could be set as a variable instead of constant)
-            Thread.Sleep(50);
+            Util.Delay(50);
 
             if (endTick > 0L)
             {

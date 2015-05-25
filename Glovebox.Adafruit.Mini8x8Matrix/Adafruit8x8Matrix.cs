@@ -1,5 +1,6 @@
 ﻿using Glovebox.Adafruit.Mini8x8Matrix;
-using Glovebox.IoT.IoT;
+using Glovebox.IoT;
+using Glovebox.IoT.Command;
 using System;
 using System.Threading;
 
@@ -223,7 +224,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
             if (bitmap == 0) {
                 ShiftFrameLeft();
                 FrameDraw();
-                //      Thread.Sleep(milliseconds);
+                //      Util.Delay(milliseconds);
                 return;
             }
 
@@ -243,7 +244,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                 if (pixelFound) {
                     FrameDraw();
                     ShiftFrameLeft();
-                    Thread.Sleep(milliseconds);
+                    Util.Delay(milliseconds);
                 }
             }
             //post bitmap space
@@ -260,7 +261,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
             if (bitmap == 0) {
                 ShiftFrameRight();
                 FrameDraw();
-                //     Thread.Sleep(milliseconds);
+                //     Util.Delay(milliseconds);
                 return;
             }
 
@@ -280,7 +281,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                 if (pixelFound) {
                     FrameDraw();
                     ShiftFrameRight();
-                    Thread.Sleep(milliseconds);
+                    Util.Delay(milliseconds);
                 }
             }
             //blank character space
@@ -296,7 +297,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                 if (c >= ' ' && c <= 'z') {
                     DrawLetter(c, panel);
                     FrameDraw();
-                    Thread.Sleep(milliseconds);
+                    Util.Delay(milliseconds);
                 }
             }
         }

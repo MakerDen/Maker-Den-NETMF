@@ -1,6 +1,7 @@
 using System;
 using Microsoft.SPOT;
 using System.Threading;
+using Glovebox.IoT;
 
 namespace Coatsy.Netduino.NeoPixel.Grid {
     public class NeoPixelGrid8x8 : NeoPixelGrid {
@@ -219,7 +220,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             if (bitmap == 0) {
                 ShiftFrameLeft();
                 FrameDraw();
-                Thread.Sleep(pause);
+                Util.Delay(pause);
                 return;
             }
 
@@ -239,7 +240,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
                 if (pixelFound) {
                     FrameDraw();
                     ShiftFrameLeft();
-                    Thread.Sleep(pause);
+                    Util.Delay(pause);
                 }
             }
             //blank character space
@@ -256,7 +257,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             if (bitmap == 0) {
                 ShiftFrameRight();
                 FrameDraw();
-                Thread.Sleep(pause);
+                Util.Delay(pause);
                 return;
             }
 
@@ -276,7 +277,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
                 if (pixelFound) {
                     FrameDraw();
                     ShiftFrameRight();
-                    Thread.Sleep(pause);
+                    Util.Delay(pause);
                 }
             }
             //blank character space
@@ -300,7 +301,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
                 if (c >= ' ' && c <= 'z') {
                     DrawLetter(c, colour[cycleColour % colour.Length], panel);
                     FrameDraw();
-                    Thread.Sleep(pause);
+                    Util.Delay(pause);
                     cycleColour++;
                 }
             }
@@ -324,7 +325,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid {
             foreach (var item in sym) {
                 DrawBitmap((ulong)item, colour[cycleColour], panel);
                 FrameDraw();
-                Thread.Sleep(pause);
+                Util.Delay(pause);
                 cycleColour++;                
             }            
         }

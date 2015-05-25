@@ -6,9 +6,9 @@ using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "r
     
 	while (true) {
         rgb.On(RgbLed.Led.Red);
-        Thread.Sleep(500);
+        Util.Delay(500);
         rgb.Off(RgbLed.Led.Red);
-        Thread.Sleep(500);
+        Util.Delay(500);
     }  // End of while loop
 }
 
@@ -29,9 +29,9 @@ using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "r
     uint LedSelector = 0;
     while (true) {
         rgb.On((RgbLed.Led)(LedSelector % 3));
-        Thread.Sleep(500);
+        Util.Delay(500);
         rgb.Off((RgbLed.Led)(LedSelector % 3));
-        Thread.Sleep(500);
+        Util.Delay(500);
         LedSelector++;
     }  // End of while loop
 }

@@ -42,7 +42,7 @@ namespace MakerDen {
                 light.OnBeforeMeasurement += OnBeforeMeasure;
                 light.OnAfterMeasurement += OnMeasureCompleted;
 
-                Thread.Sleep(Timeout.Infinite);
+                Util.Delay(Timeout.Infinite);
             }
         }
     }

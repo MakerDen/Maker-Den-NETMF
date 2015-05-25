@@ -1,4 +1,5 @@
 ﻿using Glovebox.Adafruit.Mini8x8Matrix;
+using Glovebox.IoT;
 using Microsoft.SPOT.Hardware;
 using System;
 using System.Threading;
@@ -49,20 +50,20 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
             for (int i = 0; i < fontSimple.Length; i++) {
                 DrawBitmap(fontSimple[i]);
                 FrameDraw();
-                Thread.Sleep(100);
+                Util.Delay(100);
             }
         }
 
         public void Hearts() {
             DrawSymbol(Symbols.Heart);
             FrameDraw();
-            Thread.Sleep(50);
+            Util.Delay(50);
 
             for (int i = 0; i < 4; i++) {
                 for (ushort c = 0; c < Columns; c++) {
                     FrameRollRight();
                     FrameDraw();
-                    Thread.Sleep(50);
+                    Util.Delay(50);
                 }
             }
 
@@ -70,7 +71,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                 for (int i = 0; i < Rows; i++) {
                     RowRollUp();
                     FrameDraw();
-                    Thread.Sleep(50);
+                    Util.Delay(50);
                 }
             }
 
@@ -79,7 +80,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                 for (ushort c = 0; c < Columns; c++) {
                     FrameRollLeft();
                     FrameDraw();
-                    Thread.Sleep(50);
+                    Util.Delay(50);
                 }
             }
 
@@ -87,7 +88,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                 for (int i = 0; i < Rows; i++) {
                     RowRollDown();
                     FrameDraw();
-                    Thread.Sleep(50);
+                    Util.Delay(50);
                 }
             }
 
@@ -102,9 +103,9 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                     ColumnRollLeft(6);
                     ColumnRollRight(7);
                     FrameDraw();
-                    Thread.Sleep(100);
+                    Util.Delay(100);
                 }
-                Thread.Sleep(500);
+                Util.Delay(500);
             }
         }
 
@@ -114,11 +115,11 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                     FrameSet(i, true);
                     FrameSet((63 - i), true);
                     FrameDraw();
-                    Thread.Sleep(15);
+                    Util.Delay(15);
                     FrameSet(i, false);
                     FrameSet((63 - i), false);
                     FrameDraw();
-                    Thread.Sleep(15);
+                    Util.Delay(15);
                 }
             }
         }

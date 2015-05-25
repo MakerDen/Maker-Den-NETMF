@@ -1,5 +1,6 @@
+using Glovebox.IoT;
 using Glovebox.IoT.Base;
-using Glovebox.IoT.IoT;
+using Glovebox.IoT.Command;
 using Microsoft.SPOT.Hardware;
 using System.Collections;
 using System.Threading;
@@ -232,10 +233,10 @@ namespace Glovebox.Netduino.Actuators {
                     _piezo.Period = myPeriod;
                     _piezo.Duration = myPeriod / 2;  //Duration is the proportion of the period that the wave is high
                 }
-                Thread.Sleep(bd.DurationTimeInMilliseconds);
+                Util.Delay(bd.DurationTimeInMilliseconds);
                 _piezo.DutyCycle = 0;
 
-                Thread.Sleep(bd.PauseTimeInMilliseconds);
+                Util.Delay(bd.PauseTimeInMilliseconds);
             }
         }
 

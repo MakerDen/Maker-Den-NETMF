@@ -3,8 +3,8 @@ using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
 using Glovebox.IoT.Json;
-using Glovebox.IoT.IoT;
 using System.Runtime.CompilerServices;
+using Glovebox.IoT.Command;
 
 namespace Glovebox.IoT.Base {
     public abstract class SensorBase : IotBase {
@@ -109,7 +109,7 @@ namespace Glovebox.IoT.Base {
                     Debug.Print(ex.Message);
                     sensorErrorCount++;
                 }
-                Thread.Sleep(sampleRateMilliseconds);
+                Util.Delay(sampleRateMilliseconds);
             }
         }
 

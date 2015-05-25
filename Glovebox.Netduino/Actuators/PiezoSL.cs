@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Threading;
 using Glovebox.IoT.Base;
-using Glovebox.IoT.IoT;
 using Microsoft.SPOT.Hardware;
+using Glovebox.IoT.Command;
+using Glovebox.IoT;
 namespace Glovebox.Netduino.Actuators {
     public class PiezoSL : ActuatorBase {
 
@@ -46,7 +47,7 @@ namespace Glovebox.Netduino.Actuators {
         }
         public void Wait() {
             while (IsActive()) {
-                Thread.Sleep(50);
+                Util.Delay(50);
             }
 
         }
@@ -301,10 +302,10 @@ namespace Glovebox.Netduino.Actuators {
                     _piezo.SetPulse(0, 0);
                 }
 
-                Thread.Sleep(bd.DurationTimeInMilliseconds);
+                Util.Delay(bd.DurationTimeInMilliseconds);
                 // _piezo.DutyCycle = 0;
                 _piezo.SetPulse(0, 0);
-                Thread.Sleep(bd.PauseTimeInMilliseconds);
+                Util.Delay(bd.PauseTimeInMilliseconds);
             }
         }
 

@@ -1,4 +1,4 @@
-using Glovebox.IoT.IoT;
+using Glovebox.IoT.Command;
 using Glovebox.IoT.Json;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Net.NetworkInformation;
@@ -50,7 +50,7 @@ namespace Glovebox.IoT {
 
         private string CreateClientId() {
             DateTime utc = DateTime.UtcNow;
-            string cid = utc.Hour.ToString() + utc.Minute.ToString() + utc.Second.ToString() + "-" + Utilities.GetMacAddress();
+            string cid = utc.Hour.ToString() + utc.Minute.ToString() + utc.Second.ToString() + "-" + Util.GetMacAddress();
             return cid.Length > 23 ? cid.Substring(0, 23) : cid;  //23 chars for clientid is mqtt max allowed
         }
 
@@ -58,7 +58,7 @@ namespace Glovebox.IoT {
             string id = string.Empty;
 
             if (value == null || value == string.Empty) {
-                id = Utilities.GetMacAddress();
+                id = Util.GetMacAddress();
                 if (id == null || id == string.Empty) {
                     id = Guid.NewGuid().ToString();
                 }
@@ -81,16 +81,16 @@ namespace Glovebox.IoT {
             if (!connected) { return; }
 
             // give the network some settle time
-            Thread.Sleep(networkSettleTime);
+            Util.Delay(networkSettleTime);
 
             while (mqtt == null || !mqtt.IsConnected) {
                 networkReset = false;
                 while (!networkAvailable) {
-                    Thread.Sleep(2000);
+                    Util.Delay(2000);
                     networkReset = true;
                 }
                 // the network needs a bit of settle time, dhcp etc
-                if (networkReset) { Thread.Sleep(networkSettleTime); }
+                if (networkReset) { Util.Delay(networkSettleTime); }
 
                 mqtt = new MqttClient(serviceAddress);
                 if (mqtt != null && networkAvailable) { mqtt.Connect(clientId); }
@@ -120,7 +120,7 @@ namespace Glovebox.IoT {
 
             lastSystemRequestTime = now;
 
-            var actionRequest = DecodeAction(e.Topic, Utilities.BytesToString(e.Message));
+            var actionRequest = DecodeAction(e.Topic, Util.BytesToString(e.Message));
             if (actionRequest == null) { return; }
 
             string[] result = IotActionManager.Action(actionRequest);
@@ -183,7 +183,7 @@ namespace Glovebox.IoT {
         }
 
         private void PublishData(string topic, byte[] data) {
-            Thread.Sleep((int)mqttPrePublishDelay);
+            Util.Delay((int)mqttPrePublishDelay);
             try {
                 ExecutionConstraint.Install(20000, 0);
                 while (mqtt == null || !mqtt.IsConnected || networkChanged) {
@@ -203,7 +203,7 @@ namespace Glovebox.IoT {
             }
             finally {
                 ExecutionConstraint.Install(-1, 0);
-                Thread.Sleep((int)mqttPostPublishDelay);
+                Util.Delay((int)mqttPostPublishDelay);
             }
         }
 

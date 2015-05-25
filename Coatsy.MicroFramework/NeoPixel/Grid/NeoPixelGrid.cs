@@ -2,6 +2,7 @@ using System;
 using Microsoft.SPOT;
 using Coatsy.Netduino.NeoPixel;
 using System.Threading;
+using Glovebox.IoT;
 
 namespace Coatsy.Netduino.NeoPixel.Grid
 {
@@ -63,7 +64,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid
                 }
 
                 FrameDraw();
-                Thread.Sleep(25);
+                Util.Delay(25);
             }
         }
 
@@ -110,7 +111,7 @@ namespace Coatsy.Netduino.NeoPixel.Grid
                 }
 
                 FrameDraw();
-                Thread.Sleep(50);
+                Util.Delay(50);
             }
         }
 

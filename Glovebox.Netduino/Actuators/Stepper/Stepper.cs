@@ -1,4 +1,6 @@
+using Glovebox.IoT;
 using Glovebox.IoT.Base;
+using Glovebox.IoT.Command;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
 
@@ -40,13 +42,13 @@ namespace Glovebox.Netduino.Actuators {
             // determine correct pins for the coils; turn off all motor pins
             this.portCoil1A = new OutputPort(pinCoil1A, false);
 
-            Thread.Sleep(500);
+            Util.Delay(500);
             this.portCoil1B = new OutputPort(pinCoil1B, false);
 
-            Thread.Sleep(500);
+            Util.Delay(500);
             this.portCoil2A = new OutputPort(pinCoil2A, false);
 
-            Thread.Sleep(500);
+            Util.Delay(500);
 
             this.portCoil2B = new OutputPort(pinCoil2B, false);
 
@@ -61,7 +63,7 @@ namespace Glovebox.Netduino.Actuators {
             this.portCoil2A.Dispose();
             this.portCoil2B.Dispose();
         }
-        public override void Action(Glovebox.IoT.IoT.IotAction action) {
+        public override void Action(IotAction action) {
             switch (action.cmd.ToLower()) {
                 case "forward":
                     Step(this.StepsPerRevolution, MotorDirection.Forward);
@@ -101,7 +103,7 @@ namespace Glovebox.Netduino.Actuators {
                 OneStep(direction, style);
 
                 // wait for a single step (convert us to ms)
-                Thread.Sleep(waitTime);
+                Util.Delay(waitTime);
             }
         }
 

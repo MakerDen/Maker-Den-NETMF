@@ -46,27 +46,27 @@ namespace Glovebox.Netduino.Drivers {
             bt.DataReceived += bt_DataReceived;
             bt.Open();
 
-            //Thread.Sleep(0);
+            //Util.Delay(0);
 
-            //Thread.Sleep(1000);
+            //Util.Delay(1000);
             //bt.Write(StringToByteArray("AT"), 0, 2);
 
-            //Thread.Sleep(1000);
+            //Util.Delay(1000);
 
             //bt.Write(StringToByteArray("AT+VERSION"), 0, 10);
 
-            //Thread.Sleep(1000);
+            //Util.Delay(1000);
 
             //bt.Write(StringToByteArray("AT+PO"), 0, 5);
 
 
 
-            //Thread.Sleep(1000);
+            //Util.Delay(1000);
 
             //bt.Write(StringToByteArray("AT+BAUD8"), 0, 8);
 
             // for (int i = 0; i < 10000000; i++) {
-            //     Thread.Sleep(250);
+            //     Util.Delay(250);
             //     bt.Write(StringToByteArray("hello world"), 0, 11);
             // }
 
@@ -80,7 +80,7 @@ namespace Glovebox.Netduino.Drivers {
             bool valid = false;
             int bytesRead;
 
-            Thread.Sleep(100);
+            Util.Delay(100);
 
             lock (channelLock) {
 
@@ -134,7 +134,7 @@ namespace Glovebox.Netduino.Drivers {
                 bt.Write(crcbytes, 0, crcbytes.Length);
                 bt.Write(data, 0, dataToSend.Length);
 
-                Thread.Sleep(200);
+                Util.Delay(200);
             }
             return true;
         }
@@ -153,7 +153,7 @@ namespace Glovebox.Netduino.Drivers {
                 bt.Write(crcbytes, 0, crcbytes.Length);
                 bt.Write(data, 0, data.Length);
 
-                Thread.Sleep(200);
+                Util.Delay(200);
             }
             return true;
         }

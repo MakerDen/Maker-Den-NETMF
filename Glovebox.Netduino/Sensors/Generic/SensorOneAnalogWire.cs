@@ -26,7 +26,7 @@ namespace Glovebox.Netduino.Sensors.Generic {
         }
 
         protected override string GeoLocation() {
-            return Utilities.RandomPostcode();
+            return Util.RandomPostcode();
         }
 
         protected override void SensorCleanup() {

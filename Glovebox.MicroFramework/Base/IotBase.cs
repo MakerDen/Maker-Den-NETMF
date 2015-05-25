@@ -1,4 +1,4 @@
-using Glovebox.IoT.IoT;
+using Glovebox.IoT.Command;
 using System;
 
 namespace Glovebox.IoT.Base {

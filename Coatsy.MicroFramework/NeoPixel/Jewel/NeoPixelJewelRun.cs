@@ -1,7 +1,8 @@
 using System;
 using Microsoft.SPOT;
 using System.Threading;
-using Glovebox.IoT.IoT;
+using Glovebox.IoT.Command;
+using Glovebox.IoT;
 
 namespace Coatsy.Netduino.NeoPixel.Jewel {
     public class NeoPixelJewelRun : NeoPixelJewel {
@@ -31,10 +32,10 @@ namespace Coatsy.Netduino.NeoPixel.Jewel {
             for (int i = 0; i < 4; i++) {
                 FlowerSet(Pixel.ColourLowPower.WarmGreen, Pixel.ColourLowPower.WarmRed);
                 FrameDraw();
-                Thread.Sleep(500);
+                Util.Delay(500);
                 FlowerSet(Pixel.ColourLowPower.WarmRed, Pixel.ColourLowPower.WarmGreen);
                 FrameDraw();
-                Thread.Sleep(500);
+                Util.Delay(500);
             }
         }
 

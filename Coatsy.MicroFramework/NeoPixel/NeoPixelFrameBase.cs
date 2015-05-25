@@ -458,7 +458,7 @@ namespace Coatsy.Netduino.NeoPixel {
                 for (int j = 0; j < pixelCount; j++) {
                     FrameShift();
                     FrameDraw();
-                    Thread.Sleep(stepDelay);
+                    Util.Delay(stepDelay);
                 }
             }
 
@@ -474,9 +474,9 @@ namespace Coatsy.Netduino.NeoPixel {
 
             for (int i = 0; i < repeat; i++)
             {
-                Thread.Sleep(blinkDelay);
+                Util.Delay(blinkDelay);
                 FrameDraw(blinkFrame);
-                Thread.Sleep(blinkDelay);
+                Util.Delay(blinkDelay);
                 FrameDraw();
             }
         }
@@ -494,7 +494,7 @@ namespace Coatsy.Netduino.NeoPixel {
                         foreach (Command child in command.Commands) {
                             RunCommand(child);
                         }
-                        Thread.Sleep(command.PauseBetween);
+                        Util.Delay(command.PauseBetween);
                     }
                     break;
                 case CommandType.Light1Pixel:
@@ -554,7 +554,7 @@ namespace Coatsy.Netduino.NeoPixel {
                     break;
             }
             if (command.CommandType != CommandType.Parent)
-                Thread.Sleep(command.PauseAfter);
+                Util.Delay(command.PauseAfter);
         }
 
         private ushort[] UShortArrayFromIntArray(int[] input) {

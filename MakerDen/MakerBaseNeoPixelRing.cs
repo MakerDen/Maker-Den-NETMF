@@ -1,7 +1,6 @@
 using System;
 using Microsoft.SPOT;
 using System.Threading;
-using Glovebox.IoT.IoT;
 using Coatsy.Netduino;
 using Glovebox.Netduino;
 using Coatsy.Netduino.NeoPixel;
@@ -9,6 +8,7 @@ using System.Collections;
 using MakerDen.Properties;
 using Coatsy.Netduino.Helpers;
 using Coatsy.Netduino.NeoPixel.Ring;
+using Glovebox.IoT;
 //using Json.NETMF;
 
 namespace MakerDen {
@@ -98,7 +98,7 @@ namespace MakerDen {
             for (int i = 0; i < 200; i++) {
                 npr.FrameShiftForward(1);
                 npr.FrameDraw();
-                Thread.Sleep(50);
+                Util.Delay(50);
             }
         }
 
@@ -113,13 +113,13 @@ namespace MakerDen {
                 for (int p = 0; p < npr.Length; p++) {
                     npr.FrameDraw();
                     npr.FrameShift(1);
-                    Thread.Sleep(50);
+                    Util.Delay(50);
                 }
 
                 for (int p = 0; p < npr.Length; p++) {
                     npr.FrameDraw();
                     npr.FrameShift(-1);
-                    Thread.Sleep(25);
+                    Util.Delay(25);
                 }
             }
         }

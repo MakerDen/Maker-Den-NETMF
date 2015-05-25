@@ -15,7 +15,7 @@ namespace MakerDen {
 
        
         protected static void StartNetworkServices(string deviceName, bool connected, string uniqueDeviceIdentifier = "") {
-            sm = Utilities.StartNetworkServices(deviceName, connected, uniqueDeviceIdentifier);
+            sm = Util.StartNetworkServices(deviceName, connected, uniqueDeviceIdentifier);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace MakerDen {
             uint id = ((SensorBase.SensorIdEventArgs)e).id;
             if (rgb == null) { return 0; }
             rgb.On((RgbLed.Led)(id % 3));
-            Thread.Sleep(20);
+            Util.Delay(20);
             rgb.Off((RgbLed.Led)(id % 3));
             //   rgb.Blink((RgbLed.Led)(id % 3), 50, RgbLed.BlinkRate.VeryFast);
             return 0;

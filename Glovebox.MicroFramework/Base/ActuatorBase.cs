@@ -1,4 +1,4 @@
-using Glovebox.IoT.IoT;
+using Glovebox.IoT.Command;
 
 namespace Glovebox.IoT.Base {
     public abstract class ActuatorBase : IotBase {

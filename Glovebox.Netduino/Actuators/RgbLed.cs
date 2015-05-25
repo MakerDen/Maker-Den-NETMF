@@ -1,5 +1,6 @@
+using Glovebox.IoT;
 using Glovebox.IoT.Base;
-using Glovebox.IoT.IoT;
+using Glovebox.IoT.Command;
 using Microsoft.SPOT.Hardware;
 using System;
 using System.Threading;
@@ -31,7 +32,7 @@ namespace Glovebox.Netduino.Actuators {
 
                     while (currentTickCount < endTickCount) {
                         led.Write(ledOn = !ledOn);
-                        Thread.Sleep(blinkRate);
+                        Util.Delay(blinkRate);
                         currentTickCount = Environment.TickCount;
                     }
                     led.Write(false);

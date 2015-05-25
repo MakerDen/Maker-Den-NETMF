@@ -1,6 +1,7 @@
 using System;
 using Microsoft.SPOT;
 using System.Threading;
+using Glovebox.IoT;
 
 namespace Coatsy.Netduino.NeoPixel
 {
@@ -46,10 +47,10 @@ namespace Coatsy.Netduino.NeoPixel
             {
                 FrameClear();
                 FrameDraw();
-                Thread.Sleep(250);
+                Util.Delay(250);
                 FrameSet(Pixel.Colour.GreenYellow);
                 FrameDraw();
-                Thread.Sleep(250);
+                Util.Delay(250);
             }
         }
 
@@ -65,7 +66,7 @@ namespace Coatsy.Netduino.NeoPixel
                 FramePixelSwap((ushort)i, (ushort)(i + 1));
                 FrameDraw();
                 Debug.Print(DateTime.Now.Millisecond.ToString());
-                //Thread.Sleep(50);
+                //Util.Delay(50);
             }
             // Debug.Print(DateTime.Now.Millisecond.ToString());
 
@@ -89,7 +90,7 @@ namespace Coatsy.Netduino.NeoPixel
                     Pixel.Colour.Violet 
                 });
             FrameDraw();
-            Thread.Sleep(1000);
+            Util.Delay(1000);
 
         }
         public void ColourChange()
@@ -100,13 +101,13 @@ namespace Coatsy.Netduino.NeoPixel
             {
                 FrameSet(Pixel.Colour.Red);
                 FrameDraw();
-                Thread.Sleep(250);
+                Util.Delay(250);
                 FrameSet(Pixel.Colour.Green);
                 FrameDraw();
-                Thread.Sleep(250);
+                Util.Delay(250);
                 FrameSet(Pixel.Colour.Blue);
                 FrameDraw();
-                Thread.Sleep(250);
+                Util.Delay(250);
 
             }
         }
@@ -174,7 +175,7 @@ namespace Coatsy.Netduino.NeoPixel
                 for (ushort step = 0; step < percent; step += increment)
                 {
                     SetLevel(step, palette);
-                    Thread.Sleep(stepDelay);
+                    Util.Delay(stepDelay);
                 }
 
                 SetLevel(percent, palette);
@@ -242,7 +243,7 @@ namespace Coatsy.Netduino.NeoPixel
             try
             {
                 doCycle();
-                Thread.Sleep(50);
+                Util.Delay(50);
             }
             catch { ActuatorErrorCount++; }
         }

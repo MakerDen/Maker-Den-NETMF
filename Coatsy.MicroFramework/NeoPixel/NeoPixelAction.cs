@@ -1,5 +1,5 @@
 using Glovebox.IoT.Base;
-using Glovebox.IoT.IoT;
+using Glovebox.IoT.Command;
 using System.Collections;
 
 namespace Coatsy.Netduino.NeoPixel

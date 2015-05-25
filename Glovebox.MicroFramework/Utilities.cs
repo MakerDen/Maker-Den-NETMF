@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 
 namespace Glovebox.IoT {
-    public static class Utilities {
+    public static class Util {
 
         const string ntpServer = "au.pool.ntp.org";
         private readonly static string[] postcodes = new string[] { "3000", "6000", "2011" };
@@ -21,7 +21,7 @@ namespace Glovebox.IoT {
             if (!connected) { return false; }
             try {
                 //network settle time
-                Thread.Sleep(networkSettleTime);
+                Util.Delay(networkSettleTime);
                 var ntpAddress = GetTimeServiceAddress(ntpServer);
                 if (ntpAddress == null) { return false; }
 
@@ -69,7 +69,7 @@ namespace Glovebox.IoT {
             ConfigurationManager.UniqueDeviceIdentifier = deviceGuid;
             if (!connected) { return null; }
 
-            Utilities.SetTime(connected);
+            Util.SetTime(connected);
             return new ServiceManager(ConfigurationManager.Broker, connected);
         }
 
@@ -88,6 +88,10 @@ namespace Glovebox.IoT {
                 result += part.ToString("X") + "-";
             }
             return result.Substring(0, result.Length - 1);
+        }
+
+        public static void Delay(int milliseconds) {
+            Thread.Sleep(milliseconds);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
+using Glovebox.IoT;
 
 
 namespace Glovebox.Netduino.Drivers {
@@ -66,7 +67,7 @@ namespace Glovebox.Netduino.Drivers {
             // wait for as long as it takes to do the temp conversion,
             // data sheet says ~750ms
             while (m_ow.ReadByte() == 0)
-                System.Threading.Thread.Sleep(1);
+                Util.Delay(1);
 
             // reset the bus
             m_ow.TouchReset();

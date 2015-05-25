@@ -35,7 +35,7 @@ namespace Glovebox.Netduino.Sensors {
         }
 
         protected override string GeoLocation() {
-            return Utilities.RandomPostcode();
+            return Util.RandomPostcode();
         }
 
         private double GetTemperature() {

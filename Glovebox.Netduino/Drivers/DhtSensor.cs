@@ -173,7 +173,7 @@ namespace Glovebox.Netduino.Drivers
             // Initiate communication
             portOut.Active = true;
             portOut.Write(false);       // Pull bus low
-            Thread.Sleep(StartDelay);
+            Util.Delay(StartDelay);
             portIn.EnableInterrupt();   // Turn on the receiver
             portOut.Active = false;     // Release bus
 
@@ -251,10 +251,10 @@ namespace Glovebox.Netduino.Drivers
             Debug.Assert(!portOut.Active, "Output port should not be active.");
             portOut.Active = true;  // Switch to output
             portOut.Write(false);
-            Thread.Sleep(50);
+            Util.Delay(50);
             var expectedFalse = portIn.Read();
             //portOut.Active = false; // Switch to input
-            Thread.Sleep(50);
+            Util.Delay(50);
             var expectedTrue = portIn.Read();
             return (expectedTrue && !expectedFalse);
 
