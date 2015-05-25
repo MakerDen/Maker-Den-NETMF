@@ -1,7 +1,7 @@
 using System;
 using Microsoft.SPOT;
 using System.Threading;
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.IoT;
 
 namespace Coatsy.Netduino.NeoPixel.Jewel {
     public class NeoPixelJewelRun : NeoPixelJewel {

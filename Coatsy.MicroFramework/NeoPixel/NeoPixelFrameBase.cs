@@ -2,7 +2,7 @@ using System;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
-using Glovebox.MicroFramework;
+using Glovebox.IoT;
 using SecretLabs.NETMF.Hardware.NetduinoPlus;
 
 namespace Coatsy.Netduino.NeoPixel {

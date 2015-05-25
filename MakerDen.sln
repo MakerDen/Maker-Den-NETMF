@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CB86F2
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glovebox.MicroFramework", "Glovebox.MicroFramework\Glovebox.MicroFramework.csproj", "{FF0DFDCA-3531-4696-A805-D54A038816C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glovebox.IoT", "Glovebox.MicroFramework\Glovebox.IoT.csproj", "{FF0DFDCA-3531-4696-A805-D54A038816C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coatsy.Netduino", "Coatsy.MicroFramework\Coatsy.Netduino.csproj", "{A34CB0D9-D976-423D-B992-BF888CB8F4E8}"
 EndProject

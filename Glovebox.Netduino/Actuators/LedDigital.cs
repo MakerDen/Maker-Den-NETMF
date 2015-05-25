@@ -1,4 +1,5 @@
-using Glovebox.MicroFramework.Base;
+using Glovebox.IoT.Base;
+using Glovebox.IoT.IoT;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
 
@@ -94,7 +95,7 @@ namespace Glovebox.Netduino.Actuators {
             ts.led.Dispose();
         }
 
-        public override void Action(MicroFramework.IoT.IotAction action) {
+        public override void Action(IotAction action) {
             // no actions implemented
         }
     }

@@ -1,7 +1,7 @@
-using Glovebox.MicroFramework.Base;
+using Glovebox.IoT.Base;
 using Microsoft.SPOT;
 
-namespace Glovebox.MicroFramework.Sensors {
+namespace Glovebox.IoT.Sensors {
     public class SensorMemory : SensorBase {
 
 

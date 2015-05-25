@@ -5,7 +5,7 @@ using System.Threading;
 using System.Text;
 using System.IO.Ports;
 using System.IO;
-using Glovebox.MicroFramework;
+using Glovebox.IoT;
 
 
 namespace Glovebox.Netduino.Drivers {

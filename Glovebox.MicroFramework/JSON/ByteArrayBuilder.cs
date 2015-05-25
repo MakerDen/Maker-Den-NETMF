@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Glovebox.MicroFramework.Json {
+namespace Glovebox.IoT.Json {
     public class ByteArrayBuilder : IDisposable {
 
         MemoryStream ms = new MemoryStream();

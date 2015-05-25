@@ -1,8 +1,8 @@
 using System;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
-using Glovebox.MicroFramework;
-using Glovebox.MicroFramework.Base;
+using Glovebox.IoT;
+using Glovebox.IoT.Base;
 
 namespace Glovebox.Netduino.Sensors {
 

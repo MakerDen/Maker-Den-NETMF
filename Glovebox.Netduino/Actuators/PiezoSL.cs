@@ -1,8 +1,8 @@
 
 using System.Collections;
 using System.Threading;
-using Glovebox.MicroFramework.Base;
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.Base;
+using Glovebox.IoT.IoT;
 using Microsoft.SPOT.Hardware;
 namespace Glovebox.Netduino.Actuators {
     public class PiezoSL : ActuatorBase {

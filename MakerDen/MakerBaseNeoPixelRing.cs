@@ -1,7 +1,7 @@
 using System;
 using Microsoft.SPOT;
 using System.Threading;
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.IoT;
 using Coatsy.Netduino;
 using Glovebox.Netduino;
 using Coatsy.Netduino.NeoPixel;

@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 
-namespace Glovebox.MicroFramework {
+namespace Glovebox.IoT {
     public static class Utilities {
 
         const string ntpServer = "au.pool.ntp.org";

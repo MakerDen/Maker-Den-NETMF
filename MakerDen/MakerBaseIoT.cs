@@ -2,8 +2,8 @@ using System;
 using Microsoft.SPOT;
 using System.Threading;
 using Microsoft.SPOT.Hardware;
-using Glovebox.MicroFramework;
-using Glovebox.MicroFramework.Base;
+using Glovebox.IoT;
+using Glovebox.IoT.Base;
 using System.Runtime.CompilerServices;
 using Glovebox.Netduino.Actuators;
 

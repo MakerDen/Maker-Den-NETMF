@@ -1,4 +1,4 @@
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.IoT;
 using Microsoft.SPOT.Hardware;
 ///Author: Russell Peake
 ///Email: rdpeake@adam.com.au

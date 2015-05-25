@@ -1,6 +1,6 @@
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.IoT;
 
-namespace Glovebox.MicroFramework.Base {
+namespace Glovebox.IoT.Base {
     public abstract class ActuatorBase : IotBase {
         protected abstract void ActuatorCleanup();
         public abstract override void Action(IotAction action);

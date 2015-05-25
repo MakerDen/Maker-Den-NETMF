@@ -1,4 +1,5 @@
-using Glovebox.MicroFramework.Base;
+using Glovebox.IoT.Base;
+using Glovebox.IoT.IoT;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
 
@@ -144,7 +145,7 @@ namespace Glovebox.Netduino.Actuators {
         /// Set Servo position, min, max, by points between min and max or by degrees
         /// </summary>
         /// <param name="action"></param>
-        public override void Action(MicroFramework.IoT.IotAction action) {
+        public override void Action(IotAction action) {
             switch (action.cmd) {
                 case "min":
                     Action(Actions.Min);

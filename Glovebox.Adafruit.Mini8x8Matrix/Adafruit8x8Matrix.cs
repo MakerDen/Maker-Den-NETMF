@@ -1,5 +1,5 @@
 ﻿using Glovebox.Adafruit.Mini8x8Matrix;
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.IoT;
 using System;
 using System.Threading;
 

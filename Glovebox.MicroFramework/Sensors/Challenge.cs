@@ -1,6 +1,6 @@
-using Glovebox.MicroFramework.Base;
+using Glovebox.IoT.Base;
 
-namespace Glovebox.MicroFramework.Sensors {
+namespace Glovebox.IoT.Sensors {
     public class Challenge : SensorBase {
         IotBase iotItem;
 

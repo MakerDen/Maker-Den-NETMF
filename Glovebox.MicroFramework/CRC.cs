@@ -1,6 +1,6 @@
 using System;
 
-namespace Glovebox.MicroFramework {
+namespace Glovebox.IoT {
     public class CRC {
 
         private const ushort P_16 = 0xA001;

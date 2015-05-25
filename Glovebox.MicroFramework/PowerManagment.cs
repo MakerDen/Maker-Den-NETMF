@@ -50,7 +50,7 @@ using Microsoft.SPOT.Hardware;
 using System;
 
 //namespace VariableLabs.PowerManagment
-namespace Glovebox.MicroFramework {
+namespace Glovebox.IoT {
 
 
     //http://forums.netduino.com/index.php?/topic/10668-adding-to-cpupin-enumeration/

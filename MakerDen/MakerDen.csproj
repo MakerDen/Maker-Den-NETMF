@@ -107,9 +107,9 @@
       <Project>{6A785BE3-F407-4168-AE7E-541787A7F40E}</Project>
       <Name>Glovebox.Adafruit.Mini8x8Matrix</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Glovebox.MicroFramework\Glovebox.MicroFramework.csproj">
+    <ProjectReference Include="..\Glovebox.MicroFramework\Glovebox.IoT.csproj">
       <Project>{FF0DFDCA-3531-4696-A805-D54A038816C8}</Project>
-      <Name>Glovebox.MicroFramework</Name>
+      <Name>Glovebox.IoT</Name>
     </ProjectReference>
     <ProjectReference Include="..\Glovebox.Netduino\Glovebox.Netduino.csproj">
       <Project>{E7DB488B-500A-4054-9DB6-DA2465E106DB}</Project>

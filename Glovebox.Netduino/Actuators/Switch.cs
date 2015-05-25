@@ -1,4 +1,5 @@
-using Glovebox.MicroFramework.Base;
+using Glovebox.IoT.Base;
+using Glovebox.IoT.IoT;
 using Microsoft.SPOT.Hardware;
 
 
@@ -35,7 +36,7 @@ namespace Glovebox.Netduino.Actuators {
             }
         }
 
-        public override void Action(MicroFramework.IoT.IotAction action) {
+        public override void Action(IotAction action) {
             switch (action.cmd) {
                 case "on":
                     TurnOn();

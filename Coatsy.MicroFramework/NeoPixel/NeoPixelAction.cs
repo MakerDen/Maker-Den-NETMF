@@ -1,5 +1,5 @@
-using Glovebox.MicroFramework.Base;
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.Base;
+using Glovebox.IoT.IoT;
 using System.Collections;
 
 namespace Coatsy.Netduino.NeoPixel

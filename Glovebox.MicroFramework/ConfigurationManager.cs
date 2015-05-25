@@ -1,5 +1,5 @@
 
-namespace Glovebox.MicroFramework {
+namespace Glovebox.IoT {
     public static class ConfigurationManager {
         // Best efforts to run the MQTT Broker at gloveboxAE.cloudapp.net 
         // You can install your own instance of Mosquitto MQTT Server from http://mosquitto.org 

@@ -1,7 +1,7 @@
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.IoT;
 using System;
 
-namespace Glovebox.MicroFramework.Base {
+namespace Glovebox.IoT.Base {
     public abstract class IotBase : IDisposable {
         protected abstract void CleanUp();
 

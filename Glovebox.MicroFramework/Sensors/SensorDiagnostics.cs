@@ -1,8 +1,8 @@
-using Glovebox.MicroFramework.Base;
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.Base;
+using Glovebox.IoT.IoT;
 using Microsoft.SPOT;
 
-namespace Glovebox.MicroFramework.Sensors {
+namespace Glovebox.IoT.Sensors {
     public class SensorDiagnostics : SensorBase {
 
         public SensorDiagnostics(int SampleRateMilliseconds, string name)

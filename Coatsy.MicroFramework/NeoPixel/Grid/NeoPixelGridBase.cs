@@ -2,7 +2,7 @@ using System;
 using Microsoft.SPOT;
 using Coatsy.Netduino.NeoPixel;
 using System.Threading;
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.IoT;
 
 namespace Coatsy.Netduino.NeoPixel.Grid {
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace Glovebox.MicroFramework.Json {
+namespace Glovebox.IoT.Json {
     public class JSONWriter : ByteArrayBuilder {
         bool firstProperty = true;
 

@@ -1,5 +1,5 @@
-using Glovebox.MicroFramework.IoT;
-using Glovebox.MicroFramework.Json;
+using Glovebox.IoT.IoT;
+using Glovebox.IoT.Json;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Net.NetworkInformation;
 using System;
@@ -10,7 +10,7 @@ using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
 
-namespace Glovebox.MicroFramework {
+namespace Glovebox.IoT {
     public class ServiceManager {
         const int networkSettleTime = 6000;
         const uint MaxRetryCount = 10;

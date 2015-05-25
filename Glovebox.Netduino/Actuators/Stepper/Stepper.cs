@@ -1,4 +1,4 @@
-using Glovebox.MicroFramework.Base;
+using Glovebox.IoT.Base;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
 
@@ -61,7 +61,7 @@ namespace Glovebox.Netduino.Actuators {
             this.portCoil2A.Dispose();
             this.portCoil2B.Dispose();
         }
-        public override void Action(Glovebox.MicroFramework.IoT.IotAction action) {
+        public override void Action(Glovebox.IoT.IoT.IotAction action) {
             switch (action.cmd.ToLower()) {
                 case "forward":
                     Step(this.StepsPerRevolution, MotorDirection.Forward);

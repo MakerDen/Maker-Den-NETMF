@@ -1,5 +1,5 @@
-using Glovebox.MicroFramework;
-using Glovebox.MicroFramework.Base;
+using Glovebox.IoT;
+using Glovebox.IoT.Base;
 using Microsoft.SPOT.Hardware;
 
 namespace Glovebox.Netduino.Sensors.Generic {

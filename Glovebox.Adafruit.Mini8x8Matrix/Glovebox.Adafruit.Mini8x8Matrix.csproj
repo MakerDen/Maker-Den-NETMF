@@ -40,9 +40,9 @@
     <Reference Include="Microsoft.SPOT.Native" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Glovebox.MicroFramework\Glovebox.MicroFramework.csproj">
+    <ProjectReference Include="..\Glovebox.MicroFramework\Glovebox.IoT.csproj">
       <Project>{FF0DFDCA-3531-4696-A805-D54A038816C8}</Project>
-      <Name>Glovebox.MicroFramework</Name>
+      <Name>Glovebox.IoT</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Condition="EXISTS('$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets')" Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />

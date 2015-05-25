@@ -2,11 +2,11 @@ using System;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
-using Glovebox.MicroFramework.Json;
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.Json;
+using Glovebox.IoT.IoT;
 using System.Runtime.CompilerServices;
 
-namespace Glovebox.MicroFramework.Base {
+namespace Glovebox.IoT.Base {
     public abstract class SensorBase : IotBase {
         public enum Actions { Start, Stop, Measure };
 

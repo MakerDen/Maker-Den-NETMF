@@ -2,7 +2,7 @@ using System;
 using Microsoft.SPOT;
 using System.Collections;
 using System.Threading;
-using Glovebox.MicroFramework.IoT;
+using Glovebox.IoT.IoT;
 using Coatsy.Netduino.Helpers;
 
 

@@ -1,4 +1,4 @@
-namespace Glovebox.MicroFramework.IoT {
+namespace Glovebox.IoT.IoT {
     public class IotAction {
         public string cmd; // eg on, off, blink, play
         public string item;  //eg rgb01
