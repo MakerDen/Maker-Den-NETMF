@@ -1,3 +1,5 @@
+#if MF_FRAMEWORK_VERSION_V4_3
+
 /*
  * Author: Arron Chapman
  * Author Contact: arron@arronchapman.com
@@ -105,3 +107,5 @@ namespace Glovebox.IoT {
         }
     }
 }
+
+#endif

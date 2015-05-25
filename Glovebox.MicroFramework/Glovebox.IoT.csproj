@@ -85,7 +85,7 @@
     <Compile Include="Sensors\SensorMemory.cs" />
     <Compile Include="ServiceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities.cs" />
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Json.NetMF">

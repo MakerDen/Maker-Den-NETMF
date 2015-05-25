@@ -26,6 +26,7 @@ namespace Glovebox.IoT {
         readonly string uniqueDeviceIdentifier;
         int lastSystemrequest = Environment.TickCount;
         DateTime lastSystemRequestTime = DateTime.Now;
+        private object publishLock = new object();
 
         public ServiceManager(string serviceAddress, bool connected) {
             uint retryCount = 0;
@@ -50,7 +51,7 @@ namespace Glovebox.IoT {
 
         private string CreateClientId() {
             DateTime utc = DateTime.UtcNow;
-            string cid = utc.Hour.ToString() + utc.Minute.ToString() + utc.Second.ToString() + "-" + Util.GetMacAddress();
+            string cid = utc.Hour.ToString() + utc.Minute.ToString() + utc.Second.ToString() + "-" + Util.GetUniqueDeviceId();
             return cid.Length > 23 ? cid.Substring(0, 23) : cid;  //23 chars for clientid is mqtt max allowed
         }
 
@@ -58,7 +59,7 @@ namespace Glovebox.IoT {
             string id = string.Empty;
 
             if (value == null || value == string.Empty) {
-                id = Util.GetMacAddress();
+                id = Util.GetUniqueDeviceId();
                 if (id == null || id == string.Empty) {
                     id = Guid.NewGuid().ToString();
                 }
@@ -207,13 +208,14 @@ namespace Glovebox.IoT {
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public uint Publish(string topic, byte[] data) {
-            if (!connected) { return 0; }
+            lock (publishLock) {
+                if (!connected) { return 0; }
 
-            PublishData(topic, data);
+                PublishData(topic, data);
 
-            return errorCount;
+                return errorCount;
+            }
         }
     }
 }

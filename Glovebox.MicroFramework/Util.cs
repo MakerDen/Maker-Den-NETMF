@@ -18,6 +18,7 @@ namespace Glovebox.IoT {
         }
 
         public static bool SetTime(bool connected) {
+#if MF_FRAMEWORK_VERSION_V4_3
             if (!connected) { return false; }
             try {
                 //network settle time
@@ -30,8 +31,12 @@ namespace Glovebox.IoT {
                 return true;
             }
             catch { return false; }
+#else
+            return true;
+#endif
         }
 
+#if MF_FRAMEWORK_VERSION_V4_3
         private static byte[] GetTimeServiceAddress(string TimeServerAddress) {
             try {
                 IPAddress[] address = Dns.GetHostEntry(TimeServerAddress).AddressList;
@@ -42,6 +47,7 @@ namespace Glovebox.IoT {
             }
             catch { return null; }
         }
+#endif
 
         public static string RandomPostcode() {
             return postcodes[rnd.Next(postcodes.Length)];
@@ -73,12 +79,14 @@ namespace Glovebox.IoT {
             return new ServiceManager(ConfigurationManager.Broker, connected);
         }
 
-        public static string GetMacAddress() {
+        public static string GetUniqueDeviceId() {
+#if MF_FRAMEWORK_VERSION_V4_3
             foreach (var nic in NetworkInterface.GetAllNetworkInterfaces()) {
                 if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet) {
                     return MacToString(nic.PhysicalAddress);
                 }
             }
+#endif
             return string.Empty;
         }
 
@@ -91,7 +99,11 @@ namespace Glovebox.IoT {
         }
 
         public static void Delay(int milliseconds) {
+#if MF_FRAMEWORK_VERSION_V4_3
             Thread.Sleep(milliseconds);
+#else
+            Task.Delay(milliseconds).Wait();
+#endif
         }
     }
 }
