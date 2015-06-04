@@ -3,9 +3,7 @@ using Glovebox.IoT.Json;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Net.NetworkInformation;
 using System;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using System.Threading;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 

@@ -1,10 +1,8 @@
-using System;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
-using System.Threading;
-using Glovebox.IoT.Json;
-using System.Runtime.CompilerServices;
 using Glovebox.IoT.Command;
+using Glovebox.IoT.Json;
+using Microsoft.SPOT;
+using System;
+using System.Threading;
 
 namespace Glovebox.IoT.Base {
     public abstract class SensorBase : IotBase {
@@ -106,7 +104,6 @@ namespace Glovebox.IoT.Base {
                     DoMeasure();
                 }
                 catch (Exception ex) {
-                    Debug.Print(ex.Message);
                     sensorErrorCount++;
                 }
                 Util.Delay(sampleRateMilliseconds);
