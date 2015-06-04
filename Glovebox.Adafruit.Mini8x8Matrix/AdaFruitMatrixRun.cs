@@ -34,11 +34,16 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
         private void CreateCyclesCollection() {
             cycles = new DoCycle[] {
 
+            new DoCycle(IPAddress),
             new DoCycle(HappyBirthday),
             new DoCycle(AlphaNumeric),
             new DoCycle(Hearts),
             new DoCycle(FollowMe),
             };
+        }
+
+        public void IPAddress() {
+            ScrollStringInFromRight(Util.GetIPAddress(), 100);
         }
 
         public void HappyBirthday() {

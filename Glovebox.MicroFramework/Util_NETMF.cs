@@ -45,9 +45,12 @@ namespace Glovebox.IoT {
         }
 
         public static string GetIPAddress() {
-            string localIP = "?";
-
-            return localIP;
+            foreach (var nic in NetworkInterface.GetAllNetworkInterfaces()) {
+                if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet) {
+                    return nic.IPAddress;
+                }
+            }
+            return "?";
         }
 
         public static void Delay(int milliseconds) {
