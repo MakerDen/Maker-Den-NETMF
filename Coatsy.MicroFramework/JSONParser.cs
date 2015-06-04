@@ -48,10 +48,10 @@ namespace netduino.helpers.Helpers
 
         public Hashtable Parse(string jsonText)
         {
-            foreach (Char c in jsonText)
-            {
-                ProcessCharacter(c);
+            for (int i = 0; i < jsonText.Length; i++) {
+                ProcessCharacter(jsonText[i]);
             }
+
             var arrayList = (ArrayList)(_currentDataStructure.Object);
             return (Hashtable)arrayList[0];
         }
@@ -391,8 +391,10 @@ namespace netduino.helpers.Helpers
         }
         protected bool IsNumeric(string data)
         {
-            foreach (Char c in data)
-            {
+            char c;
+            for (int i = 0; i < data.Length; i++) {
+                c = data[i];
+
                 if (c >= '0' && c <= '9' || c == '-' || c == '+' || c == 'E' || c == 'e' || c == '.')
                 {
                     continue;

@@ -8,7 +8,7 @@ namespace Glovebox.IoT.Base {
         public enum IotType { Sensor, Actuator };
         public IotType ThisIotType { get; set; }
 
-        protected readonly string deviceName = ConfigurationManager.DeviceName;
+        protected readonly string deviceName = ConfigurationManager.DeviceId;
         private readonly string name;
         public string Name { get { return name; } }
 
