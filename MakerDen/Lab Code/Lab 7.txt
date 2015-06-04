@@ -1,6 +1,4 @@
-public static void Main() {    
-
-    // main code maker
+public static void Main() {  // main code maker  
 
     using (AdaFruitMatrixRun matrix = new AdaFruitMatrixRun("matrix"))
     using (NeoPixelJewelRun jewel = new NeoPixelJewelRun("jewel"))
@@ -18,4 +16,5 @@ public static void Main() {
 
         Util.Delay(Timeout.Infinite);
     }
+
 }  // End of Main

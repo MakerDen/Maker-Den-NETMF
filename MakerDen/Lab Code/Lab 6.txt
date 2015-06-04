@@ -1,6 +1,4 @@
-﻿public static void Main() {    
-
-    // main code maker
+﻿public static void Main() {  // main code maker    
 
     using (NeoPixelJewelRun jewel = new NeoPixelJewelRun("jewel"))
     using (SensorTemp temp = new SensorTemp(Pins.GPIO_PIN_D8, 10000, "temp01"))
@@ -17,4 +15,5 @@
 
         Util.Delay(Timeout.Infinite);
     }
+
 }  // End of Main
