@@ -5,10 +5,10 @@ namespace Glovebox.IoT {
         // You can install your own instance of Mosquitto MQTT Server from http://mosquitto.org 
         public static string Broker = "gloveboxAE.cloudapp.net";
 
-        public static string UniqueDeviceIdentifier { get; set; }
+        public static string NetworkId { get; set; }
 
         private static string _devName = "emul";
-        public static string DeviceName {
+        public static string DeviceId {
             get { return _devName; }
             set {
                 _devName = value == null || value.Length == 0 ? "emul" : value;

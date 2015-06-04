@@ -33,7 +33,7 @@ namespace Glovebox.IoT {
             this.clientId = CreateClientId();
             this.mqttPrePublishDelay = ConfigurationManager.mqttPrePublishDelay;
             this.mqttPostPublishDelay = ConfigurationManager.mqttPostPublishDelay;
-            this.uniqueDeviceIdentifier = GetUniqueDeviceIdentifier(ConfigurationManager.UniqueDeviceIdentifier);
+            this.uniqueDeviceIdentifier = GetUniqueDeviceIdentifier(ConfigurationManager.NetworkId);
 
 
             if (!connected) { return; }
@@ -124,14 +124,14 @@ namespace Glovebox.IoT {
 
             string[] result = IotActionManager.Action(actionRequest);
             if (result != null) {
-                Publish(ConfigurationManager.MqttDeviceAnnounce + ConfigurationManager.DeviceName, SystemConfig(result));
+                Publish(ConfigurationManager.MqttDeviceAnnounce + ConfigurationManager.DeviceId, SystemConfig(result));
             }
         }
 
         private byte[] SystemConfig(string[] IotItems) {
             JSONWriter jw = new JSONWriter();
             jw.Begin();
-            jw.AddProperty("Dev", ConfigurationManager.DeviceName);
+            jw.AddProperty("Dev", ConfigurationManager.DeviceId);
             jw.AddProperty("Id", uniqueDeviceIdentifier);
             jw.AddProperty("Items", IotItems);
             jw.End();
