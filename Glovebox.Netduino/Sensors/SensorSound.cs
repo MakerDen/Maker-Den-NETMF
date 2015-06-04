@@ -15,7 +15,7 @@ namespace Glovebox.Netduino.Sensors {
         // https://randomskk.net/projects/lightstrip/code.html
 
         const int numberOfSamples = 32;
-        const int averagedOver = 8;
+        const int averagedOver = 6;
         const int midpoint = 512;
         int runningAverage = 0;          //the running average of calculated values
         int sample;

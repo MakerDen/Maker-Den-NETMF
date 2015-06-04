@@ -12,7 +12,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
         public AdaFruitMatrixRun(string name)
             : base(new Ht16K33I2cConnection(new I2CDevice(new I2CDevice.Configuration(0x70, 200))), name) {
 
-            FrameSetBrightness(4);
+            FrameSetBrightness(2);
             FrameSetBlinkRate(BlinkRate.Off);
 
             CreateCyclesCollection();
