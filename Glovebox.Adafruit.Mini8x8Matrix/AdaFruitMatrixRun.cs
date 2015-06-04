@@ -35,7 +35,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
             cycles = new DoCycle[] {
 
             new DoCycle(IPAddress),
-            new DoCycle(HappyBirthday),
+            new DoCycle(Welcome),
             new DoCycle(AlphaNumeric),
             new DoCycle(Hearts),
             new DoCycle(FollowMe),
@@ -46,9 +46,8 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
             ScrollStringInFromRight(Util.GetIPAddress(), 100);
         }
 
-        public void HappyBirthday() {
-            ScrollStringInFromRight("Happy Birthday", 100);
-            ScrollSymbolInFromRight(new Symbols[] { Symbols.Heart, Symbols.Heart }, 100);
+        public void Welcome() {
+            ScrollStringInFromRight("Welcome", 100);
         }
 
         public void AlphaNumeric() {
@@ -64,7 +63,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
             FrameDraw();
             Util.Delay(50);
 
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 2; i++) {
                 for (ushort c = 0; c < Columns; c++) {
                     FrameRollRight();
                     FrameDraw();
@@ -72,7 +71,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                 }
             }
 
-            for (int c = 0; c < 4; c++) {
+            for (int c = 0; c < 2; c++) {
                 for (int i = 0; i < Rows; i++) {
                     RowRollUp();
                     FrameDraw();
@@ -80,7 +79,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                 }
             }
 
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 2; i++) {
 
                 for (ushort c = 0; c < Columns; c++) {
                     FrameRollLeft();
@@ -89,7 +88,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                 }
             }
 
-            for (int c = 0; c < 4; c++) {
+            for (int c = 0; c < 2; c++) {
                 for (int i = 0; i < Rows; i++) {
                     RowRollDown();
                     FrameDraw();
@@ -97,7 +96,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
                 }
             }
 
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j < 2; j++) {
                 for (int i = 0; i < Rows; i++) {
                     ColumnRollLeft(0);
                     ColumnRollRight(1);
@@ -115,7 +114,7 @@ namespace Glovebox.Adafruit.Mini8x8Matrix {
         }
 
         public void FollowMe() {
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < 2; j++) {
                 for (int i = 0; i < 64; i++) {
                     FrameSet(i, true);
                     FrameSet((63 - i), true);

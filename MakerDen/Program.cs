@@ -10,10 +10,10 @@ using Glovebox.IoT;
 namespace MakerDen {
     public class Program : MakerBaseIoT {
 
-        public static void Main() {    
+        public static void Main() { // main code maker
+            
 
-            // main code maker
 
-        }
+        } // End of Main
     }
 }

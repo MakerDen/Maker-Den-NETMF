@@ -1,11 +1,21 @@
-using (AdaFruitMatrixRun matrix = new AdaFruitMatrixRun())
+public static void Main() {    
 
-or 
+    // main code maker
 
- using (Adafruit8x8Matrix matrix = new Adafruit8x8Matrix(new Ht16K33I2cConnection(new I2CDevice(new I2CDevice.Configuration(0x70, 200))))) {
-    while (true) {
-        matrix.ScrollStringInFromRight("Hello World", 100);
-        matrix.ScrollSymbolInFromRight(Adafruit8x8Matrix.Symbols.Heart, 100);
-        matrix.ScrollSymbolInFromRight(new Adafruit8x8Matrix.Symbols[] { Adafruit8x8Matrix.Symbols.HappyFace, Adafruit8x8Matrix.Symbols.SadFace }, 100);
+    using (AdaFruitMatrixRun matrix = new AdaFruitMatrixRun("matrix"))
+    using (NeoPixelJewelRun jewel = new NeoPixelJewelRun("jewel"))
+    using (SensorTemp temp = new SensorTemp(Pins.GPIO_PIN_D8, 10000, "temp01"))
+    using (SensorLight light = new SensorLight(AnalogChannels.ANALOG_PIN_A0, 1000, "light01"))
+    using (SensorSound sound = new SensorSound(AnalogChannels.ANALOG_PIN_A4, 1000, "sound"))
+    using (rgb = new RgbLed(Pins.GPIO_PIN_D3, Pins.GPIO_PIN_D5, Pins.GPIO_PIN_D6, "rgb01")) {
+               
+        temp.OnBeforeMeasurement += OnBeforeMeasure;
+        temp.OnAfterMeasurement += OnMeasureCompleted;
+        light.OnBeforeMeasurement += OnBeforeMeasure;
+        light.OnAfterMeasurement += OnMeasureCompleted;
+        sound.OnBeforeMeasurement += OnBeforeMeasure;
+        sound.OnAfterMeasurement += OnMeasureCompleted;
+
+        Util.Delay(Timeout.Infinite);
     }
-}
+}  // End of Main
